@@ -12,6 +12,7 @@ Route::get('/', function () { return view('landing.index'); });
 Route::get('/masuk', function () { return view('auth.masuk'); })->name('login.page');
 Route::get('/daftar', function () { return view('auth.daftar'); })->name('register.page');
 
+
 /*
 |--------------------------------------------------------------------------
 | PROSES AUTH (POST)
@@ -82,3 +83,8 @@ Route::post('/profil/update', function (Request $request) {
     
     return redirect('/profil')->with('success', 'Profil berhasil diupdate!');
 })->name('profil.update');
+
+Route::get('/search', function () {
+    if (!session('login')) return redirect('/masuk'); 
+    return view('search.index'); 
+})->name('search');

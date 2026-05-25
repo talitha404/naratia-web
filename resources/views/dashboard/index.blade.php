@@ -12,7 +12,6 @@
         body { font-family: 'Inter', sans-serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* SIHIR CSS: Biru super gelap + bintang */
         .space-bg {
             background-color: #02040f; 
             background-image: 
@@ -30,7 +29,7 @@
     <header class="flex justify-between items-center p-6 sticky top-0 bg-black/20 backdrop-blur-xl z-20 border-b border-white/10 shadow-sm">
         <h1 class="text-2xl font-black tracking-tighter text-white">NARATIA</h1>
         <div class="flex gap-5">
-            <button class="hover:opacity-80 transition"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/search--v1.png" class="w-6 h-6"/></button>
+            <a href="{{ route('search') }}"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/search--v1.png" class="w-6 h-6 hover:opacity-80 transition"/></a>
             <button class="hover:opacity-80 transition"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/appointment-reminders--v1.png" class="w-6 h-6"/></button>
         </div>
     </header>
@@ -131,7 +130,6 @@
                     <p class="text-[10px] text-gray-400 line-clamp-2">Kisah sekumpulan anak Fasilkom yang terjebak di lab komputer.</p>
                 </div>
             </div>
-
             <div class="flex gap-4 items-center bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-2xl border border-white/10 shadow-lg backdrop-blur-md cursor-pointer">
                 <img src="https://picsum.photos/seed/rekom2/100/150" class="w-16 h-24 object-cover rounded-xl border border-white/10 shrink-0 shadow-md">
                 <div class="flex-1">
@@ -171,15 +169,27 @@
 
     <nav class="fixed bottom-0 w-full px-6 pb-8 pt-4 z-20">
         <div class="bg-indigo-600/40 backdrop-blur-xl h-16 rounded-2xl flex justify-around items-center shadow-[0_10px_40px_rgba(79,70,229,0.4)] border border-white/20">
-            <button class="p-3 bg-white/20 rounded-xl shadow-inner">
+            
+            <a href="{{ route('dashboard') }}" class="p-3 {{ request()->routeIs('dashboard') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-rounded/24/ffffff/home.png" class="w-6 h-6"/>
-            </button>
-            <button class="p-3 hover:bg-white/10 rounded-xl transition"><img src="https://img.icons8.com/material-outlined/24/ffffff/book.png" class="w-6 h-6"/></button>
-            <button class="p-3 hover:bg-white/10 rounded-xl transition"><img src="https://img.icons8.com/material-outlined/24/ffffff/search.png" class="w-6 h-6"/></button>
-            <button class="p-3 hover:bg-white/10 rounded-xl transition"><img src="https://img.icons8.com/material-outlined/24/ffffff/edit.png" class="w-6 h-6"/></button>
-            <a href="{{ url('/profil') }}" class="p-3 hover:bg-white/10 rounded-xl transition">
-    <img src="https://img.icons8.com/material-outlined/24/ffffff/user.png" class="w-6 h-6"/>
-</a>
+            </a>
+
+            <a href="#" class="p-3 hover:bg-white/10 rounded-xl transition">
+                <img src="https://img.icons8.com/material-outlined/24/ffffff/book.png" class="w-6 h-6"/>
+            </a>
+
+            <a href="{{ route('search') }}" class="p-3 {{ request()->routeIs('search') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
+                <img src="https://img.icons8.com/material-outlined/24/ffffff/search.png" class="w-6 h-6"/>
+            </a>
+
+            <a href="#" class="p-3 hover:bg-white/10 rounded-xl transition">
+                <img src="https://img.icons8.com/material-outlined/24/ffffff/edit.png" class="w-6 h-6"/>
+            </a>
+
+            <a href="{{ route('profil') }}" class="p-3 {{ request()->routeIs('profil') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
+                <img src="https://img.icons8.com/material-outlined/24/ffffff/user.png" class="w-6 h-6"/>
+            </a>
+
         </div>
     </nav>
 
