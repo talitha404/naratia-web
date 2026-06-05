@@ -14,7 +14,6 @@
             <ul class="hidden md:flex space-x-8 font-bold text-gray-700">
                 <li><a href="javascript:void(0)" data-scroll="jelajahi" class="hover:text-indigo-600 transition">Jelajahi</a></li>
                 <li><a href="javascript:void(0)" data-scroll="tulis" class="hover:text-indigo-600 transition">Tulis</a></li>
-                <li><a href="javascript:void(0)" data-scroll="komunitas" class="hover:text-indigo-600 transition">Komunitas</a></li>
             </ul>
             <div class="flex items-center space-x-4">
                 <input type="text" id="searchInput" placeholder="Cari cerita..." class="hidden lg:block border border-gray-300 rounded-full px-4 py-1 focus:ring-2 focus:ring-indigo-400 outline-none text-sm w-64">
@@ -64,14 +63,6 @@
                 <button class="genre-btn">Romansa</button><button class="genre-btn">Misteri</button><button class="genre-btn">Fantasi</button>
             </div>
         </section>
-
-        <section id="komunitas" class="py-20">
-            <div class="komunitas-card">
-                <h2 class="text-4xl font-bold mb-6">Lebih dari Sekadar Membaca</h2>
-                <a href="{{ url('/daftar') }}" class="bg-white text-indigo-600 px-10 py-4 rounded-full font-bold">Gabung Sekarang</a>
-            </div>
-        </section>
-    </main>
 
     <div id="searchModal" style="display: none;">
         <div class="bg-white rounded-[2.5rem] p-10 w-80 text-center relative">
