@@ -92,3 +92,13 @@ Route::get('/search', function () {
 Route::get('/library', function () {
     return view('library.index');
 });
+
+Route::get('write/index', function () {
+    if (!session('login')) return redirect('/masuk'); 
+    return view('write.index'); 
+})->name('write.index');
+
+Route::get('write/buatcerita', function () {
+    if (!session('login')) return redirect('/masuk'); 
+    return view('write.buatcerita'); 
+})->name('write.buatcerita');
