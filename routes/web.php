@@ -88,3 +88,7 @@ Route::get('/search', function () {
     if (!session('login')) return redirect('/masuk'); 
     return view('search.index'); 
 })->name('search');
+
+Route::get('/library', function () {
+    return view('library.index');
+});
