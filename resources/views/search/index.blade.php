@@ -147,16 +147,25 @@
         </main>
     </div>
 
+    <!-- INI YANG ERROR TADI (Udah dihapus ikon buku dobelnya) -->
     <nav class="fixed bottom-0 w-full px-6 pb-8 pt-4 z-20">
         <div class="bg-indigo-600/40 backdrop-blur-xl h-16 rounded-2xl flex justify-around items-center shadow-[0_10px_40px_rgba(79,70,229,0.4)] border border-white/20">
             <a href="{{ route('dashboard') }}" class="p-3 {{ request()->routeIs('dashboard') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-rounded/24/ffffff/home.png" class="w-6 h-6"/>
             </a>
-            <a href="#" class="p-3 hover:bg-white/10 rounded-xl transition"><img src="https://img.icons8.com/material-outlined/24/ffffff/book.png" class="w-6 h-6"/></a>
+            
+            <a href="/library" class="p-3 hover:bg-white/10 rounded-xl transition">
+                <img src="https://img.icons8.com/material-outlined/24/ffffff/book.png" class="w-6 h-6"/>
+            </a>
+            
             <a href="{{ route('search') }}" class="p-3 {{ request()->routeIs('search') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/search.png" class="w-6 h-6"/>
             </a>
-            <a href="#" class="p-3 hover:bg-white/10 rounded-xl transition"><img src="https://img.icons8.com/material-outlined/24/ffffff/edit.png" class="w-6 h-6"/></a>
+            
+            <a href="#" class="p-3 hover:bg-white/10 rounded-xl transition">
+                <img src="https://img.icons8.com/material-outlined/24/ffffff/edit.png" class="w-6 h-6"/>
+            </a>
+            
             <a href="{{ route('profil') }}" class="p-3 {{ request()->routeIs('profil') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/user.png" class="w-6 h-6"/>
             </a>
@@ -175,7 +184,6 @@
             const genreCards = document.querySelectorAll('.genre-card');
             const historyItems = document.querySelectorAll('.history-item');
 
-            // FUNGSI 1: Munculkan history saat kotak search diklik (fokus)
             searchInput.addEventListener('focus', function() {
                 if (this.value.trim() === '') {
                     stateGrid.classList.add('hidden');
@@ -184,9 +192,8 @@
                 }
             });
 
-            // FUNGSI 2: Balik ke awal kalau kotak dikosongin dan diklik di luar
             searchInput.addEventListener('blur', function() {
-                setTimeout(() => { // Kasih jeda dikit biar kalau ngeklik history nggak keburu ketutup
+                setTimeout(() => {
                     if (this.value.trim() === '') {
                         stateGrid.classList.remove('hidden');
                         stateHistory.classList.add('hidden');
@@ -195,9 +202,8 @@
                 }, 200);
             });
 
-            // FUNGSI 3: Saat user ketik dan tekan Enter
             searchForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Biar halaman nggak nge-reload
+                e.preventDefault(); 
                 const keyword = searchInput.value.trim();
                 
                 if (keyword !== '') {
@@ -208,11 +214,10 @@
                 }
             });
 
-            // FUNGSI 4: Saat kotak Genre diklik
             genreCards.forEach(card => {
                 card.addEventListener('click', function() {
                     const genreName = this.getAttribute('data-genre');
-                    searchInput.value = genreName; // Otomatis ngisi kotak search
+                    searchInput.value = genreName; 
                     
                     stateGrid.classList.add('hidden');
                     stateHistory.classList.add('hidden');
@@ -221,7 +226,6 @@
                 });
             });
 
-            // FUNGSI 5: Saat Riwayat Pencarian diklik
             historyItems.forEach(item => {
                 item.addEventListener('click', function() {
                     const historyText = this.querySelector('span').innerText;

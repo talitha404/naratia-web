@@ -42,7 +42,7 @@
                 <img src="https://picsum.photos/seed/naratia1/300/400" class="w-24 h-36 object-cover rounded-xl shadow-md shrink-0">
                 <div class="flex flex-col justify-center">
                     <h3 class="text-lg font-bold leading-tight mb-2 text-white line-clamp-2">Dunia di Balik Layar</h3>
-                    <p class="text-xs text-indigo-300 font-semibold mb-3">An Nisa' Fatmawati</p>
+                    <p class="text-xs text-indigo-300 font-semibold mb-3">Emi Thasorn</p>
                     <div class="flex gap-2">
                         <span class="bg-indigo-500/30 text-indigo-100 text-[10px] px-3 py-1 rounded-full border border-indigo-400/30">Fiksi</span>
                     </div>
@@ -53,7 +53,7 @@
                 <img src="https://picsum.photos/seed/naratiaA/300/400" class="w-24 h-36 object-cover rounded-xl shadow-md shrink-0">
                 <div class="flex flex-col justify-center">
                     <h3 class="text-lg font-bold leading-tight mb-2 text-white line-clamp-2">Jejak Waktu</h3>
-                    <p class="text-xs text-indigo-300 font-semibold mb-3">Rindi Antika Q.</p>
+                    <p class="text-xs text-indigo-300 font-semibold mb-3">Tipnaree Racha</p>
                     <div class="flex gap-2">
                         <span class="bg-indigo-500/30 text-indigo-100 text-[10px] px-3 py-1 rounded-full border border-indigo-400/30">Misteri</span>
                     </div>
@@ -65,7 +65,7 @@
     <section class="px-6 mb-10">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Lanjut baca</h2>
-            <span class="text-indigo-400 text-xs font-bold cursor-pointer hover:text-indigo-300">Lihat Semua</span>
+            <a href="/library" class="text-indigo-400 text-xs font-bold cursor-pointer hover:text-indigo-300 transition">Lihat Semua</a>
         </div>
         <div class="flex gap-4 overflow-x-auto no-scrollbar py-2">
             <div class="min-w-[120px] group cursor-pointer">
@@ -126,7 +126,7 @@
                 <img src="https://picsum.photos/seed/rekom1/100/150" class="w-16 h-24 object-cover rounded-xl border border-white/10 shrink-0 shadow-md">
                 <div class="flex-1">
                     <h3 class="text-sm font-bold text-white mb-1 line-clamp-1">Misteri Bug Pemrograman</h3>
-                    <p class="text-[10px] text-indigo-300 mb-1">Rindi Antika Q.</p>
+                    <p class="text-[10px] text-indigo-300 mb-1">Mim Benyapa</p>
                     <p class="text-[10px] text-gray-400 line-clamp-2">Kisah sekumpulan anak Fasilkom yang terjebak di lab komputer.</p>
                 </div>
             </div>
@@ -174,7 +174,7 @@
                 <img src="https://img.icons8.com/material-rounded/24/ffffff/home.png" class="w-6 h-6"/>
             </a>
 
-            <a href="#" class="p-3 hover:bg-white/10 rounded-xl transition">
+            <a href="/library" class="p-3 {{ request()->is('library') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/book.png" class="w-6 h-6"/>
             </a>
 
