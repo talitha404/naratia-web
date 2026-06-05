@@ -98,22 +98,37 @@
     </section>
 
     <section class="px-6 mb-10">
-        <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Bacaan trending</h2>
-        <div class="grid grid-cols-3 gap-4">
-            <div class="flex flex-col items-center group cursor-pointer">
-                <img src="https://picsum.photos/seed/trending1/200/300" class="w-full aspect-[2/3] object-cover rounded-xl mb-2 border border-white/10 shadow-lg group-hover:scale-105 transition duration-300">
-                <h3 class="text-[10px] font-bold text-white text-center w-full truncate bg-white/10 py-1.5 rounded-md backdrop-blur-sm px-1 border border-white/5">Kisah Kita</h3>
-            </div>
-            <div class="flex flex-col items-center group cursor-pointer">
-                <img src="https://picsum.photos/seed/trending2/200/300" class="w-full aspect-[2/3] object-cover rounded-xl mb-2 border border-white/10 shadow-lg group-hover:scale-105 transition duration-300">
-                <h3 class="text-[10px] font-bold text-white text-center w-full truncate bg-white/10 py-1.5 rounded-md backdrop-blur-sm px-1 border border-white/5">Horor Desa</h3>
-            </div>
-            <div class="flex flex-col items-center group cursor-pointer">
-                <img src="https://picsum.photos/seed/trending3/200/300" class="w-full aspect-[2/3] object-cover rounded-xl mb-2 border border-white/10 shadow-lg group-hover:scale-105 transition duration-300">
-                <h3 class="text-[10px] font-bold text-white text-center w-full truncate bg-white/10 py-1.5 rounded-md backdrop-blur-sm px-1 border border-white/5">Sang Juara</h3>
-            </div>
+    <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">
+        Bacaan trending
+    </h2>
+
+    <div class="flex gap-4 overflow-x-auto no-scrollbar py-2">
+
+        <div class="min-w-[120px] group cursor-pointer">
+            <img src="https://picsum.photos/seed/trending1/200/300"
+                 class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
+            <h3 class="text-sm font-bold text-white truncate px-1">
+                Kisah Kita
+            </h3>
         </div>
-    </section>
+
+        <div class="min-w-[120px] group cursor-pointer">
+            <img src="https://picsum.photos/seed/trending2/200/300"
+                 class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
+            <h3 class="text-sm font-bold text-white truncate px-1">
+                Horor Desa
+            </h3>
+        </div>
+
+        <div class="min-w-[120px] group cursor-pointer">
+            <img src="https://picsum.photos/seed/trending3/200/300"
+                 class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
+            <h3 class="text-sm font-bold text-white truncate px-1">
+                Sang Juara
+            </h3>
+        </div>
+    </div>
+</section>
 
     <section class="px-6 mb-10">
         <div class="flex justify-between items-center mb-5">
