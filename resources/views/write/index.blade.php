@@ -75,7 +75,7 @@
                 <div class="flex items-center justify-between p-5 bg-white/[0.03] hover:bg-white/[0.06] backdrop-blur-md rounded-2xl border border-white/5 transition group">
                     <div class="flex items-center gap-5">
                         <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-950 to-slate-900 flex items-center justify-center font-black text-xl text-indigo-400 border border-indigo-500/20 shadow-inner">
-                            S
+                            T
                         </div>
                         <div>
                             <h3 class="font-bold text-gray-200 group-hover:text-white transition line-clamp-1">Terima Kasih</h3>
@@ -97,7 +97,7 @@
                 <div class="flex items-center justify-between p-5 bg-white/[0.03] hover:bg-white/[0.06] backdrop-blur-md rounded-2xl border border-white/5 transition group">
                     <div class="flex items-center gap-5">
                         <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-950 to-slate-900 flex items-center justify-center font-black text-xl text-purple-400 border border-purple-500/20 shadow-inner">
-                            [
+                            H
                         </div>
                         <div>
                             <h3 class="font-bold text-gray-200 group-hover:text-white transition line-clamp-1">Halo Cinta!</h3>
