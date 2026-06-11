@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
+use App\Http\Controllers\WriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,9 @@ Route::middleware('check.login')->group(function () {
     Route::prefix('write')->group(function () {
         Route::get('/', fn() => view('write.index'))->name('write.index');
         Route::get('/buatcerita', fn() => view('write.buatcerita'))->name('write.buatcerita');
+        // Save draft and open editor
+        Route::post('/', [WriteController::class, 'store'])->name('write.store');
+        Route::get('/editor/{id}', [WriteController::class, 'editor'])->name('write.editor');
     });
 });
 
