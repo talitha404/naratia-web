@@ -27,13 +27,13 @@
 
     <div>
       <label for="email" class="text-gray-400 text-sm block mb-2">Email</label>
-      <input type="email" name="email" id="email" required
+      <input type="email" name="email" id="email" required autocomplete="email"
              class="w-full bg-[#2b2b30] text-white rounded-lg px-4 py-2 border border-transparent focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
     </div>
 
     <div>
       <label for="password" class="text-gray-400 text-sm block mb-2">Sandi</label>
-      <input type="password" name="password" id="password" required
+      <input type="password" name="password" id="password" required autocomplete="current-password"
              class="w-full bg-[#2b2b30] text-white rounded-lg px-4 py-2 border border-transparent focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
     </div>
 

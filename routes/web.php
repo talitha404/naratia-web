@@ -1,104 +1,49 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+use App\Http\Controllers\WebController;
 
 /*
 |--------------------------------------------------------------------------
-| HALAMAN LANDING & AUTH
+| PUBLIC ROUTES
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () { return view('landing.index'); });
-Route::get('/masuk', function () { return view('auth.masuk'); })->name('login.page');
-Route::get('/daftar', function () { return view('auth.daftar'); })->name('register.page');
+Route::get('/', fn() => view('landing.index'));
+Route::get('/masuk', fn() => view('auth.login'))->name('login.page');
+Route::get('/daftar', fn() => view('auth.register'))->name('register.page');
 
+Route::post('/login', [WebController::class, 'login'])->name('login');
+Route::post('/register', [WebController::class, 'register'])->name('register.submit');
+Route::post('/logout', [WebController::class, 'logout'])->name('logout');
 
 /*
 |--------------------------------------------------------------------------
-| PROSES AUTH (POST)
+| PROTECTED ROUTES (Memerlukan Login)
 |--------------------------------------------------------------------------
 */
-Route::post('/login', function (Request $request) {
-    session([
-        'login' => true,
-        'user' => [
-            'name' => 'User Login', // Bisa disesuaikan nanti
-            'email' => $request->email,
-            'username' => 'user_login',
-            'avatar' => null
-        ]
-    ]);
-    return redirect('/dashboard');
-})->name('login');
+Route::middleware('check.login')->group(function () {
+    Route::get('/dashboard', fn() => view('dashboard.index'))->name('dashboard');
+    Route::get('/search', fn() => view('search.index'))->name('search');
 
-Route::post('/register', function (Request $request) {
-    session([
-        'login' => true,
-        'user' => [
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'username' => $request->username,
-            'avatar'   => null
-        ]
-    ]);
-    return redirect('/dashboard');
-})->name('register.submit');
+    // Profil Group
+    Route::prefix('profil')->group(function () {
+        Route::get('/', fn() => view('profil.index'))->name('profil');
+        Route::get('/edit', fn() => view('profil.edit'))->name('profil.edit');
+        Route::post('/update', [WebController::class, 'updateProfil'])->name('profil.update');
+    });
 
-Route::post('/logout', function () {
-    session()->forget(['login', 'user']);
-    return redirect('/masuk');
-})->name('logout');
-
-/*
-|--------------------------------------------------------------------------
-| DASHBOARD & PROFIL
-|--------------------------------------------------------------------------
-*/
-Route::get('/dashboard', function () {
-    if (!session('login')) return redirect('/masuk');
-    return view('dashboard.index'); 
-})->name('dashboard');
-
-Route::get('/profil', function () {
-    if (!session('login')) return redirect('/masuk');
-    return view('profil.index');
-})->name('profil');
-
-Route::get('/profil/edit', function () {
-    if (!session('login')) return redirect('/masuk');
-    return view('profil.edit');
-})->name('profil.edit');
-
-Route::post('/profil/update', function (Request $request) {
-    if (!session('login')) return redirect('/masuk');
-    
-    $oldUser = session('user');
-    
-    session(['user' => [
-        'name'     => $request->name,
-        'username' => $request->username,
-        'email'    => $oldUser['email'], // Email dikunci
-        'avatar'   => $oldUser['avatar']
-    ]]);
-    
-    return redirect('/profil')->with('success', 'Profil berhasil diupdate!');
-})->name('profil.update');
-
-Route::get('/search', function () {
-    if (!session('login')) return redirect('/masuk'); 
-    return view('search.index'); 
-})->name('search');
-
-Route::get('/library', function () {
-    return view('library.index');
+    // Write Group
+    Route::prefix('write')->group(function () {
+        Route::get('/', fn() => view('write.index'))->name('write.index');
+        Route::get('/buatcerita', fn() => view('write.buatcerita'))->name('write.buatcerita');
+    });
 });
 
-Route::get('write/index', function () {
-    if (!session('login')) return redirect('/masuk'); 
-    return view('write.index'); 
-})->name('write.index');
-
-Route::get('write/buatcerita', function () {
-    if (!session('login')) return redirect('/masuk'); 
-    return view('write.buatcerita'); 
-})->name('write.buatcerita');
+/*
+|--------------------------------------------------------------------------
+| PUBLIC CONTENT ROUTES
+|--------------------------------------------------------------------------
+*/
+Route::get('/library', fn() => view('library.index'))->name('library');
+Route::get('/story/{id}', fn($id) => view('stories.show', ['id' => $id]))->name('story.show');
+Route::get('/read/{chapter_id}', fn($chapter_id) => view('stories.read', ['chapter_id' => $chapter_id]))->name('story.read');

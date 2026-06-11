@@ -16,6 +16,41 @@
 </head>
 
 <body class="bg-[#02040f] text-white min-h-screen pb-28">
+    
+<!-- LOGOUT MODAL -->
+<div id="logoutModal"
+     class="fixed inset-0 hidden items-center justify-center bg-black/60 backdrop-blur-sm z-50">
+
+    <div class="bg-[#0a0f1d] border border-white/10 rounded-3xl p-6 w-80 shadow-2xl">
+
+        <h3 class="text-lg font-bold text-white mb-2">
+            Konfirmasi Logout
+        </h3>
+
+        <p class="text-sm text-gray-400 mb-6">
+            Apakah kamu yakin ingin keluar dari Naratia?
+        </p>
+
+        <div class="flex justify-end gap-3">
+            <button onclick="closeLogoutModal()"
+                    class="px-4 py-2 rounded-xl bg-white/10 text-gray-300 hover:bg-white/20 transition">
+                Batal
+            </button>
+
+            <button onclick="submitLogout()"
+                    class="px-4 py-2 rounded-xl bg-red-500 hover:bg-red-600 text-white transition">
+                Keluar
+            </button>
+        </div>
+
+    </div>
+</div>
+
+@php
+    $user = session('user');
+    $isWriter = $user['is_writer'] ?? false;
+    $works = $user['works'] ?? [];
+@endphp
 
 @php
     $user = session('user');
@@ -36,56 +71,69 @@
     </a>
 
     <!-- DROPDOWN -->
-    <div class="relative group">
+   <div class="relative group">
+    <button class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-indigo-500/20 hover:border-indigo-500/50 transition-all duration-300">
+        <span class="text-[10px] text-white">▼</span>
+    </button>
 
-        <button class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition">
-            <span class="text-xs text-white leading-none translate-y-[1px]">▼</span>
-        </button>
+    <div class="absolute right-0 mt-3 w-44 bg-[#0a0f1d]/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-2 shadow-2xl invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50">
+        
+        <a href="{{ route('profil.edit') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">
+            <span class="mr-2">✏️</span> Edit Profil
+        </a>
 
-        <div class="absolute right-0 mt-2 w-40 bg-[#0b0f1a] border border-white/10 rounded-xl overflow-hidden opacity-0 group-hover:opacity-100 transition">
+        <div class="my-1 border-t border-white/5"></div>
 
-            <a href="{{ route('profil.edit') }}" class="block px-4 py-2 text-sm hover:bg-white/5">
-                Edit Profil
-            </a>
-
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button class="w-full text-left px-4 py-2 text-sm text-red-300 hover:bg-white/5">
-                    Logout
-                </button>
-            </form>
-
-        </div>
-
+        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="button" 
+                    onclick="confirmLogout()" 
+                    class="w-full flex items-center px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition">
+                <span class="mr-2">🚪</span> Keluar
+            </button>
+        </form>
     </div>
+</div>
+
+<script>
+function confirmLogout() {
+    document.getElementById('logoutModal').classList.remove('hidden');
+    document.getElementById('logoutModal').classList.add('flex');
+}
+
+function closeLogoutModal() {
+    document.getElementById('logoutModal').classList.add('hidden');
+    document.getElementById('logoutModal').classList.remove('flex');
+}
+
+function submitLogout() {
+    document.getElementById('logout-form').submit();
+}
+</script>
 
 </header>
 
 <!-- PROFILE CENTER -->
 <div class="flex flex-col items-center text-center px-6 mt-2">
 
-    <!-- AVATAR -->
     <div class="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-xl font-bold">
-        {{ strtoupper(substr($user['username'] ?? 'U', 0, 1)) }}
+        {{ strtoupper(substr($user->username ?? 'U', 0, 1)) }}
     </div>
 
-    <!-- USERNAME -->
     <h1 class="mt-4 text-lg font-semibold">
-        {{ $user['username'] ?? 'user' }}
+        {{ $user->username ?? 'user' }}
     </h1>
 
-    <!-- BIO -->
     <p class="mt-2 text-sm text-gray-400">
-        {{ $user['bio'] ?? 'Belum ada bio...' }}
+        {{ $user->bio ?? 'Belum ada bio...' }}
     </p>
 
-    <!-- CHARACTER -->
     <div class="mt-4">
         <p class="text-[10px] text-gray-500 uppercase tracking-widest">
             Nama Character
         </p>
         <p class="text-sm mt-1">
-            {{ $user['character'] ?? 'Belum diisi' }}
+            {{ $user->character_name ?? 'Belum diisi' }}
         </p>
     </div>
 
