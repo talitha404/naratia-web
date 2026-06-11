@@ -30,10 +30,6 @@
 
     <header class="flex justify-between items-center p-6 sticky top-0 bg-black/20 backdrop-blur-xl z-20 border-b border-white/10 shadow-sm">
         <h1 class="text-2xl font-black tracking-tighter text-white">NARATIA</h1>
-        <div class="flex gap-5">
-            <a href="{{ route('search') }}"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/search--v1.png" class="w-6 h-6 hover:opacity-80 transition"/></a>
-            <button class="hover:opacity-80 transition"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/appointment-reminders--v1.png" class="w-6 h-6"/></button>
-        </div>
     </header>
 
     <div class="max-w-7xl mx-auto p-6 text-white pb-32 pt-10 px-6 sm:px-10">

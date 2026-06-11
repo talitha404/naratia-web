@@ -24,7 +24,7 @@
                 Batalkan
             </button>
 
-            <button class="px-5 py-2 text-sm font-semibold text-slate-950 bg-white hover:bg-slate-200 rounded-full transition-all shadow-md shadow-white/5">
+            <button form="create-story-form" type="submit" class="px-5 py-2 text-sm font-semibold text-slate-950 bg-white hover:bg-slate-200 rounded-full transition-all shadow-md shadow-white/5">
                 Simpan & Lanjutkan
             </button>
         </div>
@@ -54,13 +54,14 @@
                 </span>
             </div>
 
-            <form class="space-y-6">
+            <form id="create-story-form" action="{{ route('write.store') }}" method="POST" class="space-y-6">
+                @csrf
                 
                 <div class="space-y-2">
                     <label class="block text-sm font-bold tracking-wide">
                         Judul<span class="text-red-500 ml-0.5">*</span>
                     </label>
-                    <input type="text" placeholder="Cerita Tak Berjudul" 
+                    <input name="title" type="text" placeholder="Cerita Tak Berjudul" 
                         class="w-full px-4 py-3 bg-slate-950/50 border border-slate-800 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white placeholder-slate-600 transition-all">
                 </div>
 
@@ -71,7 +72,7 @@
                         </label>
                         <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-help"></i>
                     </div>
-                    <textarea rows="6" 
+                    <textarea name="description" rows="6" 
                         class="w-full px-4 py-3 bg-slate-950/50 border border-slate-800 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white placeholder-slate-600 transition-all resize-y"></textarea>
                 </div>
 
@@ -81,20 +82,38 @@
                         <span class="text-xs text-red-400 font-medium">*</span>
                     </div>
                     <p class="text-xs text-slate-400 leading-relaxed max-w-2xl">
-                        Memilih jenis cerita akan memungkinkan kamu untuk menentukan genre, subgenre, fandom, klasifikasi fandom, dan lebih banyak lagi kategorisasi cerita yang akan membantu kami menghubungkan pembaca yang tepat dengan ceritamu secara lebih baik.
+                        Memilih jenis cerita akan memungkinkan kamu untuk menentukan genre dan akan membantu kami menghubungkan pembaca yang tepat dengan ceritamu secara lebih baik.
                     </p>
                     <div class="flex flex-wrap gap-2.5 pt-1">
                         <button type="button" class="px-4 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
-                            Fiksi
+                            Fantasi
                         </button>
                         <button type="button" class="px-4 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
                             Fiksi Penggemar
                         </button>
                         <button type="button" class="px-4 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
-                            Aksi & Petualangan
+                            Romantis
                         </button>
                         <button type="button" class="px-4 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
                             Misteri
+                        </button>
+                        <button type="button" class="px-4 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
+                            Thrilller
+                        </button>
+                        <button type="button" class="px-4 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
+                            Horor
+                        </button>
+                        <button type="button" class="px-4 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
+                            Sejarah
+                        </button>
+                        <button type="button" class="px-4 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
+                            Komedi
+                        </button>
+                        <button type="button" class="px-4 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
+                            Drama
+                        </button>
+                        <button type="button" class="px-4 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
+                            Aksi
                         </button>
                     </div>
                 </div>
