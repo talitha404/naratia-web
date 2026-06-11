@@ -32,4 +32,16 @@ class WriteController extends Controller
 
         return view('write.editor', ['story' => $story]);
     }
+
+    // Tampilkan pratinjau (preview) dari draft
+    public function preview($id)
+    {
+        $drafts = session('drafts', []);
+        $story = $drafts[$id] ?? null;
+
+        $title = $story['title'] ?? null;
+        $content = $story['description'] ?? null;
+
+        return view('write.pratinjau', compact('title', 'content', 'id'));
+    }
 }

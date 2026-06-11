@@ -40,6 +40,8 @@ Route::middleware('check.login')->group(function () {
         // Save draft and open editor
         Route::post('/', [WriteController::class, 'store'])->name('write.store');
         Route::get('/editor/{id}', [WriteController::class, 'editor'])->name('write.editor');
+        // Pratinjau (preview) route for drafts
+        Route::get('/pratinjau/{id}', [WriteController::class, 'preview'])->name('write.preview');
     });
 });
 
