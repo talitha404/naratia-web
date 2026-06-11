@@ -32,10 +32,11 @@
             
             <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
                 <div class="flex items-center gap-6 text-sm font-semibold text-gray-400">
-                    <button class="text-white border-b-2 border-indigo-500 pb-[18px] -mb-[18px] transition">
+                    <!-- Tombol untuk toggle -->
+                    <button id="btnCerita" class="text-white border-b-2 border-indigo-500 pb-[18px] -mb-[18px] transition">
                         Semua (3)
                     </button>
-                    <button class="hover:text-white pb-[18px] -mb-[18px] transition">
+                    <button id="btnStatistik" class="hover:text-white pb-[18px] -mb-[18px] transition">
                         Statistik
                     </button>
                 </div>
@@ -48,8 +49,9 @@
                 </a>
             </div>
 
-            <div class="space-y-4">
-                
+            <!-- Body Cerita -->
+            <div id="bodyCerita" class="space-y-4">
+                <!-- isi daftar cerita seperti sebelumnya -->
                 <div class="flex items-center justify-between p-5 bg-white/[0.03] hover:bg-white/[0.06] backdrop-blur-md rounded-2xl border border-white/5 transition group">
                     <div class="flex items-center gap-5">
                         <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center font-black text-xl text-gray-300 border border-white/10 shadow-inner">
@@ -71,51 +73,15 @@
                         </div>
                     </div>
                 </div>
+                <!-- ...lanjutkan daftar cerita lainnya sesuai contohmu -->
+            </div>
 
-                <div class="flex items-center justify-between p-5 bg-white/3 hover:bg-white/6 backdrop-blur-md rounded-2xl border border-white/5 transition group">
-                    <div class="flex items-center gap-5">
-                        <div class="w-12 h-12 rounded-xl bg-linear-to-br from-indigo-950 to-slate-900 flex items-center justify-center font-black text-xl text-indigo-400 border border-indigo-500/20 shadow-inner">
-                            T
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-200 group-hover:text-white transition line-clamp-1">Terima Kasih</h3>
-                            <div class="flex items-center gap-2 mt-1 text-xs text-gray-400">
-                                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold text-[10px] uppercase border border-emerald-500/20">Dipublikasikan</span>
-                                <span>•</span>
-                                <span>11 Des 2025</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4 text-xs text-gray-400 font-medium">
-                        <div class="flex items-center gap-3">
-                            <span class="flex items-center gap-1"><img src="https://img.icons8.com/material-rounded/16/888888/visible.png"/> 124</span>
-                            <span class="flex items-center gap-1"><img src="https://img.icons8.com/material-rounded/16/888888/star.png"/> 12</span>
-                        </div>
-                    </div>
+            <!-- Body Statistik -->
+            <div id="bodyStatistik" class="hidden">
+                <div class="p-6 bg-white/[0.03] backdrop-blur-md rounded-2xl border border-white/5">
+                    <h3 class="font-bold text-gray-200 mb-4">Statistik</h3>
+                    <p class="text-gray-400">belum ada statistik apapun, unggah cerita untuk melihatnya</p>
                 </div>
-
-                <div class="flex items-center justify-between p-5 bg-white/[0.03] hover:bg-white/[0.06] backdrop-blur-md rounded-2xl border border-white/5 transition group">
-                    <div class="flex items-center gap-5">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-950 to-slate-900 flex items-center justify-center font-black text-xl text-purple-400 border border-purple-500/20 shadow-inner">
-                            H
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-200 group-hover:text-white transition line-clamp-1">Halo Cinta!</h3>
-                            <div class="flex items-center gap-2 mt-1 text-xs text-gray-400">
-                                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold text-[10px] uppercase border border-emerald-500/20">Dipublikasikan</span>
-                                <span>•</span>
-                                <span>22 Mar 2025</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4 text-xs text-gray-400 font-medium">
-                        <div class="flex items-center gap-3">
-                            <span class="flex items-center gap-1"><img src="https://img.icons8.com/material-rounded/16/888888/visible.png"/> 89</span>
-                            <span class="flex items-center gap-1"><img src="https://img.icons8.com/material-rounded/16/888888/star.png"/> 7</span>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </section>
     </main>
@@ -143,6 +109,23 @@
             </a>
         </div>
     </nav>
+
+    <script>
+        const btnCerita = document.getElementById('btnCerita');
+        const btnStatistik = document.getElementById('btnStatistik');
+        const bodyCerita = document.getElementById('bodyCerita');
+        const bodyStatistik = document.getElementById('bodyStatistik');
+
+        btnCerita.addEventListener('click', () => {
+            bodyCerita.classList.remove('hidden');
+            bodyStatistik.classList.add('hidden');
+        });
+
+        btnStatistik.addEventListener('click', () => {
+            bodyCerita.classList.add('hidden');
+            bodyStatistik.classList.remove('hidden');
+        });
+    </script>
 
 </body>
 </html>

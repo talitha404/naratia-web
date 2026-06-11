@@ -32,9 +32,9 @@
                 Simpan
             </button>
 
-            <button type="button" class="border border-purple-500 hover:bg-purple-500/10 text-purple-400 font-semibold px-5 py-1.5 rounded-full text-sm transition duration-200">
+            <a href="{{ route('write.preview', ['id' => $story['id'] ?? '']) }}" class="border border-purple-500 hover:bg-purple-500/10 text-purple-400 font-semibold px-5 py-1.5 rounded-full text-sm transition duration-200">
                 Pratinjau
-            </button>
+            </a>
 
             <button type="button" class="border border-red-500 hover:bg-red-500/10 text-red-500 font-semibold px-4 py-1.5 rounded-full text-sm transition duration-200 flex items-center gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
