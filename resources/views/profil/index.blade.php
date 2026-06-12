@@ -116,11 +116,13 @@ function submitLogout() {
 </header>
 
 <!-- PROFILE CENTER -->
-<div class="flex flex-col items-center text-center px-6 mt-2">
+<section class="flex flex-col items-center text-center px-6 mt-4">
 
+    <!-- Avatar -->
     <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-indigo-500 shadow-lg bg-gray-800">
         @if(!empty($user->avatar))
-            <img src="{{ asset('storage/' . $user->avatar) }}" class="w-full h-full object-cover">
+            <img src="{{ asset('storage/' . $user->avatar) }}"
+                 class="w-full h-full object-cover">
         @else
             <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-500 text-xl font-bold">
                 {{ strtoupper(substr($user->username ?? 'U', 0, 1)) }}
@@ -128,24 +130,38 @@ function submitLogout() {
         @endif
     </div>
 
-    <h1 class="mt-4 text-lg font-semibold">
-        {{ $user->username ?? 'user' }}
+    <!-- Username -->
+    <h1 class="mt-5 text-4xl font-bold text-white tracking-tight">
+        {{ $user->username ?? 'User' }}
     </h1>
 
-    <p class="mt-2 text-sm text-gray-400">
-        {{ $user->bio ?? 'Belum ada bio...' }}
-    </p>
+    <!-- Nama Karakter -->
+    <div class="mt-8">
 
-    <div class="mt-4">
-        <p class="text-[10px] text-gray-500 uppercase tracking-widest">
+        <p class="text-xs uppercase tracking-[0.35em] text-gray-500">
             Nama Karakter
         </p>
-        <p class="text-sm mt-1">
+
+        <p class="mt-2 text-xl font-semibold text-indigo-300">
             {{ $user->character_name ?? 'Belum diisi' }}
         </p>
+
     </div>
 
-</div>
+    <!-- Tentang Saya -->
+    <div class="mt-8 max-w-md">
+
+        <p class="text-xs uppercase tracking-[0.35em] text-gray-500">
+            Tentang Saya
+        </p>
+
+        <p class="mt-3 text-gray-300 italic leading-relaxed">
+            {{ $user->bio ?? 'Belum ada bio...' }}
+        </p>
+
+    </div>
+
+</section>
 
 <!-- KARYA -->
 <div class="px-6 mt-8 mb-10 border-t border-white/10 pt-6">
