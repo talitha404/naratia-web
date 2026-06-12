@@ -53,3 +53,6 @@ Route::middleware('check.login')->group(function () {
 Route::get('/library', fn() => view('library.index'))->name('library');
 Route::get('/story/{id}', fn($id) => view('stories.show', ['id' => $id]))->name('story.show');
 Route::get('/read/{chapter_id}', fn($chapter_id) => view('stories.read', ['chapter_id' => $chapter_id]))->name('story.read');
+Route::get('/stories/read/{id}', function ($id) {
+    return view('stories.read');
+});

@@ -38,27 +38,31 @@
         <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Cerita unggulan</h2>
         
         <div class="flex gap-5 overflow-x-auto no-scrollbar pb-4">
-            <div class="bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-3xl flex gap-5 border border-white/10 shadow-lg backdrop-blur-md items-center w-[360px] shrink-0">
-                <img src="https://picsum.photos/seed/naratia1/300/400" class="w-24 h-36 object-cover rounded-xl shadow-md shrink-0">
-                <div class="flex flex-col justify-center">
-                    <h3 class="text-lg font-bold leading-tight mb-2 text-white line-clamp-2">Dunia di Balik Layar</h3>
-                    <p class="text-xs text-indigo-300 font-semibold mb-3">Emi Thasorn</p>
-                    <div class="flex gap-2">
-                        <span class="bg-indigo-500/30 text-indigo-100 text-[10px] px-3 py-1 rounded-full border border-indigo-400/30">Fiksi</span>
+            <a href="/stories/read/1" class="block bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-3xl border border-white/10 shadow-lg backdrop-blur-md w-[360px] shrink-0 group">
+                <div class="flex gap-5 items-center">
+                    <img src="https://picsum.photos/seed/naratia1/300/400" class="w-24 h-36 object-cover rounded-xl shadow-md shrink-0 group-hover:scale-105 transition">
+                    <div class="flex flex-col justify-center">
+                        <h3 class="text-lg font-bold leading-tight mb-2 text-white line-clamp-2 group-hover:text-indigo-400 transition">Dunia di Balik Layar</h3>
+                        <p class="text-xs text-indigo-300 font-semibold mb-3">Emi Thasorn</p>
+                        <div class="flex gap-2">
+                            <span class="bg-indigo-500/30 text-indigo-100 text-[10px] px-3 py-1 rounded-full border border-indigo-400/30">Fiksi</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-3xl flex gap-5 border border-white/10 shadow-lg backdrop-blur-md items-center w-[360px] shrink-0">
-                <img src="https://picsum.photos/seed/naratiaA/300/400" class="w-24 h-36 object-cover rounded-xl shadow-md shrink-0">
-                <div class="flex flex-col justify-center">
-                    <h3 class="text-lg font-bold leading-tight mb-2 text-white line-clamp-2">Jejak Waktu</h3>
-                    <p class="text-xs text-indigo-300 font-semibold mb-3">Tipnaree Racha</p>
-                    <div class="flex gap-2">
-                        <span class="bg-indigo-500/30 text-indigo-100 text-[10px] px-3 py-1 rounded-full border border-indigo-400/30">Misteri</span>
+            <a href="/stories/read/2" class="block bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-3xl border border-white/10 shadow-lg backdrop-blur-md w-[360px] shrink-0 group">
+                <div class="flex gap-5 items-center">
+                    <img src="https://picsum.photos/seed/naratiaA/300/400" class="w-24 h-36 object-cover rounded-xl shadow-md shrink-0 group-hover:scale-105 transition">
+                    <div class="flex flex-col justify-center">
+                        <h3 class="text-lg font-bold leading-tight mb-2 text-white line-clamp-2 group-hover:text-indigo-400 transition">Jejak Waktu</h3>
+                        <p class="text-xs text-indigo-300 font-semibold mb-3">Tipnaree Racha</p>
+                        <div class="flex gap-2">
+                            <span class="bg-indigo-500/30 text-indigo-100 text-[10px] px-3 py-1 rounded-full border border-indigo-400/30">Misteri</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 
@@ -68,21 +72,21 @@
             <a href="/library" class="text-indigo-400 text-xs font-bold cursor-pointer hover:text-indigo-300 transition">Lihat Semua</a>
         </div>
         <div class="flex gap-4 overflow-x-auto no-scrollbar py-2">
-            <div class="min-w-[120px] group cursor-pointer">
+            <a href="/stories/read/3" class="min-w-[120px] group cursor-pointer block">
                 <img src="https://picsum.photos/seed/naratia2/200/300" class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
-                <h3 class="text-sm font-bold text-white truncate px-1">Rahasia Langit</h3>
+                <h3 class="text-sm font-bold text-white truncate px-1 group-hover:text-indigo-400 transition">Rahasia Langit</h3>
                 <p class="text-[10px] text-gray-400 px-1">Bab 12 dari 20</p>
-            </div>
-            <div class="min-w-[120px] group cursor-pointer">
+            </a>
+            <a href="/stories/read/4" class="min-w-[120px] group cursor-pointer block">
                 <img src="https://picsum.photos/seed/naratia3/200/300" class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
-                <h3 class="text-sm font-bold text-white truncate px-1">Hujan Sore</h3>
+                <h3 class="text-sm font-bold text-white truncate px-1 group-hover:text-indigo-400 transition">Hujan Sore</h3>
                 <p class="text-[10px] text-gray-400 px-1">Bab 5 dari 15</p>
-            </div>
-            <div class="min-w-[120px] group cursor-pointer">
+            </a>
+            <a href="/stories/read/5" class="min-w-[120px] group cursor-pointer block">
                 <img src="https://picsum.photos/seed/naratia4/200/300" class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
-                <h3 class="text-sm font-bold text-white truncate px-1">Misteri Kelas</h3>
+                <h3 class="text-sm font-bold text-white truncate px-1 group-hover:text-indigo-400 transition">Misteri Kelas</h3>
                 <p class="text-[10px] text-gray-400 px-1">Bab 8 dari 10</p>
-            </div>
+            </a>
         </div>
     </section>
 
@@ -98,61 +102,49 @@
     </section>
 
     <section class="px-6 mb-10">
-    <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">
-        Bacaan trending
-    </h2>
-
-    <div class="flex gap-4 overflow-x-auto no-scrollbar py-2">
-
-        <div class="min-w-[120px] group cursor-pointer">
-            <img src="https://picsum.photos/seed/trending1/200/300"
-                 class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
-            <h3 class="text-sm font-bold text-white truncate px-1">
-                Kisah Kita
-            </h3>
+        <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Bacaan trending</h2>
+        <div class="flex gap-4 overflow-x-auto no-scrollbar py-2">
+            <a href="/stories/read/6" class="min-w-[120px] group cursor-pointer block">
+                <img src="https://picsum.photos/seed/trending1/200/300" class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
+                <h3 class="text-sm font-bold text-white truncate px-1 group-hover:text-indigo-400 transition">Kisah Kita</h3>
+            </a>
+            <a href="/stories/read/7" class="min-w-[120px] group cursor-pointer block">
+                <img src="https://picsum.photos/seed/trending2/200/300" class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
+                <h3 class="text-sm font-bold text-white truncate px-1 group-hover:text-indigo-400 transition">Horor Desa</h3>
+            </a>
+            <a href="/stories/read/8" class="min-w-[120px] group cursor-pointer block">
+                <img src="https://picsum.photos/seed/trending3/200/300" class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
+                <h3 class="text-sm font-bold text-white truncate px-1 group-hover:text-indigo-400 transition">Sang Juara</h3>
+            </a>
         </div>
-
-        <div class="min-w-[120px] group cursor-pointer">
-            <img src="https://picsum.photos/seed/trending2/200/300"
-                 class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
-            <h3 class="text-sm font-bold text-white truncate px-1">
-                Horor Desa
-            </h3>
-        </div>
-
-        <div class="min-w-[120px] group cursor-pointer">
-            <img src="https://picsum.photos/seed/trending3/200/300"
-                 class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
-            <h3 class="text-sm font-bold text-white truncate px-1">
-                Sang Juara
-            </h3>
-        </div>
-    </div>
-</section>
+    </section>
 
     <section class="px-6 mb-10">
         <div class="flex justify-between items-center mb-5">
             <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Rekomendasi Untukmu</h2>
             <span class="text-indigo-400 text-xs font-bold cursor-pointer hover:text-indigo-300">Lihat Semua</span>
         </div>
-        
         <div class="grid grid-cols-2 gap-4">
-            <div class="flex gap-4 items-center bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-2xl border border-white/10 shadow-lg backdrop-blur-md cursor-pointer">
-                <img src="https://picsum.photos/seed/rekom1/100/150" class="w-16 h-24 object-cover rounded-xl border border-white/10 shrink-0 shadow-md">
-                <div class="flex-1">
-                    <h3 class="text-sm font-bold text-white mb-1 line-clamp-1">Misteri Bug Pemrograman</h3>
-                    <p class="text-[10px] text-indigo-300 mb-1">Mim Benyapa</p>
-                    <p class="text-[10px] text-gray-400 line-clamp-2">Kisah sekumpulan anak Fasilkom yang terjebak di lab komputer.</p>
+            <a href="/stories/read/9" class="block bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-2xl border border-white/10 shadow-lg backdrop-blur-md group">
+                <div class="flex gap-4 items-center">
+                    <img src="https://picsum.photos/seed/rekom1/100/150" class="w-16 h-24 object-cover rounded-xl border border-white/10 shrink-0 shadow-md group-hover:scale-105 transition">
+                    <div class="flex-1">
+                        <h3 class="text-sm font-bold text-white mb-1 line-clamp-1 group-hover:text-indigo-400 transition">Misteri Bug Pemrograman</h3>
+                        <p class="text-[10px] text-indigo-300 mb-1">Mim Benyapa</p>
+                        <p class="text-[10px] text-gray-400 line-clamp-2">Kisah sekumpulan anak Fasilkom yang terjebak di lab komputer.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="flex gap-4 items-center bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-2xl border border-white/10 shadow-lg backdrop-blur-md cursor-pointer">
-                <img src="https://picsum.photos/seed/rekom2/100/150" class="w-16 h-24 object-cover rounded-xl border border-white/10 shrink-0 shadow-md">
-                <div class="flex-1">
-                    <h3 class="text-sm font-bold text-white mb-1 line-clamp-1">Jejak Bintang</h3>
-                    <p class="text-[10px] text-indigo-300 mb-1">Tere Liye</p>
-                    <p class="text-[10px] text-gray-400 line-clamp-2">Perjalanan melintasi galaksi untuk menemukan planet yang hilang.</p>
+            </a>
+            <a href="/stories/read/10" class="block bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-2xl border border-white/10 shadow-lg backdrop-blur-md group">
+                <div class="flex gap-4 items-center">
+                    <img src="https://picsum.photos/seed/rekom2/100/150" class="w-16 h-24 object-cover rounded-xl border border-white/10 shrink-0 shadow-md group-hover:scale-105 transition">
+                    <div class="flex-1">
+                        <h3 class="text-sm font-bold text-white mb-1 line-clamp-1 group-hover:text-indigo-400 transition">Jejak Bintang</h3>
+                        <p class="text-[10px] text-indigo-300 mb-1">Tere Liye</p>
+                        <p class="text-[10px] text-gray-400 line-clamp-2">Perjalanan melintasi galaksi untuk menemukan planet yang hilang.</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 
@@ -184,27 +176,21 @@
 
     <nav class="fixed bottom-0 w-full px-6 pb-8 pt-4 z-20">
         <div class="bg-indigo-600/40 backdrop-blur-xl h-16 rounded-2xl flex justify-around items-center shadow-[0_10px_40px_rgba(79,70,229,0.4)] border border-white/20">
-            
             <a href="{{ route('dashboard') }}" class="p-3 {{ request()->routeIs('dashboard') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-rounded/24/ffffff/home.png" class="w-6 h-6"/>
             </a>
-
             <a href="/library" class="p-3 {{ request()->is('library') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/book.png" class="w-6 h-6"/>
             </a>
-
             <a href="{{ route('search') }}" class="p-3 {{ request()->routeIs('search') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/search.png" class="w-6 h-6"/>
             </a>
-
             <a href="{{ route('write.index') }}" class="p-3 hover:bg-white/10 rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/edit.png" class="w-6 h-6"/>
             </a>
-
             <a href="{{ route('profil') }}" class="p-3 {{ request()->routeIs('profil') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/user.png" class="w-6 h-6"/>
             </a>
-
         </div>
     </nav>
 
