@@ -28,7 +28,7 @@
             
             <div class="flex items-center justify-center gap-4 text-sm text-gray-400">
                 <span class="flex items-center gap-1">👁️ 1</span>
-                <span class="flex items-center gap-1">⭐ 0</span>
+                <span class="flex items-center gap-1">❤️ 0</span>
                 <span class="flex items-center gap-1">💬 0</span>
             </div>
         </div>

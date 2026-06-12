@@ -69,7 +69,7 @@
                     <div class="flex items-center gap-4 text-xs text-gray-400 font-medium">
                         <div class="flex items-center gap-3">
                             <span class="flex items-center gap-1"><img src="https://img.icons8.com/material-rounded/16/888888/visible.png"/> 0</span>
-                            <span class="flex items-center gap-1"><img src="https://img.icons8.com/material-rounded/16/888888/star.png"/> 0</span>
+                            <span class="flex items-center gap-1"><img src="https://img.icons8.com/small/16/737373/filled-like.png"/> 0</span>
                         </div>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                 button.classList.add('text-white', 'border-indigo-500');
             });
         });
-
+        // Event listener untuk tombol cerita dan statistik agar bisa berganti tampilan
         btnCerita.addEventListener('click', () => {
             bodyCerita.classList.remove('hidden');
             bodyStatistik.classList.add('hidden');
