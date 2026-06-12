@@ -19,12 +19,12 @@
 
     @php
         $user = session('user');
-        $charName = $user->character_name ?? 'Pembaca'; 
+        $charName = $user->character_name ?? 'Princess'; 
         
         $storyId = request()->segment(3) ?? '1';
         $currentChapter = (int) request()->query('chapter', 1);
 
-        // DATABASE SEMUA CERITA
+        // DATABASE SEMUA CERITA (LENGKAP DENGAN "yn" SEBAGAI TOKOH UTAMA)
         $story = [
             '1' => [
                 'title' => 'Rahasia Langit',
@@ -91,6 +91,102 @@
                     9 => ['title' => 'Bab 9 | Pelarian', 'content' => "Mengetahui keberadaannya sudah ketahuan, adrenalin mengambil alih seluruh fungsi tubuh yn. Dengan sisa keberanian yang ada, yn menjerit sekencang-kencangnya. yn menendang kursi guru ke arah bayangan hitam di depannya hingga sosok itu terhuyung mundur.<br><br>Tanpa menoleh ke belakang sedetik pun, yn merangkak keluar dari kolong meja, bangkit berdiri, dan berlari sekuat tenaga menabrak pintu kelas hingga terbuka lebar. yn berlari kalang kabut menyusuri lorong koridor, mengabaikan barang-barang di ranselnya yang berjatuhan.<br><br>Suara geraman buas terdengar mengejar tepat di belakang yn. yn menuruni anak tangga dengan melompat membabi buta dalam kegelapan, menerjang pintu utama sekolah yang digembok tebal. yn harus segera keluar dari pekarangan neraka ini sebelum sosok itu menangkapnya."],
                     10 => ['title' => 'Bab 10 | Mengungkap', 'content' => "Menyadari gerbang utama digembok berlapis, yn beralih berlari ke pagar tembok samping sekolah. Dengan napas tersengal dan sisa tenaga terakhirnya, yn memanjat tembok bata yang kasar, tidak mempedulikan telapak tangannya yang lecet berdarah.<br><br>yn berhasil melompat keluar ke trotoar jalanan sesaat sebelum sebuah tangan pucat sedingin es dari bayangan hitam itu menggapai pergelangan kakinya. Jatuh terduduk di bawah terang lampu jalanan yang aman, yn terengah-engah menatap pagar sekolah yang kini kembali sunyi seolah tak terjadi apa-apa.<br><br>Sambil bersandar di tiang lampu, yn merogoh saku seragamnya dengan tangan gemetar. Buku harian kulit hitam itu ternyata masih selamat ada di sana. yn memeluk buku itu erat-erat di dadanya. Malam ini yn selamat, namun yn bertekad bulat, misteri kutukan sekolah berdarah ini harus ia ungkap ke polisi keesokan paginya."]
                 ]
+            ],
+            
+            // --- NOVEL DASHBOARD: DUNIA DI BALIK LAYAR ---
+            '101' => [
+                'title' => 'Dunia di Balik Layar',
+                'author' => 'Emi Thasorn',
+                'cover' => 'https://picsum.photos/seed/naratia1/150/220',
+                'chapters' => [
+                    1 => ['title' => 'Bab 1 | Audisi Terakhir', 'content' => "Lampu studio terasa begitu menyilaukan. yn menatap daftar nama peserta audisi yang tersisa di tangannya yang gemetar. Hanya ada satu nama yang ditandai dengan tinta merah darah. Sutradara menginstruksikan agar gadis itu dipanggil masuk, namun yn tahu dengan pasti, gadis itu tidak akan pernah keluar dari ruangan tersebut dengan selamat.<br><br>Suasana di ruang tunggu terasa sangat mencekam. yn mencoba mengatur napasnya, mengingat kembali pesan terakhir dari seniornya sebelum menghilang secara misterius minggu lalu. \"Jangan pernah menatap mata produser utama,\" begitu pesannya. Kini, pintu ruangan terbuka, dan nama yn dipanggil melalui pengeras suara."],
+                    2 => ['title' => 'Bab 2 | Kontrak Berdarah', 'content' => "Kertas kontrak itu disodorkan kasar ke hadapan yn. Tidak ada logo perusahaan resmi yang tercetak di sana, hanya ada stempel lilin merah tua yang masih hangat dan beraroma aneh. \"Tanda tangani sekarang, yn, atau karirmu selesai di sini, dan mungkin juga... hidupmu,\" ancam produser eksekutif itu dengan nada dingin yang menusuk tulang.<br><br>yn menelan ludah. Pena berbulu hitam di tangannya terasa sangat berat. Mata tajam produser itu terus mengawasi setiap gerak-gerik yn. Di sudut ruangan, yn melihat sebuah noda merah kecoklatan yang mencurigakan di atas karpet mahal tersebut. Dengan tangan bergetar, yn perlahan menggoreskan tinta di atas kertas itu."],
+                    3 => ['title' => 'Bab 3 | Kamera Menyala', 'content' => "Action! Kamera mulai merekam. Namun adegan yang terjadi di depan mata yn sama sekali tidak ada di dalam naskah yang ia pelajari semalaman. Aktor utama tiba-tiba mengeluarkan pisau sungguhan, bukan properti karet yang sudah yn siapkan di ruang ganti sebelumnya.<br><br>Ini bukan lagi sekadar akting, ini adalah jebakan mematikan yang direkam secara langsung untuk ditonton oleh para elit di pasar gelap. yn harus segera mengambil keputusan: berteriak menghentikan syuting dan membongkar kedok mereka, atau membiarkan adegan berdarah ini terus berlanjut demi keselamatan nyawanya sendiri."]
+                ]
+            ],
+
+            // --- NOVEL DASHBOARD: JEJAK WAKTU ---
+            '102' => [
+                'title' => 'Jejak Waktu',
+                'author' => 'Tipnaree Racha',
+                'cover' => 'https://picsum.photos/seed/naratiaA/150/220',
+                'chapters' => [
+                    1 => ['title' => 'Bab 1 | Jam Saku Misterius', 'content' => "Jam saku kuno itu berdetak aneh di telapak tangan yn. Tidak tik-tok, melainkan tok-tik yang berulang. Benda usang ini yn temukan terselip di dalam peti kayu berdebu milik mendiang kakeknya di loteng rumah.<br><br>Saat jari yn tak sengaja menyentuh roda pemutarnya dan memutarnya ke kiri, udara di sekitarnya tiba-tiba terasa sangat menipis. Pemandangan kamar loteng yang usang perlahan melebur menjadi pusaran warna-warni yang menyilaukan mata, menarik tubuh yn ke dalam lubang waktu tanpa ampun."],
+                    2 => ['title' => 'Bab 2 | Jakarta, 1998', 'content' => "Bau asap ban terbakar dan riuh suara kerusuhan langsung menyambut penciuman yn begitu ia tersungkur di atas aspal panas. yn bangkit berdiri di tengah jalanan yang dipenuhi coretan protes dan barikade kawat berduri. Ini bukan lagi zamannya.<br><br>Seseorang berlari kencang menabrak bahu yn dengan keras, menjatuhkan selembar kertas lusuh dari tangannya. yn memungut selebaran itu. Matanya terbelalak mendapati kertas itu memuat sketsa wajah kakeknya semasa muda, dengan stempel merah bertuliskan: BURONAN NEGARA."],
+                    3 => ['title' => 'Bab 3 | Pengejaran', 'content' => "Tanpa sempat berpikir panjang, yn berlari menyusuri gang sempit yang gelap. Suara langkah sepatu bot tentara terdengar bergema saling bersahutan tepat di belakangnya. Mereka meneriakkan perintah tembak di tempat bagi siapa saja yang dicurigai.<br><br>yn menggenggam erat jam saku kuno itu di dadanya, mencoba memutar kembali roda waktunya ke arah yang benar. Namun nahas, jarum jam itu kini berhenti berdetak sepenuhnya. Kaca jamnya retak. yn menyadari dengan ngeri bahwa ia kini terjebak di masa lalu, di tengah sejarah berdarah keluarganya."]
+                ]
+            ],
+
+            // --- NOVEL DASHBOARD & REKOMENDASI: MISTERI BUG PEMROGRAMAN ---
+            '103' => [
+                'title' => 'Misteri Bug Pemrograman',
+                'author' => 'Mim Benyapa',
+                'cover' => 'https://picsum.photos/seed/rekom1/150/220',
+                'chapters' => [
+                    1 => ['title' => 'Bab 1 | Syntax Error', 'content' => "Layar monitor berkedip merah terang memantulkan cahaya ke wajah pucat yn. Tulisan \"FATAL ERROR: LINE 404\" berulang kali memenuhi layar tanpa bisa dihentikan. yn memukul keyboardnya dengan kesal, mengacak-acak rambutnya yang sudah berantakan.<br><br>Tugas akhir mahasiswa Fasilkom ini benar-benar berubah menjadi mimpi buruk. Tiba-tiba, lampu lab padam total. Suara ketikan keyboard dari deretan komputer yang seharusnya mati mendadak mulai menggema di sudut ruangan, membuat bulu kuduk yn merinding ketakutan."],
+                    2 => ['title' => 'Bab 2 | Loop Tanpa Akhir', 'content' => "\"Mana Budi?!\" teriak yn panik saat menoleh ke meja seberang. Kursi di sebelah yn kini kosong melompong, hanya menyisakan secangkir kopi yang masih mengepul panas. yn menelan ludah, perlahan mendekati layar monitor temannya yang masih menyala terang.<br><br>Di layar itu, baris kode terus berjalan otomatis membentuk sebuah kalimat berulang-ulang: DIA GAGAL. DIA GAGAL. yn menyadari, ada yang tidak beres dengan program kecerdasan buatan yang sedang mereka kerjakan. Bug ini mengancam nyawa mereka secara nyata."],
+                    3 => ['title' => 'Bab 3 | Force Close', 'content' => "Hanya tersisa yn sendirian di ruangan terkutuk itu. Pintu lab terkunci otomatis dari luar. yn harus segera menemukan cara untuk melakukan Force Close sebelum hitungan mundur di layar proyektor utama mencapai angka nol.<br><br>\"Aku harus mencabut servernya!\" batin yn dengan suara bergetar hebat. yn mengangguk mantap pada dirinya sendiri, berlari menerjang kegelapan menuju kotak CPU utama, mengabaikan percikan api biru mematikan yang mulai menyambar-nyambar dari dalam mesin server tersebut."]
+                ]
+            ],
+
+            // --- NOVEL TRENDING: KISAH KITA ---
+            '6' => [
+                'title' => 'Kisah Kita',
+                'author' => 'Penulis Anonim',
+                'cover' => 'https://picsum.photos/seed/trending1/150/220',
+                'chapters' => [
+                    1 => ['title' => 'Bab 1 | Pertemuan', 'content' => "Pagi itu gerimis turun membasahi ibukota. yn berlari kecil menembus rintik hujan, merapatkan jaketnya sambil memeluk setumpuk buku tebal. Saat berbelok tajam di koridor kampus, langkah yn terhenti mendadak. yn bertabrakan keras dengan seseorang, membuat semua buku yang dipegangnya jatuh berserakan ke lantai yang basah.<br><br>\"Maaf, aku tidak sengaja,\" ucap sebuah suara bariton yang lembut. yn mendongak, dan untuk pertama kalinya, mata yn bertemu dengan sepasang manik hitam legam yang menatapnya dengan penuh rasa bersalah. Pemuda itu tersenyum tipis, perlahan berjongkok untuk membantu yn memungut buku-bukunya. Detak jantung yn tiba-tiba berpacu lebih cepat dari biasanya."],
+                    2 => ['title' => 'Bab 2 | Kebetulan', 'content' => "Sejak kejadian memalukan di koridor itu, pemuda bernama Arga itu anehnya selalu muncul di sekitar yn. Terkadang ia duduk tenang di meja seberang saat yn sedang sibuk belajar di perpustakaan, atau kebetulan memesan menu kopi yang sama persis di kantin fakultas. yn mulai terbiasa dengan kehadirannya.<br><br>Sore ini, Arga tiba-tiba mendekati meja yn dan menyodorkan sebuah novel klasik bersampul cokelat yang sudah lama yn cari-cari di berbagai toko buku. \"Kudengar kau menyukai gaya bahasa penulis ini, yn,\" ucap Arga santai sambil menarik kursi di depan yn. Pipi yn bersemu merah, bingung sekaligus penasaran dari mana Arga bisa tahu tentang selera bacaannya."],
+                    3 => ['title' => 'Bab 3 | Bintang Jatuh', 'content' => "Festival kampus malam ini diadakan bertepatan dengan malam puncak turunnya hujan meteor. Di bawah gemerlap lampu hias dan keramaian mahasiswa yang menari, Arga perlahan meraih dan menarik tangan yn menjauh dari panggung utama. Mereka berdua berjalan dalam diam menuju atap gedung fakultas yang sepi dan tenang.<br><br>Angin malam berhembus lembut menerpa wajah mereka. Arga menoleh, menatap yn dengan sorot mata yang begitu dalam. \"Ada alasan kenapa aku selalu berusaha ada di sekitarmu akhir-akhir ini, yn,\" bisiknya pelan, nyaris tenggelam oleh suara musik dari bawah. Tepat saat bintang jatuh pertama melintasi langit malam, Arga menggenggam kedua tangan yn dengan erat."]
+                ]
+            ],
+
+            // --- NOVEL TRENDING: HOROR DESA ---
+            '7' => [
+                'title' => 'Horor Desa',
+                'author' => 'Penulis Anonim',
+                'cover' => 'https://picsum.photos/seed/trending2/150/220',
+                'chapters' => [
+                    1 => ['title' => 'Bab 1 | Desa Terlarang', 'content' => "Hujan lebat menemani kedatangan yn di desa terpencil itu. yn menatap nanar plang kayu usang bertuliskan \"Desa Alas Kliwon\" yang hampir seluruhnya tertutup lumut tebal. Hawa dingin seketika merasuk ke tulang punggung saat kaki yn melangkah melewati batas gapura desa. Beberapa penduduk desa yang lewat menatap yn dengan pandangan mata yang kosong dan curiga.<br><br>Rumah panggung kayu yang disewa yn untuk penelitian ini tampak sangat suram. Tidak ada listrik, hanya diterangi beberapa lampu pelita tua. Malam pertama menginap, tepat lewat tengah malam, yn samar-sayup mendengar alunan suara gamelan bertempo lambat yang mengalun mistis dari arah hutan bambu di belakang rumah."],
+                    2 => ['title' => 'Bab 2 | Peringatan', 'content' => "Pagi harinya, dengan perasaan gelisah, yn mencoba bertanya kepada kepala desa tentang asal usul suara gamelan tersebut. Raut wajah pria tua keriput itu mendadak pucat pasi. Ia mencengkeram lengan yn dengan keras, memperingatkan yn dengan nada bergetar agar mematikan semua lampu dan tidak pernah keluar rumah setelah matahari terbenam.<br><br>Namun sebagai mahasiswa peneliti yang skeptis, rasa penasaran yn justru mengalahkan akal sehat dan rasa takutnya. Malam itu, alih-alih mengunci pintu, yn mengendap-endap keluar membawa sebuah senter kecil. Ia nekat mengikuti sumber suara gamelan yang malam ini terdengar semakin keras dan seakan memanggil-manggil namanya."],
+                    3 => ['title' => 'Bab 3 | Tarian Kematian', 'content' => "Di tengah hutan bambu yang gelap gulita, yn merunduk bersembunyi di balik sebuah pohon beringin raksasa. Matanya membelalak ngeri melihat pemandangan gila di depannya. Belasan sosok manusia tak berwajah, mengenakan kebaya lusuh berlumuran tanah, sedang menari dengan gerakan patah-patah mengelilingi sebuah api unggun yang menyala kehijauan.<br><br>Nahas, saat yn berniat mundur, salah satu ranting kering terinjak oleh sepatunya. Bunyi patahan ranting itu sangat nyaring. Salah satu sosok penari itu berhenti bergerak dan menoleh perlahan ke arah tempat persembunyian yn. Suara gamelan tiba-tiba mati seketika. Hutan menjadi senyap, sebelum akhirnya sebuah tangan sedingin es mencengkeram erat bahu yn dari belakang."]
+                ]
+            ],
+
+            // --- NOVEL TRENDING: SANG JUARA ---
+            '8' => [
+                'title' => 'Sang Juara',
+                'author' => 'Penulis Anonim',
+                'cover' => 'https://picsum.photos/seed/trending3/150/220',
+                'chapters' => [
+                    1 => ['title' => 'Bab 1 | Lintasan Terakhir', 'content' => "Suara peluit wasit menggema melengking di seluruh penjuru stadion megah tersebut. yn memacu langkah kakinya dengan beringas di atas lintasan lari. Napasnya tersengal parah, dan keringat bercucuran membasahi wajahnya yang kini meringis menahan rasa perih luar biasa akibat cedera di pergelangan kaki kirinya.<br><br>Dokter sudah memvonis bahwa ini adalah pertandingan terakhir yn sebelum cedera ototnya memaksa yn untuk pensiun dini dari dunia atletik. Membayangkan senyum bangga ibunya yang sedang duduk tegang di bangku penonton, yn mengertakkan gigi, menolak keras untuk menyerah pada rasa sakit yang menggerogoti kakinya."],
+                    2 => ['title' => 'Bab 2 | Bayang-bayang Kekalahan', 'content' => "Jarak menuju garis finish tinggal tersisa lima puluh meter lagi. Saingan terberat yn, pelari jangkung asal provinsi tetangga, perlahan mulai menyusul dengan langkah yang lebih stabil dari sisi kanan. yn bisa mendengar suara sorakan ribuan penonton yang semakin riuh memekakkan telinga, meneriakkan nama lawannya.<br><br>Fokus yn mulai mengabur, pandangannya berkunang-kunang. Otot betisnya menjerit minta diistirahatkan. Namun, yn memutar kembali ingatan tentang sesi latihan kerasnya berbulan-bulan yang lalu di bawah terik matahari siang yang membakar kulit. \"Buktikan pada dunia siapa dirimu sebenarnya, yn!\" batinnya berteriak sangat kencang memecah rasa putus asa."],
+                    3 => ['title' => 'Bab 3 | Garis Finish', 'content' => "Dengan sisa tenaga terakhir yang entah datang dari keajaiban mana, yn melompat mencondongkan seluruh tubuhnya ke depan tepat saat melewati pita finish yang membentang. Kaki kirinya akhirnya menyerah, membuat tubuh yn terjerembab menghantam matras lintasan dengan keras. Napasnya memburu tak karuan menatap langit-langit stadion.<br><br>Keheningan sejenak melanda seluruh stadion sebelum akhirnya papan skor elektronik raksasa menyala terang. Nama yn menduduki urutan pertama dengan selisih waktu hanya sepersekian detik dari lawannya. Air mata haru mengalir deras membasahi pipi yn saat medali emas kebanggaan itu akhirnya dikalungkan di lehernya, diiringi tepuk tangan gemuruh."]
+                ]
+            ],
+
+            // --- NOVEL REKOMENDASI: MISTERI BUG (Karena sama dengan 103, kita buatkan data ID 9) ---
+            '9' => [
+                'title' => 'Misteri Bug Pemrograman',
+                'author' => 'Mim Benyapa',
+                'cover' => 'https://picsum.photos/seed/rekom1/150/220',
+                'chapters' => [
+                    1 => ['title' => 'Bab 1 | Syntax Error', 'content' => "Layar monitor berkedip merah terang memantulkan cahaya ke wajah pucat yn. Tulisan \"FATAL ERROR: LINE 404\" berulang kali memenuhi layar tanpa bisa dihentikan. yn memukul keyboardnya dengan kesal, mengacak-acak rambutnya yang sudah berantakan.<br><br>Tugas akhir mahasiswa Fasilkom ini benar-benar berubah menjadi mimpi buruk. Tiba-tiba, lampu lab padam total. Suara ketikan keyboard dari deretan komputer yang seharusnya mati mendadak mulai menggema di sudut ruangan, membuat bulu kuduk yn merinding ketakutan."],
+                    2 => ['title' => 'Bab 2 | Loop Tanpa Akhir', 'content' => "\"Mana Budi?!\" teriak yn panik saat menoleh ke meja seberang. Kursi di sebelah yn kini kosong melompong, hanya menyisakan secangkir kopi yang masih mengepul panas. yn menelan ludah, perlahan mendekati layar monitor temannya yang masih menyala terang.<br><br>Di layar itu, baris kode terus berjalan otomatis membentuk sebuah kalimat berulang-ulang: DIA GAGAL. DIA GAGAL. yn menyadari, ada yang tidak beres dengan program kecerdasan buatan yang sedang mereka kerjakan. Bug ini mengancam nyawa mereka secara nyata."],
+                    3 => ['title' => 'Bab 3 | Force Close', 'content' => "Hanya tersisa yn sendirian di ruangan terkutuk itu. Pintu lab terkunci otomatis dari luar. yn harus segera menemukan cara untuk melakukan Force Close sebelum hitungan mundur di layar proyektor utama mencapai angka nol.<br><br>\"Aku harus mencabut servernya!\" batin yn dengan suara bergetar hebat. yn mengangguk mantap pada dirinya sendiri, berlari menerjang kegelapan menuju kotak CPU utama, mengabaikan percikan api biru mematikan yang mulai menyambar-nyambar dari dalam mesin server tersebut."]
+                ]
+            ],
+
+            // --- NOVEL REKOMENDASI: JEJAK BINTANG ---
+            '10' => [
+                'title' => 'Jejak Bintang',
+                'author' => 'Tere Liye',
+                'cover' => 'https://picsum.photos/seed/rekom2/150/220',
+                'chapters' => [
+                    1 => ['title' => 'Bab 1 | Misi Terakhir', 'content' => "Pesawat penjelajah luar angkasa 'Artemis' bergetar sangat hebat saat mencoba menembus sabuk asteroid yang tebal. yn mencengkeram kuat sabuk pengaman di kursi kapten dengan telapak tangan yang basah oleh keringat. Alarm peringatan maraung-raung memekakkan telinga di seluruh penjuru kokpit kapal.<br><br>Misi bunuh diri ini adalah harapan terakhir kelangsungan hidup umat manusia. yn menatap tegang layar radar navigasi yang menunjukkan anomali gravitasi raksasa tepat di depan pesawat mereka. Sebuah lubang cacing aneh yang memancarkan pendaran cahaya ungu menyilaukan seolah telah menganga dan siap menelan pesawat Artemis bulat-bulat."],
+                    2 => ['title' => 'Bab 2 | Dunia Baru', 'content' => "Ketika pesawat berhasil lolos dan terlempar melewati lubang cacing, kegelapan pekat antariksa perlahan memudar. yn membuka mata yang sempat terpejam erat, lalu terkesiap tak percaya melihat pemandangan menakjubkan di balik kaca jendela raksasa Artemis.<br><br>Sebuah planet yang sangat megah dengan cincin bercahaya keemasan mengapung tenang di hadapannya. Permukaan planet itu didominasi warna biru lautan jernih dan hijau zamrud, sangat mirip dengan gambaran bumi ratusan tahun yang lalu sebelum bencana radiasi melanda. Tanpa ragu, yn segera meraih tuas kendali dan mengaktifkan mode pendaratan darurat."],
+                    3 => ['title' => 'Bab 3 | Kontak Pertama', 'content' => "Pintu hidrolik pendaratan pesawat akhirnya terbuka dengan suara mendesis, menyambut hembusan angin segar yang murni masuk membelai wajah dan paru-paru yn. Dengan langkah waspada, yn melangkah keluar perlahan, menginjakkan kakinya di atas hamparan rerumputan bercahaya yang belum pernah disentuh oleh telapak kaki manusia.<br><br>Tiba-tiba, dari balik pepohonan kristal raksasa di depannya, muncul sesosok makhluk humanoid bercahaya perak yang melayang perlahan mendekati yn. Makhluk misterius itu tersenyum damai, mengulurkan tangannya, dan anehnya mampu bertelepati langsung ke dalam pikiran yn, \"Selamat datang di rumah barumu yang sesungguhnya, Penjelajah.\""]
+                ]
             ]
         ];
 
@@ -108,10 +204,8 @@
         $processedContent = preg_replace('/\byn\b/i', "<span class='text-indigo-400 font-bold'>$charName</span>", $rawContent);
     @endphp
 
-    <!-- TOP BAR -->
     <header class="sticky top-0 bg-[#02040f]/90 backdrop-blur-md border-b border-white/10 p-4 flex items-center justify-between z-20 shadow-lg">
-        <!-- TOMBOL KEMBALI MENGARAH KE LIBRARY -->
-        <a href="/library" class="p-2.5 bg-white/5 hover:bg-white/10 rounded-full transition border border-white/10">
+        <a href="javascript:history.back()" class="p-2.5 bg-white/5 hover:bg-white/10 rounded-full transition border border-white/10">
             <img src="https://img.icons8.com/ios-filled/24/ffffff/left.png" class="w-4 h-4"/>
         </a>
         
@@ -125,10 +219,8 @@
         </button>
     </header>
 
-    <!-- OVERLAY GELAP UNTUK SIDEBAR -->
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 hidden transition-opacity opacity-0"></div>
 
-    <!-- SIDEBAR DAFTAR BAB -->
     <aside id="chapter-sidebar" class="fixed top-0 right-0 h-full w-[80%] max-w-sm bg-[#1a1c29] z-40 transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col border-l border-white/10">
         
         <div class="p-4 flex justify-between items-center border-b border-white/5 shrink-0">
@@ -140,8 +232,8 @@
         
         <div class="p-6 flex flex-col items-center border-b border-white/5 bg-black/20 shrink-0">
             <img src="{{ $storyData['cover'] }}" class="w-28 h-40 object-cover rounded-md shadow-xl mb-4 border border-white/10">
-<h2 class="text-sm font-bold text-white text-center uppercase tracking-wider mb-1">{{ $storyData['title'] }}</h2>
-<p class="text-xs text-indigo-300">{{ $storyData['author'] }}</p>
+            <h2 class="text-sm font-bold text-white text-center uppercase tracking-wider mb-1">{{ $storyData['title'] }}</h2>
+            <p class="text-xs text-indigo-300">{{ $storyData['author'] }}</p>
         </div>
 
         <div class="p-4 flex flex-col gap-1 overflow-y-auto no-scrollbar pb-20">
@@ -153,14 +245,12 @@
         </div>
     </aside>
 
-    <!-- KONTEN CERITA -->
     <main class="flex-grow max-w-2xl mx-auto px-6 py-10 w-full mb-16">
         <div class="story-content text-gray-300 text-justify">
             {!! $processedContent !!}
         </div>
     </main>
 
-    <!-- BOTTOM BAR NAVIGASI BAB -->
     <footer class="bg-[#0a0f1d] border-t border-white/10 p-5 flex justify-between items-center fixed bottom-0 w-full z-20">
         
         @if($currentChapter > 1)
@@ -179,7 +269,6 @@
 
     </footer>
 
-    <!-- SCRIPT SIDEBAR -->
     <script>
         const openBtn = document.getElementById('open-chapter-btn');
         const closeBtn = document.getElementById('close-chapter-btn');
