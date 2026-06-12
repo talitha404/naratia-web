@@ -24,48 +24,95 @@
         }
     </style>
 </head>
-<body class="space-bg text-white min-h-screen">
+<body class="space-bg text-white min-h-screen relative">
 
+    @php
+        // DATA CERITA DASHBOARD (LENGKAP DENGAN SINOPSIS BARU UNTUK 5 NOVEL)
+        $dashboardStories = [
+            '101' => [
+                'title' => 'Dunia di Balik Layar',
+                'author' => 'Emi Thasorn',
+                'genre' => 'Fiksi',
+                'cover' => 'https://picsum.photos/seed/naratia1/300/400',
+                'synopsis' => 'Gemerlap dunia hiburan tidak seindah yang terlihat di layar kaca. Mita, seorang asisten sutradara magang, tidak sengaja menemukan rahasia kelam di balik produksi film terbesar tahun ini. Nyawanya kini terancam oleh orang-orang yang rela melakukan apa saja demi rating dan popularitas.',
+            ],
+            '102' => [
+                'title' => 'Jejak Waktu',
+                'author' => 'Tipnaree Racha',
+                'genre' => 'Misteri',
+                'cover' => 'https://picsum.photos/seed/naratiaA/300/400',
+                'synopsis' => 'Reno menemukan sebuah jam saku kuno di tumpukan barang antik milik mendiang kakeknya. Tanpa sengaja memutar jarumnya ke arah berlawanan, Reno terlempar kembali ke tahun 1998, tepat di hari kakeknya dituduh melakukan kejahatan yang tidak pernah ia lakukan.',
+            ],
+            '6' => [
+                'title' => 'Kisah Kita',
+                'author' => 'Penulis Anonim',
+                'genre' => 'Romansa',
+                'cover' => 'https://picsum.photos/seed/trending1/200/300',
+                'synopsis' => 'Kisah Kita berawal dari ketidaksengajaan yang perlahan merajut takdir. Apakah cinta cukup untuk menyatukan dua dunia yang berbeda?',
+            ],
+            '7' => [
+                'title' => 'Horor Desa',
+                'author' => 'Penulis Anonim',
+                'genre' => 'Horor',
+                'cover' => 'https://picsum.photos/seed/trending2/200/300',
+                'synopsis' => 'Sebuah desa terpencil menyimpan rahasia kelam yang tak boleh dibicarakan. Mereka yang datang, tak pernah benar-benar bisa pulang.',
+            ],
+            '8' => [
+                'title' => 'Sang Juara',
+                'author' => 'Penulis Anonim',
+                'genre' => 'Aksi',
+                'cover' => 'https://picsum.photos/seed/trending3/200/300',
+                'synopsis' => 'Keringat, air mata, dan ambisi. Perjalanan panjang seorang atlet untuk membuktikan bahwa dirinya pantas berdiri di podium tertinggi.',
+            ],
+            '9' => [
+                'title' => 'Misteri Bug Pemrograman',
+                'author' => 'Mim Benyapa',
+                'genre' => 'Sci-Fi',
+                'cover' => 'https://picsum.photos/seed/rekom1/100/150',
+                'synopsis' => 'Kisah sekumpulan anak Fasilkom yang terjebak di lab komputer. Setiap kali mereka gagal compile program, salah satu dari mereka menghilang dari dunia nyata.',
+            ],
+            '10' => [
+                'title' => 'Jejak Bintang',
+                'author' => 'Tere Liye',
+                'genre' => 'Fantasi',
+                'cover' => 'https://picsum.photos/seed/rekom2/100/150',
+                'synopsis' => 'Perjalanan melintasi galaksi untuk menemukan planet yang hilang. Misi ini menentukan nasib seluruh umat manusia di bumi.',
+            ]
+        ];
+    @endphp
+
+    <!-- HEADER -->
     <header class="flex justify-between items-center p-6 sticky top-0 bg-black/20 backdrop-blur-xl z-20 border-b border-white/10 shadow-sm">
         <h1 class="text-2xl font-black tracking-tighter text-white">NARATIA</h1>
         <div class="flex gap-5">
-            <a href="{{ route('search') }}"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/search--v1.png" class="w-6 h-6 hover:opacity-80 transition"/></a>
+            <a href="/search"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/search--v1.png" class="w-6 h-6 hover:opacity-80 transition"/></a>
             <button class="hover:opacity-80 transition"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/appointment-reminders--v1.png" class="w-6 h-6"/></button>
         </div>
     </header>
 
+    <!-- CERITA UNGGULAN -->
     <section class="px-6 mb-10 pt-5">
         <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Cerita unggulan</h2>
-        
         <div class="flex gap-5 overflow-x-auto no-scrollbar pb-4">
-            <a href="/stories/read/1" class="block bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-3xl border border-white/10 shadow-lg backdrop-blur-md w-[360px] shrink-0 group">
+            @foreach(['101', '102'] as $id)
+            @php $story = $dashboardStories[$id]; @endphp
+            <button onclick="openModal('{{ $id }}')" class="text-left block bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-3xl border border-white/10 shadow-lg backdrop-blur-md w-[360px] shrink-0 group focus:outline-none">
                 <div class="flex gap-5 items-center">
-                    <img src="https://picsum.photos/seed/naratia1/300/400" class="w-24 h-36 object-cover rounded-xl shadow-md shrink-0 group-hover:scale-105 transition">
+                    <img src="{{ $story['cover'] }}" class="w-24 h-36 object-cover rounded-xl shadow-md shrink-0 group-hover:scale-105 transition">
                     <div class="flex flex-col justify-center">
-                        <h3 class="text-lg font-bold leading-tight mb-2 text-white line-clamp-2 group-hover:text-indigo-400 transition">Dunia di Balik Layar</h3>
-                        <p class="text-xs text-indigo-300 font-semibold mb-3">Emi Thasorn</p>
+                        <h3 class="text-lg font-bold leading-tight mb-2 text-white line-clamp-2 group-hover:text-indigo-400 transition">{{ $story['title'] }}</h3>
+                        <p class="text-xs text-indigo-300 font-semibold mb-3">{{ $story['author'] }}</p>
                         <div class="flex gap-2">
-                            <span class="bg-indigo-500/30 text-indigo-100 text-[10px] px-3 py-1 rounded-full border border-indigo-400/30">Fiksi</span>
+                            <span class="bg-indigo-500/30 text-indigo-100 text-[10px] px-3 py-1 rounded-full border border-indigo-400/30">{{ $story['genre'] }}</span>
                         </div>
                     </div>
                 </div>
-            </a>
-
-            <a href="/stories/read/2" class="block bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-3xl border border-white/10 shadow-lg backdrop-blur-md w-[360px] shrink-0 group">
-                <div class="flex gap-5 items-center">
-                    <img src="https://picsum.photos/seed/naratiaA/300/400" class="w-24 h-36 object-cover rounded-xl shadow-md shrink-0 group-hover:scale-105 transition">
-                    <div class="flex flex-col justify-center">
-                        <h3 class="text-lg font-bold leading-tight mb-2 text-white line-clamp-2 group-hover:text-indigo-400 transition">Jejak Waktu</h3>
-                        <p class="text-xs text-indigo-300 font-semibold mb-3">Tipnaree Racha</p>
-                        <div class="flex gap-2">
-                            <span class="bg-indigo-500/30 text-indigo-100 text-[10px] px-3 py-1 rounded-full border border-indigo-400/30">Misteri</span>
-                        </div>
-                    </div>
-                </div>
-            </a>
+            </button>
+            @endforeach
         </div>
     </section>
 
+    <!-- LANJUT BACA (Ini sengaja kubiarkan langsung baca, karena judulnya "Lanjut Baca") -->
     <section class="px-6 mb-10">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Lanjut baca</h2>
@@ -90,6 +137,7 @@
         </div>
     </section>
 
+    <!-- EKSPLOR KATEGORI -->
     <section class="px-6 mb-10">
         <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Eksplor Kategori</h2>
         <div class="flex gap-3 overflow-x-auto no-scrollbar py-1">
@@ -101,31 +149,33 @@
         </div>
     </section>
 
+    <!-- BACAAN TRENDING -->
     <section class="px-6 mb-10">
         <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Bacaan trending</h2>
         <div class="flex gap-4 overflow-x-auto no-scrollbar py-2">
-            <a href="/stories/read/6" class="min-w-[120px] group cursor-pointer block">
+            <button onclick="openModal('6')" class="min-w-[120px] group cursor-pointer block text-left bg-transparent border-none p-0 focus:outline-none">
                 <img src="https://picsum.photos/seed/trending1/200/300" class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
                 <h3 class="text-sm font-bold text-white truncate px-1 group-hover:text-indigo-400 transition">Kisah Kita</h3>
-            </a>
-            <a href="/stories/read/7" class="min-w-[120px] group cursor-pointer block">
+            </button>
+            <button onclick="openModal('7')" class="min-w-[120px] group cursor-pointer block text-left bg-transparent border-none p-0 focus:outline-none">
                 <img src="https://picsum.photos/seed/trending2/200/300" class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
                 <h3 class="text-sm font-bold text-white truncate px-1 group-hover:text-indigo-400 transition">Horor Desa</h3>
-            </a>
-            <a href="/stories/read/8" class="min-w-[120px] group cursor-pointer block">
+            </button>
+            <button onclick="openModal('8')" class="min-w-[120px] group cursor-pointer block text-left bg-transparent border-none p-0 focus:outline-none">
                 <img src="https://picsum.photos/seed/trending3/200/300" class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
                 <h3 class="text-sm font-bold text-white truncate px-1 group-hover:text-indigo-400 transition">Sang Juara</h3>
-            </a>
+            </button>
         </div>
     </section>
 
+    <!-- REKOMENDASI UNTUKMU -->
     <section class="px-6 mb-10">
         <div class="flex justify-between items-center mb-5">
             <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Rekomendasi Untukmu</h2>
             <span class="text-indigo-400 text-xs font-bold cursor-pointer hover:text-indigo-300">Lihat Semua</span>
         </div>
         <div class="grid grid-cols-2 gap-4">
-            <a href="/stories/read/9" class="block bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-2xl border border-white/10 shadow-lg backdrop-blur-md group">
+            <button onclick="openModal('9')" class="text-left block bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-2xl border border-white/10 shadow-lg backdrop-blur-md group focus:outline-none w-full">
                 <div class="flex gap-4 items-center">
                     <img src="https://picsum.photos/seed/rekom1/100/150" class="w-16 h-24 object-cover rounded-xl border border-white/10 shrink-0 shadow-md group-hover:scale-105 transition">
                     <div class="flex-1">
@@ -134,8 +184,8 @@
                         <p class="text-[10px] text-gray-400 line-clamp-2">Kisah sekumpulan anak Fasilkom yang terjebak di lab komputer.</p>
                     </div>
                 </div>
-            </a>
-            <a href="/stories/read/10" class="block bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-2xl border border-white/10 shadow-lg backdrop-blur-md group">
+            </button>
+            <button onclick="openModal('10')" class="text-left block bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-2xl border border-white/10 shadow-lg backdrop-blur-md group focus:outline-none w-full">
                 <div class="flex gap-4 items-center">
                     <img src="https://picsum.photos/seed/rekom2/100/150" class="w-16 h-24 object-cover rounded-xl border border-white/10 shrink-0 shadow-md group-hover:scale-105 transition">
                     <div class="flex-1">
@@ -144,10 +194,11 @@
                         <p class="text-[10px] text-gray-400 line-clamp-2">Perjalanan melintasi galaksi untuk menemukan planet yang hilang.</p>
                     </div>
                 </div>
-            </a>
+            </button>
         </div>
     </section>
 
+    <!-- PENULIS TERPOPULER -->
     <section class="px-6">
         <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Penulis Terpopuler</h2>
         <div class="flex gap-6 overflow-x-auto no-scrollbar py-2">
@@ -172,27 +223,86 @@
         </div>
     </section>
 
+    <!-- SPACER -->
     <div style="height: 150px; width: 100%; display: block;"></div>
 
+    <!-- NAVBAR BAWAH -->
     <nav class="fixed bottom-0 w-full px-6 pb-8 pt-4 z-20">
         <div class="bg-indigo-600/40 backdrop-blur-xl h-16 rounded-2xl flex justify-around items-center shadow-[0_10px_40px_rgba(79,70,229,0.4)] border border-white/20">
-            <a href="{{ route('dashboard') }}" class="p-3 {{ request()->routeIs('dashboard') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
+            <a href="/dashboard" class="p-3 bg-white/20 shadow-inner rounded-xl transition">
                 <img src="https://img.icons8.com/material-rounded/24/ffffff/home.png" class="w-6 h-6"/>
             </a>
-            <a href="/library" class="p-3 {{ request()->is('library') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
+            <a href="/library" class="p-3 hover:bg-white/10 rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/book.png" class="w-6 h-6"/>
             </a>
-            <a href="{{ route('search') }}" class="p-3 {{ request()->routeIs('search') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
+            <a href="/search" class="p-3 hover:bg-white/10 rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/search.png" class="w-6 h-6"/>
             </a>
-            <a href="{{ route('write.index') }}" class="p-3 hover:bg-white/10 rounded-xl transition">
+            <a href="/write" class="p-3 hover:bg-white/10 rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/edit.png" class="w-6 h-6"/>
             </a>
-            <a href="{{ route('profil') }}" class="p-3 {{ request()->routeIs('profil') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
+            <a href="/profil" class="p-3 hover:bg-white/10 rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/user.png" class="w-6 h-6"/>
             </a>
         </div>
     </nav>
 
+    <!-- MODAL SINOPSIS (POPUP) -->
+    <div id="synopsisModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-6">
+        <div class="bg-[#0f111a] border border-white/10 rounded-3xl w-full max-w-2xl p-6 relative shadow-2xl transform transition-all scale-95 opacity-0" id="modalContent">
+            <button onclick="closeModal()" class="absolute top-4 right-5 text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+            <div class="flex flex-col md:flex-row gap-6 mt-2">
+                <img id="modalCover" src="" class="w-32 h-48 object-cover rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] mx-auto md:mx-0">
+                <div class="flex-1 flex flex-col">
+                    <h2 id="modalTitle" class="text-3xl font-bold text-white mb-1"></h2>
+                    <p id="modalAuthor" class="text-indigo-400 font-semibold text-sm mb-4"></p>
+                    <a id="modalReadBtn" href="#" class="inline-block bg-white text-black font-bold py-3 px-8 rounded-full text-center hover:bg-gray-200 transition mb-6 shadow-lg w-max">
+                        Mulai membaca
+                    </a>
+                    <div class="border-t border-white/10 pt-4">
+                        <h3 class="text-sm font-bold mb-2 text-gray-400 uppercase tracking-widest">Ringkasan</h3>
+                        <p id="modalSynopsis" class="text-sm text-gray-300 leading-relaxed text-justify"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT UNTUK MODAL -->
+    <script>
+        const storiesData = @json($dashboardStories);
+
+        function openModal(id) {
+            const story = storiesData[id];
+            document.getElementById('modalCover').src = story.cover;
+            document.getElementById('modalTitle').innerText = story.title;
+            document.getElementById('modalAuthor').innerText = story.author;
+            document.getElementById('modalSynopsis').innerText = story.synopsis;
+            
+            // Atur link tombol baca ke halaman read-nya
+            document.getElementById('modalReadBtn').href = `/stories/read/${id}?chapter=1`;
+
+            const modal = document.getElementById('synopsisModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('synopsisModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200); 
+        }
+    </script>
 </body>
 </html>
