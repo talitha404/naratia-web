@@ -32,12 +32,12 @@
             
             <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
                 <div class="flex items-center gap-6 text-sm font-semibold text-gray-400">
-                    <!-- Tombol untuk toggle -->
-                    <button id="btnCerita" class="text-white border-b-2 border-indigo-500 pb-[18px] -mb-[18px] transition">
+                    <button id="btnCerita" class="nav-btn text-white border-b-2 border-indigo-500 pb-[18px] -mb-[18px] transition duration-300 hover:font-bold">
                         Semua (3)
                     </button>
-                    <button id="btnStatistik" class="hover:text-white pb-[18px] -mb-[18px] transition">
-                        Statistik
+                    
+                    <button id="btnStatistik" class="nav-btn text-gray-400 border-b-2 border-transparent pb-[18px] -mb-[18px] transition duration-300 hover:text-white hover:font-bold">
+                        Statistik 
                     </button>
                 </div>
 
@@ -115,6 +115,22 @@
         const btnStatistik = document.getElementById('btnStatistik');
         const bodyCerita = document.getElementById('bodyCerita');
         const bodyStatistik = document.getElementById('bodyStatistik');
+        // Mengambil semua elemen tombol dengan class 'nav-btn'
+        const buttons = document.querySelectorAll('.nav-btn');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 1. Reset semua tombol ke kondisi TIDAK AKTIF
+                buttons.forEach(btn => {
+                    btn.classList.remove('text-white', 'border-indigo-500');
+                    btn.classList.add('text-gray-400', 'border-transparent');
+                });
+
+                // 2. Set tombol yang diklik menjadi AKTIF
+                button.classList.remove('text-gray-400', 'border-transparent');
+                button.classList.add('text-white', 'border-indigo-500');
+            });
+        });
 
         btnCerita.addEventListener('click', () => {
             bodyCerita.classList.remove('hidden');
