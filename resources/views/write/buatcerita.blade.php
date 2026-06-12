@@ -76,13 +76,33 @@
                         class="w-full px-4 py-3 bg-slate-950/50 border border-slate-800 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white placeholder-slate-600 transition-all resize-y"></textarea>
                 </div>
 
+                <div class="space-y-2">
+                    <div class="flex items-center gap-1.5">
+                        <label class="block text-sm font-bold tracking-wide">
+                            Chapter<span class="text-red-500 ml-0.5">*</span>
+                        </label>
+                        <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-help"></i>
+                        <button type="button" class="ml-auto px-3 py-1 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
+                            Tambah chapter
+                        </button>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed max-w-2xl">
+                        Untuk edit chapter, pilih chapter yang akan di edit lalu klik tombol simpan dan lanjutkan.
+                    </p>
+                    <select name="chapter" 
+                        class="w-full px-4 py-3 bg-slate-950/50 border border-slate-800 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white placeholder-slate-600 transition-all">
+                        <option>Chapter 1</option>
+                        <option>Chapter 2</option>
+                    </select>
+                </div>
+
                 <div class="space-y-3">
                     <div class="flex items-center gap-2">
                         <label class="text-sm font-bold tracking-wide">Jenis cerita</label>
                         <span class="text-xs text-red-400 font-medium">*</span>
                     </div>
                     <p class="text-xs text-slate-400 leading-relaxed max-w-2xl">
-                        Memilih jenis cerita akan memungkinkan kamu untuk menentukan genre dan akan membantu kami menghubungkan pembaca yang tepat dengan ceritamu secara lebih baik.
+                        Menentukan jenis cerita akan membantu kami menghubungkan pembaca yang tepat dengan ceritamu secara lebih baik.
                     </p>
                     <div class="flex flex-wrap gap-2.5 pt-1">
                         <button type="button" class="px-4 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
