@@ -22,7 +22,7 @@ class WebController extends Controller
             'username'       => $request->username,
             'character_name' => $request->character_name,
             'email'          => $request->email,
-            'password'       => $request->password, 
+            'password'       => Hash::make($request->password), // Password harus di-hash!
         ]);
 
         return redirect()->route('login.page')
@@ -49,22 +49,34 @@ class WebController extends Controller
         return redirect()->route('login.page');
     }
 
-    // 4. Proses Update Profil (Wajib ada agar tidak error!)
+    // 4. Proses Update Profil
     public function updateProfil(Request $request) 
     {
         $request->validate([
             'username'       => 'required|max:255',
+            'bio'            => 'nullable|max:1000',
             'character_name' => 'required|max:255',
         ]);
 
         $user = session('user');
 
-        User::where('id', $user->id)->update([
+        // Data yang akan diupdate
+        $dataUpdate = [
             'username'       => $request->username,
             'character_name' => $request->character_name,
-        ]);
+            'bio'            => $request->bio,
+        ];
 
-        // Refresh session dengan data terbaru
+        // Proses simpan gambar (jika ada)
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $dataUpdate['avatar'] = $path;
+        }
+
+        // Melakukan update ke database
+        User::where('id', $user->id)->update($dataUpdate);
+
+        // Refresh session dengan data terbaru agar tampil di UI
         session(['user' => User::find($user->id)]);
 
         return redirect()->route('profil')->with('success', 'Profil berhasil diperbarui!');

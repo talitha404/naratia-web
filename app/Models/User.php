@@ -21,7 +21,9 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'password',
+        'avatar',
         'username',         // Penting untuk identitas sistem
+        'bio',
         'character_name',   // Penting untuk fitur Y/N
     ];
 

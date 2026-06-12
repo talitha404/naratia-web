@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Tabel Users dengan penambahan bio dan avatar
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique(); // <--- Tambahkan ini
-            $table->string('character_name')->nullable(); // <--- Tambahkan ini
+            $table->string('username')->unique();
+            $table->string('character_name')->nullable();
             $table->string('email')->unique();
+            $table->text('bio')->nullable();          // <--- Kolom Baru
+            $table->string('avatar')->nullable();     // <--- Kolom Baru
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
