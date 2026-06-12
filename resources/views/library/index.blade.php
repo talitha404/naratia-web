@@ -41,32 +41,35 @@
 
     <main id="konten-lanjut" class="px-6 mt-8 flex flex-wrap gap-5">
         
-        <div class="w-[110px] md:w-[120px] group cursor-pointer">
+        <!-- KARTU RAHASIA LANGIT -->
+        <a href="/stories/read/1?chapter=12" class="w-[110px] md:w-[120px] group cursor-pointer block">
             <img src="https://picsum.photos/seed/naratia2/200/300" class="w-full h-40 md:h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
-            <h3 class="text-sm font-bold text-white truncate px-1">Rahasia Langit</h3>
+            <h3 class="text-sm font-bold text-white truncate px-1 group-hover:text-indigo-400 transition">Rahasia Langit</h3>
             <p class="text-[10px] text-gray-400 px-1 mb-2">Bab 12 dari 20</p>
             <div class="w-full bg-white/10 rounded-full h-1 mx-1">
                 <div class="bg-indigo-500 h-1 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.8)]" style="width: 60%"></div>
             </div>
-        </div>
+        </a>
 
-        <div class="w-[110px] md:w-[120px] group cursor-pointer">
+        <!-- KARTU HUJAN SORE -->
+        <a href="/stories/read/4?chapter=5" class="w-[110px] md:w-[120px] group cursor-pointer block">
             <img src="https://picsum.photos/seed/naratia3/200/300" class="w-full h-40 md:h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
-            <h3 class="text-sm font-bold text-white truncate px-1">Hujan Sore</h3>
+            <h3 class="text-sm font-bold text-white truncate px-1 group-hover:text-indigo-400 transition">Hujan Sore</h3>
             <p class="text-[10px] text-gray-400 px-1 mb-2">Bab 5 dari 15</p>
             <div class="w-full bg-white/10 rounded-full h-1 mx-1">
                 <div class="bg-indigo-500 h-1 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.8)]" style="width: 30%"></div>
             </div>
-        </div>
+        </a>
 
-        <div class="w-[110px] md:w-[120px] group cursor-pointer">
+        <!-- KARTU MISTERI KELAS -->
+        <a href="/stories/read/5?chapter=8" class="w-[110px] md:w-[120px] group cursor-pointer block">
             <img src="https://picsum.photos/seed/naratia4/200/300" class="w-full h-40 md:h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
-            <h3 class="text-sm font-bold text-white truncate px-1">Misteri Kelas</h3>
+            <h3 class="text-sm font-bold text-white truncate px-1 group-hover:text-indigo-400 transition">Misteri Kelas</h3>
             <p class="text-[10px] text-gray-400 px-1 mb-2">Bab 8 dari 10</p>
             <div class="w-full bg-white/10 rounded-full h-1 mx-1">
                 <div class="bg-indigo-500 h-1 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.8)]" style="width: 80%"></div>
             </div>
-        </div>
+        </a>
 
     </main>
 
