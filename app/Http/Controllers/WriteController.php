@@ -108,4 +108,11 @@ class WriteController extends Controller
 
         return redirect()->route('write.index')->with('success', 'Chapter berhasil disimpan!');
     }
+
+    public function editor(int $id)
+    {
+        $story = Story::findOrFail($id);
+        return view('write.editor', compact('story'));
+    }
+
 }
