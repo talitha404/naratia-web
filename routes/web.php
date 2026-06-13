@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\WriteController;
+use App\Http\Controllers\ChapterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,9 @@ Route::middleware('check.login')->group(function () {
         // Route::get('/buatcerita', fn() => view('write.buatcerita'))->name('write.buatcerita'); entah ini apa gunanya
         Route::get('/write/buatcerita', [WriteController::class, 'create'])->name('write.buatcerita'); //kuncinya disini untuk akses ke halaman buat cerita
         Route::post('/write', [WriteController::class, 'store'])->name('write.store');
+        Route::get('/chapters/create', [ChapterController::class, 'create'])->name('chapters.create');
+        Route::post('/chapters', [ChapterController::class, 'store'])->name('chapters.store');
+        Route::get('/editor/{id}', [WriteController::class, 'editor'])->name('write.editor');
         Route::get('/buat-cerita', [WriteController::class, 'create']);
         // Save draft and open editor
         Route::post('/', [WriteController::class, 'store'])->name('write.store');

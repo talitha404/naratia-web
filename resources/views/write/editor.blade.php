@@ -46,7 +46,7 @@
     </header>
 
     <main class="flex-1 max-w-3xl w-full mx-auto px-6 pt-16 pb-24">
-        <form action="#" method="POST" class="space-y-6">
+        <form action="{{ route('chapters.store') }}" method="POST" class="space-y-6">
             @csrf
             <div class="w-full">
                 <input 
@@ -61,7 +61,7 @@
             <div class="w-full pt-4">
                 <textarea 
                     name="content" 
-                    placeholder="Ketik ceritamu di sini... Gunakan format 'yn' untuk karakter utama sehingga pemabacamu bisa merasakan pengalaman yang lebih personal." 
+                    placeholder="Ketik ceritamu di sini... Gunakan format [yn] untuk karakter utama sehingga pemabacamu bisa merasakan pengalaman yang lebih personal." 
                     rows="15" 
                     class="w-full bg-transparent text-gray-300 text-lg leading-relaxed border-none outline-none placeholder-gray-600 focus:ring-0 p-0 resize-none"
                 >{{ old('content', $story['description'] ?? '') }}</textarea>
