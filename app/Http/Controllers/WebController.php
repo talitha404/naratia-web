@@ -35,7 +35,8 @@ class WebController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if ($user && Hash::check($request->password, $user->password)) {
-            session(['login' => true, 'user' => $user]);
+            // simpan user_id ke session
+            session(['login' => $user->id, 'user' => $user]);
             return redirect()->route('dashboard');
         }
 
