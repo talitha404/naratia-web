@@ -27,16 +27,35 @@ Route::middleware('check.login')->group(function () {
     Route::get('/dashboard', fn() => view('dashboard.index'))->name('dashboard');
     Route::get('/search', fn() => view('search.index'))->name('search');
 
+    // === TAMBAHAN UNTUK ROLE PENULIS (CUMA 2 BARIS INI) ===
+    Route::get('/nulis/join', [WebController::class, 'showJoinPage'])->name('nulis.join');
+    Route::post('/update-role', [WebController::class, 'becomeWriter'])->name('user.become-writer');
+    // ==
+
     // Profil Group
     Route::prefix('profil')->group(function () {
         Route::get('/', fn() => view('profil.index'))->name('profil');
         Route::get('/edit', fn() => view('profil.edit'))->name('profil.edit');
         Route::post('/update', [WebController::class, 'updateProfil'])->name('profil.update');
+        Route::post('/switch-role', [WebController::class, 'switchRole'])->name('user.switch-role');
     });
 
     // Write Group
     Route::prefix('write')->group(function () {
-        Route::get('/', fn() => view('write.index'))->name('write.index');
+        
+        // --- INI ROUTE YANG KITA UBAH UNTUK MENCEGAT PEMBACA ---
+        Route::get('/', function () {
+            $user = session('user');
+            $role = is_array($user) ? ($user['role'] ?? 'pembaca') : ($user->role ?? 'pembaca');
+            
+            // Kalau dia pembaca, arahkan ke view penawaran
+            if ($role !== 'penulis') {
+                return view('write.offer');
+            }
+            // Kalau penulis, masuk dashboard biasa
+            return view('write.index');
+        })->name('write.index');
+        
         // Route::get('/buatcerita', fn() => view('write.buatcerita'))->name('write.buatcerita'); entah ini apa gunanya
         Route::get('/write/buatcerita', [WriteController::class, 'create'])->name('write.buatcerita'); //kuncinya disini untuk akses ke halaman buat cerita
         Route::post('/write', [WriteController::class, 'store'])->name('write.store');
