@@ -26,7 +26,31 @@
         .text-shadow-md { text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
     </style>
 </head>
-<body class="space-bg text-white min-h-screen">
+<body class="space-bg text-white min-h-screen relative">
+
+    @php
+        // DATA SINOPSIS KHUSUS PENCARIAN
+        $searchStories = [
+            '11' => [
+                'title' => 'Teori Mimpi',
+                'author' => 'Aya Reid',
+                'cover' => 'https://picsum.photos/seed/search_result1/300/400',
+                'synopsis' => 'Freya menyimpan rahasia kutukan dunia masa lampau yang terlarang. Di kehidupan modern ini, yn selalu dihantui oleh mimpi tentang istana yang terbakar dan seorang ksatria. Ketika seorang pria misterius muncul di perpustakaan kota, yn menyadari bahwa masa lalu tidak pernah benar-benar mati.',
+            ],
+            '12' => [
+                'title' => 'Alam Liar',
+                'author' => 'Julyana',
+                'cover' => 'https://picsum.photos/seed/search_result2/300/400',
+                'synopsis' => 'Hutan Lindung Gunung Salak menyimpan misteri gelap. Saat memimpin tim SAR untuk mencari pendaki yang hilang, yn dan timnya terjebak dalam anomali ruang dan waktu. Kompas berputar liar, jalan setapak menghilang, dan ada kekuatan tak kasat mata yang terus memanggil nama mereka dari kegelapan.',
+            ],
+            '13' => [
+                'title' => 'Menuliskan Kenangan',
+                'author' => 'Yier Xing',
+                'cover' => 'https://picsum.photos/seed/search_result3/300/400',
+                'synopsis' => 'Jika kamu bisa memutar waktu, kenangan mana yang ingin kamu hapus? Itulah yang dialami yn saat menemukan mesin tik tua peninggalan ibunya. Mengetik di atasnya bisa merubah realitas masa lalu. Namun, alam semesta selalu menuntut bayaran, dan yn harus membayar mahal untuk setiap kenangan yang ia hapus.',
+            ]
+        ];
+    @endphp
 
     <header class="flex justify-between items-center p-6 sticky top-0 bg-black/20 backdrop-blur-xl z-20 border-b border-white/10 shadow-sm">
         <h1 class="text-2xl font-black tracking-tighter text-white">NARATIA</h1>
@@ -34,14 +58,11 @@
 
     <div class="max-w-7xl mx-auto p-6 text-white pb-32 pt-10 px-6 sm:px-10">
         
-        <!-- KOLOM PENCARIAN & TOMBOL BACK -->
         <div class="flex items-center gap-4 mb-10">
-            <!-- Tombol Back -->
             <button id="back-to-grid-btn" class="hidden shrink-0 p-4 bg-white/5 hover:bg-white/20 transition rounded-full border border-white/20 backdrop-blur-md shadow-lg focus:outline-none">
                 <img src="https://img.icons8.com/ios-filled/24/ffffff/left.png" class="w-5 h-5"/>
             </button>
 
-            <!-- Form Search -->
             <form id="search-form" action="" method="GET" class="w-full relative text-black">
                 <input type="text" 
                        id="main-search-input"
@@ -54,7 +75,6 @@
 
         <main id="search-content-area">
 
-            <!-- TAMPILAN AWAL (GRID GENRE) -->
             <div id="state-initial-grid" class="space-y-6 transition-all duration-300">
                 <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-5">Pencarian Populer</h2>
                 
@@ -84,7 +104,6 @@
                 </div>
             </div>
 
-            <!-- TAMPILAN SARAN PENCARIAN -->
             <div id="state-search-history" class="space-y-6 hidden transition-all duration-300">
                 <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Saran Pencarian</h2>
                 <div class="space-y-3">
@@ -103,13 +122,12 @@
                 </div>
             </div>
 
-            <!-- TAMPILAN HASIL PENCARIAN -->
             <div id="state-search-results" class="space-y-8 hidden transition-all duration-300">
                 <h2 id="result-title" class="text-xs font-bold text-indigo-400 uppercase tracking-[0.2em]">Hasil untuk "..."</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     
-                    <div class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
+                    <div onclick="openSearchModal('11')" class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
                         <img src="https://picsum.photos/seed/search_result1/300/400" class="w-24 h-36 object-cover rounded-xl border border-white/10 shrink-0 shadow-xl group-hover:scale-105 transition-transform duration-300">
                         <div class="flex-col flex justify-center">
                             <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">Teori Mimpi</h3>
@@ -122,7 +140,7 @@
                         </div>
                     </div>
 
-                    <div class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
+                    <div onclick="openSearchModal('12')" class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
                         <img src="https://picsum.photos/seed/search_result2/300/400" class="w-24 h-36 object-cover rounded-xl border border-white/10 shrink-0 shadow-xl group-hover:scale-105 transition-transform duration-300">
                         <div class="flex-col flex justify-center">
                             <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">Alam Liar</h3>
@@ -134,7 +152,7 @@
                         </div>
                     </div>
 
-                    <div class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
+                    <div onclick="openSearchModal('13')" class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
                         <img src="https://picsum.photos/seed/search_result3/300/400" class="w-24 h-36 object-cover rounded-xl border border-white/10 shrink-0 shadow-xl group-hover:scale-105 transition-transform duration-300">
                         <div class="flex-col flex justify-center">
                             <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">Menuliskan Kenangan</h3>
@@ -153,7 +171,6 @@
         </main>
     </div>
 
-    <!-- NAVBAR BAWAH -->
     <nav class="fixed bottom-0 w-full px-6 pb-8 pt-4 z-20">
         <div class="bg-indigo-600/40 backdrop-blur-xl h-16 rounded-2xl flex justify-around items-center shadow-[0_10px_40px_rgba(79,70,229,0.4)] border border-white/20">
             <a href="/dashboard" class="p-3 hover:bg-white/10 rounded-xl transition">
@@ -174,7 +191,59 @@
         </div>
     </nav>
 
+    <div id="synopsisModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-6">
+        <div class="bg-[#0f111a] border border-white/10 rounded-3xl w-full max-w-2xl p-6 relative shadow-2xl transform transition-all scale-95 opacity-0" id="modalContent">
+            <button onclick="closeSearchModal()" class="absolute top-4 right-5 text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+            <div class="flex flex-col md:flex-row gap-6 mt-2">
+                <img id="modalCover" src="" class="w-32 h-48 object-cover rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] mx-auto md:mx-0">
+                <div class="flex-1 flex flex-col">
+                    <h2 id="modalTitle" class="text-3xl font-bold text-white mb-1"></h2>
+                    <p id="modalAuthor" class="text-indigo-400 font-semibold text-sm mb-4"></p>
+                    <a id="modalReadBtn" href="#" class="inline-block bg-white text-black font-bold py-3 px-8 rounded-full text-center hover:bg-gray-200 transition mb-6 shadow-lg w-max">
+                        Mulai membaca
+                    </a>
+                    <div class="border-t border-white/10 pt-4">
+                        <h3 class="text-sm font-bold mb-2 text-gray-400 uppercase tracking-widest">Ringkasan</h3>
+                        <p id="modalSynopsis" class="text-sm text-gray-300 leading-relaxed text-justify"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        const searchStoriesData = @json($searchStories);
+
+        function openSearchModal(id) {
+            const story = searchStoriesData[id];
+            document.getElementById('modalCover').src = story.cover;
+            document.getElementById('modalTitle').innerText = story.title;
+            document.getElementById('modalAuthor').innerText = story.author;
+            document.getElementById('modalSynopsis').innerText = story.synopsis;
+            document.getElementById('modalReadBtn').href = `/stories/read/${id}?chapter=1`;
+
+            const modal = document.getElementById('synopsisModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeSearchModal() {
+            const modal = document.getElementById('synopsisModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200); 
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('main-search-input');
             const searchForm = document.getElementById('search-form');
@@ -188,7 +257,6 @@
             const historyItems = document.querySelectorAll('.history-item');
             const resultCards = document.querySelectorAll('.result-card');
 
-            // Fitur pengaman agar klik tombol tidak bentrok dengan hilangnya kursor
             let isClickingUI = false;
 
             function performSearch(keyword) {
@@ -219,7 +287,6 @@
                 }
             }
 
-            // Fungsi mundur ke tampilan Paling Awal (Kotak Genre)
             function resetToInitial() {
                 searchInput.value = '';
                 stateHistory.classList.add('hidden');
@@ -238,9 +305,8 @@
                 }
             });
 
-            // Saat klik di luar, cek dulu apakah lagi mencet tombol
             searchInput.addEventListener('blur', function() {
-                if (isClickingUI) return; // Kalo lagi mencet tombol, jangan di-reset dulu
+                if (isClickingUI) return; 
                 setTimeout(() => {
                     if (this.value.trim() === '') {
                         resetToInitial();
@@ -264,26 +330,22 @@
                 performSearch(searchInput.value);
             });
 
-            // LOGIKA KLIK TOMBOL BACK 
             backBtn.addEventListener('mousedown', () => isClickingUI = true);
             backBtn.addEventListener('mouseup', () => setTimeout(() => isClickingUI = false, 100));
             backBtn.addEventListener('click', function(e) {
                 e.preventDefault(); 
                 
                 if (searchInput.value.trim() !== '') {
-                    // Kalo lagi ngetik/nyari, hapus teks dan mundur selangkah ke Saran Pencarian
                     searchInput.value = ''; 
                     stateResults.classList.add('hidden');
                     stateGrid.classList.add('hidden');
                     stateHistory.classList.remove('hidden');
-                    searchInput.focus(); // Kursor langsung stand-by siap ngetik lagi
+                    searchInput.focus(); 
                 } else {
-                    // Kalo emang kolomnya kosong, mundur total ke Layar Awal
                     resetToInitial();
                 }
             });
 
-            // LOGIKA KLIK KARTU & SARAN
             genreCards.forEach(card => {
                 card.addEventListener('mousedown', () => isClickingUI = true);
                 card.addEventListener('mouseup', () => setTimeout(() => isClickingUI = false, 100));
