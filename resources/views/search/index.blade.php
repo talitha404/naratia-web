@@ -29,8 +29,12 @@
 <body class="space-bg text-white min-h-screen relative">
 
     @php
+        // Ambil nama karakter dari session
+        $user = session('user');
+        $charName = is_array($user) ? ($user['character_name'] ?? 'Princess') : ($user->character_name ?? 'Princess');
+
         // DATA SINOPSIS KHUSUS PENCARIAN
-        $searchStories = [
+        $rawSearchStories = [
             '11' => [
                 'title' => 'Teori Mimpi',
                 'author' => 'Aya Reid',
@@ -50,6 +54,13 @@
                 'synopsis' => 'Jika kamu bisa memutar waktu, kenangan mana yang ingin kamu hapus? Itulah yang dialami yn saat menemukan mesin tik tua peninggalan ibunya. Mengetik di atasnya bisa merubah realitas masa lalu. Namun, alam semesta selalu menuntut bayaran, dan yn harus membayar mahal untuk setiap kenangan yang ia hapus.',
             ]
         ];
+
+        // Sulap nama 'yn' di sinopsis jadi nama karakter dengan warna
+        $searchStories = [];
+        foreach ($rawSearchStories as $id => $story) {
+            $story['synopsis'] = preg_replace('/\byn\b/i', "<span class='text-indigo-400 font-bold'>$charName</span>", $story['synopsis']);
+            $searchStories[$id] = $story;
+        }
     @endphp
 
     <header class="flex justify-between items-center p-6 sticky top-0 bg-black/20 backdrop-blur-xl z-20 border-b border-white/10 shadow-sm">
@@ -219,7 +230,8 @@
             document.getElementById('modalCover').src = story.cover;
             document.getElementById('modalTitle').innerText = story.title;
             document.getElementById('modalAuthor').innerText = story.author;
-            document.getElementById('modalSynopsis').innerText = story.synopsis;
+            // Gunakan innerHTML agar tag <span> warna birunya terbaca!
+            document.getElementById('modalSynopsis').innerHTML = story.synopsis; 
             document.getElementById('modalReadBtn').href = `/stories/read/${id}?chapter=1`;
 
             const modal = document.getElementById('synopsisModal');
