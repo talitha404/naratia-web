@@ -82,4 +82,42 @@ class WebController extends Controller
 
         return redirect()->route('profil')->with('success', 'Profil berhasil diperbarui!');
     }
+
+    // === 5. FUNGSI UNTUK SWITCH ROLE (PEMBACA <-> PENULIS) ===
+    public function switchRole()
+    {
+        $userId = session('user')->id; 
+        $user = \App\Models\User::find($userId);
+
+        if ($user) {
+            // Logika bolak-balik (toggle) role
+            if ($user->role === 'penulis') {
+                $user->role = 'pembaca';
+                $user->save();
+                session(['user' => $user]); // Refresh session
+
+                // Jika dari Penulis ubah ke Pembaca (lewat icon profil), arahkan ke profil
+                return redirect('/profil');
+            } else {
+                $user->role = 'penulis';
+                $user->save();
+                session(['user' => $user]); // Refresh session
+
+                // Jika dari Pembaca setuju jadi Penulis (lewat popup penawaran), masuk ke dashboard nulis
+                return redirect('/write');
+            }
+        }
+
+        return back();
+    }
+
+    // === 6. FUNGSI UNTUK CETAK REPORT PEMBACA (BARU) ===
+    public function cetakReport()
+    {
+        // Mengambil data user aktif dari session
+        $user = session('user');
+
+        // Mengarahkan ke halaman view khusus laporan cetak
+        return view('profil.report', compact('user'));
+    }
 }
