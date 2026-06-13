@@ -38,6 +38,7 @@ Route::middleware('check.login')->group(function () {
         Route::get('/', fn() => view('write.index'))->name('write.index');
         // Route::get('/buatcerita', fn() => view('write.buatcerita'))->name('write.buatcerita'); entah ini apa gunanya
         Route::get('/write/buatcerita', [WriteController::class, 'create'])->name('write.buatcerita'); //kuncinya disini untuk akses ke halaman buat cerita
+        Route::post('/write', [WriteController::class, 'store'])->name('write.store');
         Route::get('/buat-cerita', [WriteController::class, 'create']);
         // Save draft and open editor
         Route::post('/', [WriteController::class, 'store'])->name('write.store');

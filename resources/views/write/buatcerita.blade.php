@@ -53,9 +53,9 @@
                 Batalkan
             </button>
             <!-- SAMPAI SINI, EROR DI TOMBOL BAWAH -->
-            <!-- <button form="create-story-form" type="submit" class="px-5 py-2 text-sm font-semibold text-slate-950 bg-white hover:bg-slate-200 rounded-full transition-all shadow-md shadow-white/5">
+            <button form="create-story-form" type="submit" class="px-5 py-2 text-sm font-semibold text-slate-950 bg-white hover:bg-slate-200 rounded-full transition-all shadow-md shadow-white/5">
                 {{ (isset($story) && is_object($story)) ? 'Simpan Perubahan' : 'Simpan & Lanjutkan' }}
-            </button> -->
+            </button>
         </div>
     </header>
 
