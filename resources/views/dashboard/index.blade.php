@@ -27,21 +27,25 @@
 <body class="space-bg text-white min-h-screen relative">
 
     @php
-        // DATA CERITA DASHBOARD (LENGKAP DENGAN SINOPSIS BARU UNTUK 5 NOVEL)
-        $dashboardStories = [
+        // Ambil nama karakter dari session
+        $user = session('user');
+        $charName = is_array($user) ? ($user['character_name'] ?? 'Princess') : ($user->character_name ?? 'Princess');
+
+        // DATA CERITA DASHBOARD (Mentahan dengan menggunakan 'yn')
+        $rawDashboardStories = [
             '101' => [
                 'title' => 'Dunia di Balik Layar',
                 'author' => 'Emi Thasorn',
                 'genre' => 'Fiksi',
                 'cover' => 'https://picsum.photos/seed/naratia1/300/400',
-                'synopsis' => 'Gemerlap dunia hiburan tidak seindah yang terlihat di layar kaca. Mita, seorang asisten sutradara magang, tidak sengaja menemukan rahasia kelam di balik produksi film terbesar tahun ini. Nyawanya kini terancam oleh orang-orang yang rela melakukan apa saja demi rating dan popularitas.',
+                'synopsis' => 'Gemerlap dunia hiburan tidak seindah yang terlihat di layar kaca. yn, seorang asisten sutradara magang, tidak sengaja menemukan rahasia kelam di balik produksi film terbesar tahun ini. Nyawanya kini terancam oleh orang-orang yang rela melakukan apa saja demi rating dan popularitas.',
             ],
             '102' => [
                 'title' => 'Jejak Waktu',
                 'author' => 'Tipnaree Racha',
                 'genre' => 'Misteri',
                 'cover' => 'https://picsum.photos/seed/naratiaA/300/400',
-                'synopsis' => 'Reno menemukan sebuah jam saku kuno di tumpukan barang antik milik mendiang kakeknya. Tanpa sengaja memutar jarumnya ke arah berlawanan, Reno terlempar kembali ke tahun 1998, tepat di hari kakeknya dituduh melakukan kejahatan yang tidak pernah ia lakukan.',
+                'synopsis' => 'yn menemukan sebuah jam saku kuno di tumpukan barang antik milik mendiang kakeknya. Tanpa sengaja memutar jarumnya ke arah berlawanan, yn terlempar kembali ke tahun 1998, tepat di hari kakeknya dituduh melakukan kejahatan yang tidak pernah ia lakukan.',
             ],
             '6' => [
                 'title' => 'Kisah Kita',
@@ -79,6 +83,13 @@
                 'synopsis' => 'Perjalanan melintasi galaksi untuk menemukan planet yang hilang. Misi ini menentukan nasib seluruh umat manusia di bumi.',
             ]
         ];
+
+        // Looping untuk menyulap kata 'yn' menjadi nama karakter dengan efek warna biru
+        $dashboardStories = [];
+        foreach ($rawDashboardStories as $id => $story) {
+            $story['synopsis'] = preg_replace('/\byn\b/i', "<span class='text-indigo-400 font-bold'>$charName</span>", $story['synopsis']);
+            $dashboardStories[$id] = $story;
+        }
     @endphp
 
     <!-- HEADER -->
@@ -112,7 +123,7 @@
         </div>
     </section>
 
-    <!-- LANJUT BACA (Ini sengaja kubiarkan langsung baca, karena judulnya "Lanjut Baca") -->
+    <!-- LANJUT BACA -->
     <section class="px-6 mb-10">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Lanjut baca</h2>
@@ -277,7 +288,9 @@
             document.getElementById('modalCover').src = story.cover;
             document.getElementById('modalTitle').innerText = story.title;
             document.getElementById('modalAuthor').innerText = story.author;
-            document.getElementById('modalSynopsis').innerText = story.synopsis;
+            
+            // Diubah ke innerHTML agar elemen <span class="..."> bisa terbaca dan tidak menjadi teks mentah
+            document.getElementById('modalSynopsis').innerHTML = story.synopsis;
             
             // Atur link tombol baca ke halaman read-nya
             document.getElementById('modalReadBtn').href = `/stories/read/${id}?chapter=1`;

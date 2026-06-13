@@ -139,7 +139,7 @@
         <a href="/library" class="p-3 hover:bg-white/10 rounded-xl transition"><img src="https://img.icons8.com/material-outlined/24/ffffff/book.png" class="w-6 h-6"/></a>
         <a href="{{ route('search') }}" class="p-3 hover:bg-white/10 rounded-xl transition"><img src="https://img.icons8.com/material-outlined/24/ffffff/search.png" class="w-6 h-6"/></a>
         <a href="{{ route('write.index') }}" class="p-3 hover:bg-white/10 rounded-xl transition"><img src="https://img.icons8.com/material-outlined/24/ffffff/edit.png" class="w-6 h-6"/></a>
-        <a href="{{ route('profil') }}" class="p-3 bg-white/20 shadow-inner rounded-xl transition"><img src="https://img.icons8.com/material-filled/24/ffffff/user.png" class="w-6 h-6"/></a>
+        <a href="{{ route('profil') }}" class="p-3 bg-white/20 shadow-inner rounded-xl transition"><img src="https://img.icons8.com/material-rounded/24/ffffff/user.png" class="w-6 h-6"/></a>
     </div>
 </nav>
 
