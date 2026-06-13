@@ -31,7 +31,6 @@
 
 @php
     $user = session('user');
-    // Ambil role dari session, default pembaca
     $role = is_array($user) ? ($user['role'] ?? 'pembaca') : ($user->role ?? 'pembaca');
     $isWriter = ($role === 'penulis');
     $works = is_array($user) ? ($user['works'] ?? []) : ($user->works ?? []);
@@ -65,7 +64,6 @@
     </div>
 </header>
 
-<!-- TOMBOL SWITCH MODE BENTUK IKON (HANYA MUNCUL JIKA PENULIS) -->
 @if($isWriter)
 <div class="absolute right-6 top-24 z-10">
     <form action="{{ route('user.switch-role') }}" method="POST">
@@ -123,12 +121,41 @@
             </div>
         @endif
     @else
-        <div class="mb-5">
-            <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Aktivitas Membaca</h2>
-            <p class="text-sm text-gray-500 mt-1">Genre yang paling sering dibaca</p>
+        <!-- TAMPILAN STATISTIK PEMBACA (DENGAN TOMBOL CETAK OPSI 1) -->
+        <div class="mb-6 flex justify-between items-end">
+            <div>
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Aktivitas Membaca</h2>
+                <p class="text-sm text-gray-500 mt-1">Pantau perkembangan membacamu</p>
+            </div>
+            
+            <!-- Tombol Cetak Report Sejajar Kanan Layar -->
+            <a href="{{ route('pembaca.cetak-report') }}" target="_blank" class="flex items-center gap-2 px-3 py-1.5 bg-[#1a1c29] border border-white/10 hover:bg-indigo-600 hover:border-indigo-600 rounded-xl text-xs font-semibold text-gray-400 hover:text-white transition duration-300 shadow-md mb-1">
+                <span>🖨️</span> Cetak
+            </a>
         </div>
-        <div class="bg-[#0a0f1d] border border-white/10 rounded-3xl p-5 shadow-lg relative h-72 w-full">
-            <canvas id="readingChart"></canvas>
+        
+        <div class="flex flex-col gap-6">
+            <!-- 1. Grafik Batang: Progress Mingguan Bab -->
+            <div class="bg-[#0a0f1d] border border-white/10 rounded-3xl p-5 shadow-lg">
+                <div class="mb-3">
+                    <h3 class="text-sm font-semibold text-white">Konsistensi Membaca</h3>
+                    <p class="text-xs text-gray-400">Jumlah bab yang diselesaikan 7 hari terakhir</p>
+                </div>
+                <div class="relative h-48 w-full">
+                    <canvas id="chaptersChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 2. Grafik Lingkaran: Preferensi Genre -->
+            <div class="bg-[#0a0f1d] border border-white/10 rounded-3xl p-5 shadow-lg">
+                <div class="mb-3">
+                    <h3 class="text-sm font-semibold text-white">Fokus Genre</h3>
+                    <p class="text-xs text-gray-400">Kategori konten yang paling sering kamu nikmati</p>
+                </div>
+                <div class="relative h-48 w-full">
+                    <canvas id="readingChart"></canvas>
+                </div>
+            </div>
         </div>
     @endif
 </div>
@@ -152,9 +179,36 @@
     // Logic Chart
     @if(!$isWriter)
     document.addEventListener('DOMContentLoaded', function () {
-        const ctx = document.getElementById('readingChart');
-        if (ctx) {
-            new Chart(ctx, {
+        // --- GRAFIK 1: KONSISTENSI BAB (BAR) ---
+        const ctxChapters = document.getElementById('chaptersChart');
+        if (ctxChapters) {
+            new Chart(ctxChapters, {
+                type: 'bar',
+                data: {
+                    labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
+                    datasets: [{
+                        data: [4, 7, 2, 0, 9, 14, 5], 
+                        backgroundColor: '#6366F1', 
+                        borderRadius: 6,
+                        barThickness: 16
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#9ca3af', font: { size: 10 } } },
+                        y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#64748b', font: { size: 9 } } }
+                    }
+                }
+            });
+        }
+
+        // --- GRAFIK 2: GENRE (DOUGHNUT) ---
+        const ctxGenre = document.getElementById('readingChart');
+        if (ctxGenre) {
+            new Chart(ctxGenre, {
                 type: 'doughnut',
                 data: {
                     labels: ['Fantasi', 'Romance', 'Horor', 'Misteri'],
@@ -169,7 +223,7 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'bottom', labels: { color: '#ffffff', padding: 20 } }
+                        legend: { position: 'right', labels: { color: '#ffffff', boxWidth: 12, font: { size: 11 } } }
                     }
                 }
             });

@@ -38,6 +38,7 @@ Route::middleware('check.login')->group(function () {
         Route::get('/edit', fn() => view('profil.edit'))->name('profil.edit');
         Route::post('/update', [WebController::class, 'updateProfil'])->name('profil.update');
         Route::post('/switch-role', [WebController::class, 'switchRole'])->name('user.switch-role');
+        Route::get('/cetak-report', [WebController::class, 'cetakReport'])->name('pembaca.cetak-report');
     });
 
     // Write Group
