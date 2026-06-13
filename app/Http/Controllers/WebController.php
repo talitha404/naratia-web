@@ -110,4 +110,14 @@ class WebController extends Controller
 
         return back();
     }
+
+    // === 6. FUNGSI UNTUK CETAK REPORT PEMBACA (BARU) ===
+    public function cetakReport()
+    {
+        // Mengambil data user aktif dari session
+        $user = session('user');
+
+        // Mengarahkan ke halaman view khusus laporan cetak
+        return view('profil.report', compact('user'));
+    }
 }
