@@ -3,45 +3,109 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Story;
+use App\Models\Genre;
+use App\Models\Chapter;
 
 class WriteController extends Controller
 {
-    // Simpan draft sederhana ke session lalu redirect ke editor
-    public function store(Request $request)
-    {
-        $data = [
-            'title' => $request->input('title', ''),
-            'description' => $request->input('description', ''),
-            'type' => $request->input('type', ''),
-        ];
-
-        $id = (string) time();
-
-        $drafts = session('drafts', []);
-        $drafts[$id] = array_merge(['id' => $id, 'created_at' => now()->toDateTimeString()], $data);
-        session(['drafts' => $drafts]);
-
-        return redirect()->route('write.editor', ['id' => $id]);
+    // ✅ Menampilkan daftar cerita milik user
+    public function index() {
+        $stories = Story::where('user_id', Auth::id())->latest()->get();
+        $genres = Genre::all();
+        return view('write.index', compact('stories','genres'));
     }
 
-    // Tampilkan editor dan berikan data draft jika ada
-    public function editor($id)
-    {
-        $drafts = session('drafts', []);
-        $story = $drafts[$id] ?? null;
-
-        return view('write.editor', ['story' => $story]);
+    // ✅ Menampilkan form buat cerita baru
+    public function create() {
+        $genres = Genre::all();
+        return view('write.buatcerita', compact('genres'));
     }
 
-    // Tampilkan pratinjau (preview) dari draft
-    public function preview($id)
-    {
-        $drafts = session('drafts', []);
-        $story = $drafts[$id] ?? null;
+    // ✅ Membuat cerita baru
+    public function store(Request $request) {
+        $request->validate([
+            'title'       => 'required|max:255',
+            'description' => 'required',
+            'genre_id'    => 'required',
+            'cover'       => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:5120'
+        ]);
 
-        $title = $story['title'] ?? null;
-        $content = $story['description'] ?? null;
+        $coverPath = null;
+        if ($request->hasFile('cover')) {
+            $coverPath = $request->file('cover')->store('covers', 'public');
+        }
 
-        return view('write.pratinjau', compact('title', 'content', 'id'));
+        $story = Story::create([
+            'user_id'    => Auth::id(),
+            'genre_id'   => $request->genre_id,
+            'title'      => $request->title,
+            'description'=> $request->description,
+            'cover'      => $coverPath,
+            'status'     => 'draft',
+        ]);
+
+        return redirect()->route('chapters.create', ['story_id' => $story->id])
+                         ->with('success', 'Cerita berhasil dibuat!');
+    }
+
+    // ✅ Edit cerita
+    public function edit(int $id) {
+        $story  = Story::findOrFail($id);
+        $genres = Genre::all();
+        return view('write.buatcerita', compact('story', 'genres'));
+    }
+
+    // ✅ Update cerita
+    public function update(Request $request, int $id) {
+        $story = Story::findOrFail($id);
+
+        $request->validate([
+            'title'       => 'required|max:255',
+            'description' => 'required',
+            'genre_id'    => 'nullable',
+            'cover'       => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:5120'
+        ]);
+
+        if ($request->hasFile('cover')) {
+            if ($story->cover) {
+                Storage::disk('public')->delete($story->cover);
+            }
+            $story->cover = $request->file('cover')->store('covers', 'public');
+        }
+
+        $story->title       = $request->title;
+        $story->description = $request->description;
+        if ($request->genre_id) {
+            $story->genre_id = $request->genre_id;
+        }
+        $story->save();
+
+        return redirect()->route('write.index')->with('success', 'Cerita berhasil diperbarui!');
+    }
+
+    // ✅ Menampilkan editor untuk chapter baru
+    public function createChapter(Story $story) {
+        return view('write.editor', compact('story'));
+    }
+
+    // ✅ Simpan chapter baru
+    public function storeChapter(Request $request, Story $story) {
+        $validated = $request->validate([
+            'title'          => 'required|max:255',
+            'content'        => 'required',
+            'chapter_number' => 'required|integer'
+        ]);
+
+        Chapter::create([
+            'story_id'       => $story->id,
+            'title'          => $validated['title'],
+            'content'        => $validated['content'],
+            'chapter_number' => $validated['chapter_number'],
+        ]);
+
+        return redirect()->route('write.index')->with('success', 'Chapter berhasil disimpan!');
     }
 }
