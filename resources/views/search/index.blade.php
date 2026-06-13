@@ -34,8 +34,15 @@
 
     <div class="max-w-7xl mx-auto p-6 text-white pb-32 pt-10 px-6 sm:px-10">
         
-        <div class="relative mb-10 text-black">
-            <form id="search-form" action="" method="GET">
+        <!-- KOLOM PENCARIAN & TOMBOL BACK -->
+        <div class="flex items-center gap-4 mb-10">
+            <!-- Tombol Back -->
+            <button id="back-to-grid-btn" class="hidden shrink-0 p-4 bg-white/5 hover:bg-white/20 transition rounded-full border border-white/20 backdrop-blur-md shadow-lg focus:outline-none">
+                <img src="https://img.icons8.com/ios-filled/24/ffffff/left.png" class="w-5 h-5"/>
+            </button>
+
+            <!-- Form Search -->
+            <form id="search-form" action="" method="GET" class="w-full relative text-black">
                 <input type="text" 
                        id="main-search-input"
                        placeholder="Cari Novel, Genre, atau Penulis..." 
@@ -47,6 +54,7 @@
 
         <main id="search-content-area">
 
+            <!-- TAMPILAN AWAL (GRID GENRE) -->
             <div id="state-initial-grid" class="space-y-6 transition-all duration-300">
                 <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-5">Pencarian Populer</h2>
                 
@@ -76,34 +84,36 @@
                 </div>
             </div>
 
+            <!-- TAMPILAN SARAN PENCARIAN -->
             <div id="state-search-history" class="space-y-6 hidden transition-all duration-300">
-                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Pencarian Sebelumnya</h2>
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Saran Pencarian</h2>
                 <div class="space-y-3">
                     <div class="history-item flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/5 cursor-pointer hover:bg-white/10 transition">
-                        <img src="https://img.icons8.com/ios-glyphs/30/9ca3af/history.png" class="w-5 h-5"/>
-                        <span class="text-sm text-gray-300">kisah cinta masa sekolah</span>
+                        <img src="https://img.icons8.com/ios-glyphs/30/9ca3af/search--v1.png" class="w-5 h-5"/>
+                        <span class="text-sm text-gray-300">Teori Mimpi</span>
                     </div>
                     <div class="history-item flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/5 cursor-pointer hover:bg-white/10 transition">
-                        <img src="https://img.icons8.com/ios-glyphs/30/9ca3af/history.png" class="w-5 h-5"/>
-                        <span class="text-sm text-gray-300">A Theory Dreaming</span>
+                        <img src="https://img.icons8.com/ios-glyphs/30/9ca3af/search--v1.png" class="w-5 h-5"/>
+                        <span class="text-sm text-gray-300">Misteri</span>
                     </div>
                     <div class="history-item flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/5 cursor-pointer hover:bg-white/10 transition">
-                        <img src="https://img.icons8.com/ios-glyphs/30/9ca3af/history.png" class="w-5 h-5"/>
-                        <span class="text-sm text-gray-300">misteri lab komputer</span>
+                        <img src="https://img.icons8.com/ios-glyphs/30/9ca3af/search--v1.png" class="w-5 h-5"/>
+                        <span class="text-sm text-gray-300">Yier Xing</span>
                     </div>
                 </div>
             </div>
 
+            <!-- TAMPILAN HASIL PENCARIAN -->
             <div id="state-search-results" class="space-y-8 hidden transition-all duration-300">
                 <h2 id="result-title" class="text-xs font-bold text-indigo-400 uppercase tracking-[0.2em]">Hasil untuk "..."</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     
-                    <div class="flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
+                    <div class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
                         <img src="https://picsum.photos/seed/search_result1/300/400" class="w-24 h-36 object-cover rounded-xl border border-white/10 shrink-0 shadow-xl group-hover:scale-105 transition-transform duration-300">
                         <div class="flex-col flex justify-center">
-                            <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">A THEORY DREAMING</h3>
-                            <p class="text-xs text-indigo-300 font-semibold mb-3">AYA_REID</p>
+                            <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">Teori Mimpi</h3>
+                            <p class="text-xs text-indigo-300 font-semibold mb-3">Aya Reid</p>
                             <div class="flex gap-2 mb-3">
                                 <span class="text-[10px] bg-white text-black px-3 py-1 rounded-full font-extrabold uppercase tracking-wider shadow-inner">ROMANTIS</span>
                                 <span class="text-[10px] bg-white text-black px-3 py-1 rounded-full font-extrabold uppercase tracking-wider shadow-inner">FANTASI</span>
@@ -112,11 +122,11 @@
                         </div>
                     </div>
 
-                    <div class="flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
+                    <div class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
                         <img src="https://picsum.photos/seed/search_result2/300/400" class="w-24 h-36 object-cover rounded-xl border border-white/10 shrink-0 shadow-xl group-hover:scale-105 transition-transform duration-300">
                         <div class="flex-col flex justify-center">
-                            <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">WHAT SHOULD BE WILD</h3>
-                            <p class="text-xs text-indigo-300 font-semibold mb-3">JULIA_FINE</p>
+                            <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">Alam Liar</h3>
+                            <p class="text-xs text-indigo-300 font-semibold mb-3">Julyana</p>
                             <div class="flex gap-2 mb-3">
                                 <span class="text-[10px] bg-white text-black px-3 py-1 rounded-full font-extrabold uppercase tracking-wider shadow-inner">MISTERI</span>
                             </div>
@@ -124,11 +134,11 @@
                         </div>
                     </div>
 
-                    <div class="flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
+                    <div class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
                         <img src="https://picsum.photos/seed/search_result3/300/400" class="w-24 h-36 object-cover rounded-xl border border-white/10 shrink-0 shadow-xl group-hover:scale-105 transition-transform duration-300">
                         <div class="flex-col flex justify-center">
-                            <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">REWRITING MEMORIES</h3>
-                            <p class="text-xs text-indigo-300 font-semibold mb-3">RINDI ANTIKA Q.</p>
+                            <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">Menuliskan Kenangan</h3>
+                            <p class="text-xs text-indigo-300 font-semibold mb-3">Yier Xing</p>
                             <div class="flex gap-2 mb-3">
                                 <span class="text-[10px] bg-white text-black px-3 py-1 rounded-full font-extrabold uppercase tracking-wider shadow-inner">KEHIDUPAN</span>
                                 <span class="text-[10px] bg-white text-black px-3 py-1 rounded-full font-extrabold uppercase tracking-wider shadow-inner">DRAMA</span>
@@ -143,26 +153,22 @@
         </main>
     </div>
 
-    <!-- INI YANG ERROR TADI (Udah dihapus ikon buku dobelnya) -->
+    <!-- NAVBAR BAWAH -->
     <nav class="fixed bottom-0 w-full px-6 pb-8 pt-4 z-20">
         <div class="bg-indigo-600/40 backdrop-blur-xl h-16 rounded-2xl flex justify-around items-center shadow-[0_10px_40px_rgba(79,70,229,0.4)] border border-white/20">
-            <a href="{{ route('dashboard') }}" class="p-3 {{ request()->routeIs('dashboard') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
+            <a href="/dashboard" class="p-3 hover:bg-white/10 rounded-xl transition">
                 <img src="https://img.icons8.com/material-rounded/24/ffffff/home.png" class="w-6 h-6"/>
             </a>
-            
             <a href="/library" class="p-3 hover:bg-white/10 rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/book.png" class="w-6 h-6"/>
             </a>
-            
-            <a href="{{ route('search') }}" class="p-3 {{ request()->routeIs('search') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
+            <a href="/search" class="p-3 bg-white/20 shadow-inner rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/search.png" class="w-6 h-6"/>
             </a>
-            
-            <a href="{{ route('write.index') }}" class="p-3 hover:bg-white/10 rounded-xl transition">
+            <a href="/write" class="p-3 hover:bg-white/10 rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/edit.png" class="w-6 h-6"/>
             </a>
-            
-            <a href="{{ route('profil') }}" class="p-3 {{ request()->routeIs('profil') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
+            <a href="/profil" class="p-3 hover:bg-white/10 rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/user.png" class="w-6 h-6"/>
             </a>
         </div>
@@ -176,11 +182,55 @@
             const stateHistory = document.getElementById('state-search-history');
             const stateResults = document.getElementById('state-search-results');
             const resultTitle = document.getElementById('result-title');
+            const backBtn = document.getElementById('back-to-grid-btn');
             
             const genreCards = document.querySelectorAll('.genre-card');
             const historyItems = document.querySelectorAll('.history-item');
+            const resultCards = document.querySelectorAll('.result-card');
+
+            // Fitur pengaman agar klik tombol tidak bentrok dengan hilangnya kursor
+            let isClickingUI = false;
+
+            function performSearch(keyword) {
+                if (keyword.trim() === '') return;
+                
+                const lowerKeyword = keyword.toLowerCase();
+                let foundAny = false;
+
+                resultCards.forEach(card => {
+                    const cardText = card.innerText.toLowerCase();
+                    if (cardText.includes(lowerKeyword)) {
+                        card.style.display = 'flex';
+                        foundAny = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                stateGrid.classList.add('hidden');
+                stateHistory.classList.add('hidden');
+                stateResults.classList.remove('hidden');
+                backBtn.classList.remove('hidden');
+                
+                if (foundAny) {
+                    resultTitle.innerText = 'Hasil untuk "' + keyword + '"';
+                } else {
+                    resultTitle.innerText = 'TIDAK DITEMUKAN HASIL UNTUK "' + keyword.toUpperCase() + '"';
+                }
+            }
+
+            // Fungsi mundur ke tampilan Paling Awal (Kotak Genre)
+            function resetToInitial() {
+                searchInput.value = '';
+                stateHistory.classList.add('hidden');
+                stateResults.classList.add('hidden');
+                backBtn.classList.add('hidden');
+                stateGrid.classList.remove('hidden');
+                searchInput.blur();
+            }
 
             searchInput.addEventListener('focus', function() {
+                backBtn.classList.remove('hidden');
                 if (this.value.trim() === '') {
                     stateGrid.classList.add('hidden');
                     stateHistory.classList.remove('hidden');
@@ -188,49 +238,72 @@
                 }
             });
 
+            // Saat klik di luar, cek dulu apakah lagi mencet tombol
             searchInput.addEventListener('blur', function() {
+                if (isClickingUI) return; // Kalo lagi mencet tombol, jangan di-reset dulu
                 setTimeout(() => {
                     if (this.value.trim() === '') {
-                        stateGrid.classList.remove('hidden');
-                        stateHistory.classList.add('hidden');
-                        stateResults.classList.add('hidden');
+                        resetToInitial();
                     }
                 }, 200);
             });
 
-            searchForm.addEventListener('submit', function(e) {
-                e.preventDefault(); 
-                const keyword = searchInput.value.trim();
-                
-                if (keyword !== '') {
+            searchInput.addEventListener('input', function() {
+                backBtn.classList.remove('hidden');
+                if (this.value.trim() !== '') {
+                    performSearch(this.value);
+                } else {
                     stateGrid.classList.add('hidden');
-                    stateHistory.classList.add('hidden');
-                    stateResults.classList.remove('hidden');
-                    resultTitle.innerText = 'Hasil untuk "' + keyword + '"';
+                    stateHistory.classList.remove('hidden');
+                    stateResults.classList.add('hidden');
                 }
             });
 
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                performSearch(searchInput.value);
+            });
+
+            // LOGIKA KLIK TOMBOL BACK 
+            backBtn.addEventListener('mousedown', () => isClickingUI = true);
+            backBtn.addEventListener('mouseup', () => setTimeout(() => isClickingUI = false, 100));
+            backBtn.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                
+                if (searchInput.value.trim() !== '') {
+                    // Kalo lagi ngetik/nyari, hapus teks dan mundur selangkah ke Saran Pencarian
+                    searchInput.value = ''; 
+                    stateResults.classList.add('hidden');
+                    stateGrid.classList.add('hidden');
+                    stateHistory.classList.remove('hidden');
+                    searchInput.focus(); // Kursor langsung stand-by siap ngetik lagi
+                } else {
+                    // Kalo emang kolomnya kosong, mundur total ke Layar Awal
+                    resetToInitial();
+                }
+            });
+
+            // LOGIKA KLIK KARTU & SARAN
             genreCards.forEach(card => {
-                card.addEventListener('click', function() {
+                card.addEventListener('mousedown', () => isClickingUI = true);
+                card.addEventListener('mouseup', () => setTimeout(() => isClickingUI = false, 100));
+                card.addEventListener('click', function(e) {
+                    e.preventDefault(); 
                     const genreName = this.getAttribute('data-genre');
                     searchInput.value = genreName; 
-                    
-                    stateGrid.classList.add('hidden');
-                    stateHistory.classList.add('hidden');
-                    stateResults.classList.remove('hidden');
+                    performSearch(genreName);
                     resultTitle.innerText = 'Buku Kategori: ' + genreName;
                 });
             });
 
             historyItems.forEach(item => {
-                item.addEventListener('click', function() {
+                item.addEventListener('mousedown', () => isClickingUI = true);
+                item.addEventListener('mouseup', () => setTimeout(() => isClickingUI = false, 100));
+                item.addEventListener('click', function(e) {
+                    e.preventDefault(); 
                     const historyText = this.querySelector('span').innerText;
                     searchInput.value = historyText;
-                    
-                    stateGrid.classList.add('hidden');
-                    stateHistory.classList.add('hidden');
-                    stateResults.classList.remove('hidden');
-                    resultTitle.innerText = 'Hasil untuk "' + historyText + '"';
+                    performSearch(historyText);
                 });
             });
         });
