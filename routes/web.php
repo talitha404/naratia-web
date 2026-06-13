@@ -36,12 +36,16 @@ Route::middleware('check.login')->group(function () {
     // Write Group
     Route::prefix('write')->group(function () {
         Route::get('/', fn() => view('write.index'))->name('write.index');
-        Route::get('/buatcerita', fn() => view('write.buatcerita'))->name('write.buatcerita');
+        // Route::get('/buatcerita', fn() => view('write.buatcerita'))->name('write.buatcerita'); entah ini apa gunanya
+        Route::get('/write/buatcerita', [WriteController::class, 'create'])->name('write.buatcerita'); //kuncinya disini untuk akses ke halaman buat cerita
+        Route::get('/buat-cerita', [WriteController::class, 'create']);
         // Save draft and open editor
         Route::post('/', [WriteController::class, 'store'])->name('write.store');
         Route::get('/editor/{id}', [WriteController::class, 'editor'])->name('write.editor');
         // Pratinjau (preview) route for drafts
         Route::get('/pratinjau/{id}', [WriteController::class, 'preview'])->name('write.preview');
+        Route::get('/write/create', [WriteController::class, 'create'])->name('write.create');
+        Route::get('/write/{id}/edit', [WriteController::class, 'edit'])->name('write.edit');
     });
 });
 
