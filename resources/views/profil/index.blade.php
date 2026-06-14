@@ -33,7 +33,24 @@
     $user = session('user');
     $role = is_array($user) ? ($user['role'] ?? 'pembaca') : ($user->role ?? 'pembaca');
     $isWriter = ($role === 'penulis');
-    $works = is_array($user) ? ($user['works'] ?? []) : ($user->works ?? []);
+    
+    // Ambil ID User yang sedang login
+    $userId = is_array($user) ? ($user['id'] ?? null) : ($user->id ?? null);
+
+    // Tarik daftar karya milik user ini dari database (hanya yang sudah dipublish)
+    $dbWorks = \App\Models\Story::where('user_id', $userId)
+        ->whereHas('chapters', function($query) {
+            $query->where('status', 'published');
+        })->get();
+
+    $works = [];
+    foreach ($dbWorks as $w) {
+        $works[] = [
+            'id' => $w->id,
+            'title' => $w->title,
+            'cover' => $w->cover_image ? asset('storage/' . $w->cover_image) : 'https://picsum.photos/seed/'.$w->id.'/200/300',
+        ];
+    }
 @endphp
 
 @if(!$user)
@@ -108,11 +125,11 @@
         @if(count($works) > 0)
             <div class="flex gap-4 overflow-x-auto no-scrollbar py-2">
                 @foreach($works as $work)
-                    <div class="min-w-[120px] group cursor-pointer">
+                    <a href="/stories/read/{{ $work['id'] }}?chapter=1" class="min-w-[120px] group cursor-pointer block">
                         <img src="{{ $work['cover'] ?? 'https://picsum.photos/seed/novel1/200/300' }}" class="w-32 h-44 object-cover rounded-2xl mb-3 shadow-lg border border-white/10 group-hover:scale-105 transition duration-300">
                         <h3 class="text-sm font-bold text-white truncate px-1">{{ $work['title'] ?? 'Untitled Novel' }}</h3>
                         <p class="text-[10px] text-gray-400 px-1">Novel</p>
-                    </div>
+                    </a>
                 @endforeach
             </div>
         @else
@@ -179,6 +196,7 @@
     // Logic Chart
     @if(!$isWriter)
     document.addEventListener('DOMContentLoaded', function () {
+        
         // --- GRAFIK 1: KONSISTENSI BAB (BAR) ---
         const ctxChapters = document.getElementById('chaptersChart');
         if (ctxChapters) {
@@ -187,7 +205,8 @@
                 data: {
                     labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
                     datasets: [{
-                        data: [4, 7, 2, 0, 9, 14, 5], 
+                        // Menggunakan data dari controller
+                        data: @json($weeklyData), 
                         backgroundColor: '#6366F1', 
                         borderRadius: 6,
                         barThickness: 16
@@ -206,6 +225,7 @@
         }
 
         // --- GRAFIK 2: GENRE (DOUGHNUT) ---
+        // Jika belum ada data genre, bisa gunakan array statis atau kirim variabel baru dari controller
         const ctxGenre = document.getElementById('readingChart');
         if (ctxGenre) {
             new Chart(ctxGenre, {
@@ -213,7 +233,8 @@
                 data: {
                     labels: ['Fantasi', 'Romance', 'Horor', 'Misteri'],
                     datasets: [{
-                        data: [12, 8, 5, 7],
+                        // Kamu bisa mengirim $genreData dari controller seperti $weeklyData
+                        data: [12, 8, 5, 7], 
                         backgroundColor: ['#6366F1', '#8B5CF6', '#EC4899', '#06B6D4'],
                         borderWidth: 0,
                         hoverOffset: 10
