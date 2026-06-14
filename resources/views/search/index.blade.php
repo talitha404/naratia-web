@@ -58,7 +58,7 @@
         // Sulap nama 'yn' di sinopsis jadi nama karakter dengan warna
         $searchStories = [];
         foreach ($rawSearchStories as $id => $story) {
-            $story['synopsis'] = preg_replace('/\byn\b/i', "<span class='text-indigo-400 font-bold'>$charName</span>", $story['synopsis']);
+            $story['synopsis'] = preg_replace('/\[yn\]|\byn\b/i', "<span class='text-indigo-400 font-bold'>$charName</span>", $story['synopsis']);
             $searchStories[$id] = $story;
         }
     @endphp

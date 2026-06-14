@@ -30,21 +30,21 @@ class WriteController extends Controller
             'title'       => 'required|max:255',
             'description' => 'required',
             'genre_id'    => 'required',
-            'cover'       => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:5120'
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:5120'
         ]);
 
         $coverPath = null;
-        if ($request->hasFile('cover')) {
-            $coverPath = $request->file('cover')->store('covers', 'public');
+        if ($request->hasFile('cover_image')) {
+            $coverPath = $request->file('cover_image')->store('covers', 'public');
         }
 
         $story = Story::create([
-            'user_id'    => Auth::id(),
-            'genre_id'   => $request->genre_id,
-            'title'      => $request->title,
-            'description'=> $request->description,
-            'cover'      => $coverPath,
-            'status'     => 'draft',
+            'user_id'     => Auth::id(),
+            'genre_id'    => $request->genre_id,
+            'title'       => $request->title,
+            'description' => $request->description,
+            'cover_image' => $coverPath,
+            'status'      => 'draft',
         ]);
 
         return redirect()->route('chapters.create', ['story_id' => $story->id])
@@ -66,14 +66,16 @@ class WriteController extends Controller
             'title'       => 'required|max:255',
             'description' => 'required',
             'genre_id'    => 'nullable',
-            'cover'       => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:5120'
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:5120'
         ]);
 
-        if ($request->hasFile('cover')) {
-            if ($story->cover) {
-                Storage::disk('public')->delete($story->cover);
+        if ($request->hasFile('cover_image')) {
+            // Hapus gambar lama kalau ada
+            if ($story->cover_image) {
+                Storage::disk('public')->delete($story->cover_image);
             }
-            $story->cover = $request->file('cover')->store('covers', 'public');
+            // Simpan gambar baru
+            $story->cover_image = $request->file('cover_image')->store('covers', 'public');
         }
 
         $story->title       = $request->title;
@@ -132,5 +134,18 @@ class WriteController extends Controller
         return view('write.pratinjau', compact('story', 'chapters'));
     }
 
-    
+    // ✅ Hapus cerita dan semua bab-nya
+    public function destroy(int $id) {
+        $story = Story::findOrFail($id);
+        
+        // Hapus file gambar cover jika ada
+        if ($story->cover_image) {
+            Storage::disk('public')->delete($story->cover_image);
+        }
+        
+        // Hapus cerita (bab-babnya akan ikut terhapus kalau di database di-set cascade)
+        $story->delete();
+        
+        return redirect()->route('write.index')->with('success', 'Cerita berhasil dihapus!');
+    }
 }

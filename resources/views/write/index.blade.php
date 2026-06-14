@@ -33,7 +33,7 @@
             <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
                 <div class="flex items-center gap-6 text-sm font-semibold text-gray-400">
                     <button id="btnCerita" class="nav-btn text-white border-b-2 border-indigo-500 pb-[18px] -mb-[18px] transition duration-300 hover:font-bold">
-                        Semua (3)
+                        Semua ({{ $stories->count() }})
                     </button>
                     
                     <button id="btnStatistik" class="nav-btn text-gray-400 border-b-2 border-transparent pb-[18px] -mb-[18px] transition duration-300 hover:text-white hover:font-bold">
@@ -49,38 +49,74 @@
                 </a>
             </div>
 
-            <!-- Body Cerita -->
             <div id="bodyCerita" class="space-y-4">
-                <!-- isi daftar cerita seperti sebelumnya -->
+                @forelse($stories as $story)
                 <div class="flex items-center justify-between p-5 bg-white/[0.03] hover:bg-white/[0.06] backdrop-blur-md rounded-2xl border border-white/5 transition group">
-                    <div class="flex items-center gap-5">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center font-black text-xl text-gray-300 border border-white/10 shadow-inner">
-                            T
-                        </div>
+                
+                    <a href="{{ route('write.edit', $story->id) }}" class="flex items-center gap-5 flex-1 cursor-pointer">
+                        @if($story->cover_image)
+                            <img src="{{ asset('storage/' . $story->cover_image) }}" alt="Cover" class="w-12 h-12 rounded-xl object-cover border border-white/10 shadow-sm">
+                        @else
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center font-black text-xl text-gray-300 border border-white/10 shadow-inner uppercase shrink-0">
+                                {{ substr($story->title, 0, 1) }}
+                            </div>
+                        @endif
+                        
                         <div>
-                            <h3 class="font-bold text-gray-200 group-hover:text-white transition line-clamp-1">(Tanpa judul)</h3>
+                            <h3 class="font-bold text-gray-200 group-hover:text-indigo-400 transition line-clamp-1">{{ $story->title ? $story->title : '(Tanpa judul)' }}</h3>
                             <div class="flex items-center gap-2 mt-1 text-xs text-gray-400">
-                                <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-bold text-[10px] uppercase border border-amber-500/20">Draf</span>
+                                @php
+                                    $isPublished = false;
+                                    if($story->chapters) {
+                                        foreach($story->chapters as $ch) {
+                                            if($ch->status === 'published') {
+                                                $isPublished = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                @endphp
+
+                                @if($isPublished)
+                                    <span class="px-2 py-0.5 rounded bg-green-500/10 text-green-400 font-bold text-[10px] uppercase border border-green-500/20">DIPUBLIKASI</span>
+                                @else
+                                    <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-bold text-[10px] uppercase border border-amber-500/20">DRAF</span>
+                                @endif
+
                                 <span>•</span>
-                                <span>5 Jun</span>
+                                <span>{{ $story->created_at->format('d M') }}</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="flex items-center gap-4 text-xs text-gray-400 font-medium">
-                        <div class="flex items-center gap-3">
+                    </a>
+
+                    <div class="flex flex-col items-end gap-2 shrink-0 ml-4">
+                        <div class="flex items-center gap-3 text-xs text-gray-400 font-medium mb-1">
                             <span class="flex items-center gap-1"><img src="https://img.icons8.com/material-rounded/16/888888/visible.png"/> 0</span>
                             <span class="flex items-center gap-1"><img src="https://img.icons8.com/small/16/737373/filled-like.png"/> 0</span>
                         </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <a href="/stories/read/{{ $story->id }}?chapter=1" class="text-[10px] font-bold text-indigo-400 hover:text-white border border-indigo-500/30 hover:bg-indigo-500/30 px-3 py-1.5 rounded-full transition shadow-sm">
+                                Pratinjau
+                            </a>
+                            
+                            <form action="{{ route('write.destroy', $story->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus cerita ini secara permanen?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="p-1.5 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white border border-red-500/20 hover:border-transparent transition shadow-sm" title="Hapus Cerita">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Body Statistik -->
-            <div id="bodyStatistik" class="hidden">
-                <div class="p-6 bg-white/[0.03] backdrop-blur-md rounded-2xl border border-white/5">
-                    <h3 class="font-bold text-gray-200 mb-4">Statistik</h3>
-                    <p class="text-gray-400">belum ada statistik apapun, unggah cerita untuk melihatnya</p>
+                @empty
+                <div class="text-center py-10 bg-white/[0.03] border border-white/5 rounded-2xl">
+                    <p class="text-gray-400 text-sm">Belum ada cerita. Yuk, mulai nulis karya pertamamu!</p>
                 </div>
+                @endforelse
             </div>
         </section>
     </main>
@@ -90,47 +126,38 @@
             <a href="{{ route('dashboard') }}" class="p-3 {{ request()->routeIs('dashboard') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-rounded/24/ffffff/home.png" class="w-6 h-6"/>
             </a>
-
             <a href="/library" class="p-3 {{ request()->is('library') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/book.png" class="w-6 h-6"/>
             </a>
-
             <a href="{{ route('search') }}" class="p-3 {{ request()->routeIs('search') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/search.png" class="w-6 h-6"/>
             </a>
-
             <a href="{{ route('write.index') }}" class="p-3 {{ request()->routeIs('write.index') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/edit.png" class="w-6 h-6"/>
             </a>
-
             <a href="{{ route('profil') }}" class="p-3 {{ request()->routeIs('profil') ? 'bg-white/20 shadow-inner' : 'hover:bg-white/10' }} rounded-xl transition">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/user.png" class="w-6 h-6"/>
             </a>
         </div>
     </nav>
-
     <script>
         const btnCerita = document.getElementById('btnCerita');
         const btnStatistik = document.getElementById('btnStatistik');
         const bodyCerita = document.getElementById('bodyCerita');
         const bodyStatistik = document.getElementById('bodyStatistik');
-        // Mengambil semua elemen tombol dengan class 'nav-btn'
         const buttons = document.querySelectorAll('.nav-btn');
 
         buttons.forEach(button => {
             button.addEventListener('click', () => {
-                // 1. Reset semua tombol ke kondisi TIDAK AKTIF
                 buttons.forEach(btn => {
                     btn.classList.remove('text-white', 'border-indigo-500');
                     btn.classList.add('text-gray-400', 'border-transparent');
                 });
-
-                // 2. Set tombol yang diklik menjadi AKTIF
                 button.classList.remove('text-gray-400', 'border-transparent');
                 button.classList.add('text-white', 'border-indigo-500');
             });
         });
-        // Event listener untuk tombol cerita dan statistik agar bisa berganti tampilan
+
         btnCerita.addEventListener('click', () => {
             bodyCerita.classList.remove('hidden');
             bodyStatistik.classList.add('hidden');
@@ -141,6 +168,5 @@
             bodyStatistik.classList.remove('hidden');
         });
     </script>
-
 </body>
 </html>
