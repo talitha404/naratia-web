@@ -118,6 +118,34 @@
                 </div>
                 @endforelse
             </div>
+            <div id="bodyStatistik" class="hidden">
+                <div class="container mx-auto p-6 text-white">
+                    <h1 class="text-2xl font-bold mb-6">Manajemen Cerita & Analitik</h1>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        
+                        <div class="lg:col-span-1 bg-gray-900 p-6 rounded-xl border border-gray-800 shadow-lg">
+                            <h2 class="text-lg font-semibold mb-4 text-gray-300">Statistik Cerita Per Genre</h2>
+                            
+                            <div class="relative w-full" style="height: 250px;">
+                                <canvas id="genreChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- <div class="lg:col-span-2 bg-gray-900 p-6 rounded-xl border border-gray-800 shadow-lg">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-lg font-semibold text-gray-300">Daftar Cerita Anda</h2>
+                                <a href="{{ route('write.buatcerita') }}" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg text-sm transition">
+                                    + Buat Cerita Baru
+                                </a>
+                            </div>
+                            
+                            </div> -->
+
+                    </div>
+                </div>
+            </div>
+
         </section>
     </main>
 
@@ -141,32 +169,96 @@
         </div>
     </nav>
     <script>
-        const btnCerita = document.getElementById('btnCerita');
-        const btnStatistik = document.getElementById('btnStatistik');
-        const bodyCerita = document.getElementById('bodyCerita');
-        const bodyStatistik = document.getElementById('bodyStatistik');
-        const buttons = document.querySelectorAll('.nav-btn');
+    const btnCerita = document.getElementById('btnCerita');
+    const btnStatistik = document.getElementById('btnStatistik');
+    const bodyCerita = document.getElementById('bodyCerita');
+    const bodyStatistik = document.getElementById('bodyStatistik');
+    const buttons = document.querySelectorAll('.nav-btn');
 
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                buttons.forEach(btn => {
-                    btn.classList.remove('text-white', 'border-indigo-500');
-                    btn.classList.add('text-gray-400', 'border-transparent');
-                });
-                button.classList.remove('text-gray-400', 'border-transparent');
-                button.classList.add('text-white', 'border-indigo-500');
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            buttons.forEach(btn => {
+                btn.classList.remove('text-white', 'border-indigo-500');
+                btn.classList.add('text-gray-400', 'border-transparent');
             });
+            button.classList.remove('text-gray-400', 'border-transparent');
+            button.classList.add('text-white', 'border-indigo-500');
         });
+    });
 
-        btnCerita.addEventListener('click', () => {
-            bodyCerita.classList.remove('hidden');
-            bodyStatistik.classList.add('hidden');
-        });
+    btnCerita.addEventListener('click', () => {
+        bodyCerita.classList.remove('hidden');
+        bodyStatistik.classList.add('hidden');
+    });
 
-        btnStatistik.addEventListener('click', () => {
-            bodyCerita.classList.add('hidden');
-            bodyStatistik.classList.remove('hidden');
+    btnStatistik.addEventListener('click', () => {
+        bodyCerita.classList.add('hidden');
+        bodyStatistik.classList.remove('hidden');
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const labelsData = @json($chartLabels);
+        const valuesData = @json($chartData);
+
+        // Jika penulis belum memiliki cerita sama sekali, tampilkan teks alternatif atau data kosong
+        if(labelsData.length === 0) {
+            const ctx = document.getElementById('genreChart').getContext('2d');
+            ctx.font = "14px sans-serif";
+            ctx.fillStyle = "#9CA3AF";
+            ctx.textAlign = "center";
+            ctx.fillText("Belum ada data cerita.", 120, 120);
+            return;
+        }
+
+        // Inisialisasi Chart.js (Menggunakan tipe 'doughnut' atau 'pie' agar pas untuk porsi genre)
+        const ctx = document.getElementById('genreChart').getContext('2d');
+        const genreChart = new Chart(ctx, {
+            type: 'doughnut', // Anda bisa ganti jadi 'bar' atau 'pie' jika mau
+            data: {
+                labels: labelsData,
+                datasets: [{
+                    label: 'Jumlah Cerita',
+                    data: valuesData,
+                    backgroundColor: [
+                        '#8B5CF6', // Purple
+                        '#EC4899', // Pink
+                        '#3B82F6', // Blue
+                        '#10B981', // Green
+                        '#F59E0B', // Yellow
+                        '#EF4444'  // Red
+                    ],
+                    borderWidth: 1,
+                    borderColor: '#111827' // Menyesuaikan dark background web Naratia
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#9CA3AF', // Warna teks label abu-abu terang sesuai dark mode
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.label}: ${context.raw} Cerita`;
+                            }
+                        }
+                    }
+                }
+            }
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
