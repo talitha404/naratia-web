@@ -6,6 +6,7 @@ use App\Http\Controllers\WriteController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\ProfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,7 @@ Route::middleware('check.login')->group(function () {
 
     // Profil Group
     Route::prefix('profil')->group(function () {
-        Route::get('/', fn() => view('profil.index'))->name('profil');
+        Route::get('/', [ProfilController::class, 'index'])->name('profil');
         Route::get('/edit', fn() => view('profil.edit'))->name('profil.edit');
         Route::post('/update', [WebController::class, 'updateProfil'])->name('profil.update');
         Route::post('/switch-role', [WebController::class, 'switchRole'])->name('user.switch-role');
