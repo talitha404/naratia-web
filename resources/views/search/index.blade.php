@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pencarian - Naratia</title>
-    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        
         .space-bg {
             background-color: #02040f; 
             background-image: 
@@ -22,44 +19,60 @@
             background-position: 0 0, 40px 60px, 130px 270px;
             background-attachment: fixed;
         }
-
         .text-shadow-md { text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
     </style>
 </head>
 <body class="space-bg text-white min-h-screen relative">
 
     @php
-        // Ambil nama karakter dari session
         $user = session('user');
         $charName = is_array($user) ? ($user['character_name'] ?? 'Princess') : ($user->character_name ?? 'Princess');
 
-        // DATA SINOPSIS KHUSUS PENCARIAN
         $rawSearchStories = [
             '11' => [
                 'title' => 'Teori Mimpi',
                 'author' => 'Aya Reid',
                 'cover' => 'https://picsum.photos/seed/search_result1/300/400',
-                'synopsis' => 'Freya menyimpan rahasia kutukan dunia masa lampau yang terlarang. Di kehidupan modern ini, yn selalu dihantui oleh mimpi tentang istana yang terbakar dan seorang ksatria. Ketika seorang pria misterius muncul di perpustakaan kota, yn menyadari bahwa masa lalu tidak pernah benar-benar mati.',
+                'synopsis' => 'Freya menyimpan rahasia kutukan dunia masa lampau yang terlarang. Di kehidupan modern ini, [yn] selalu dihantui oleh mimpi tentang istana yang terbakar dan seorang ksatria. Ketika seorang pria misterius muncul di perpustakaan kota, [yn] menyadari bahwa masa lalu tidak pernah benar-benar mati.',
             ],
             '12' => [
                 'title' => 'Alam Liar',
                 'author' => 'Julyana',
                 'cover' => 'https://picsum.photos/seed/search_result2/300/400',
-                'synopsis' => 'Hutan Lindung Gunung Salak menyimpan misteri gelap. Saat memimpin tim SAR untuk mencari pendaki yang hilang, yn dan timnya terjebak dalam anomali ruang dan waktu. Kompas berputar liar, jalan setapak menghilang, dan ada kekuatan tak kasat mata yang terus memanggil nama mereka dari kegelapan.',
+                'synopsis' => 'Hutan Lindung Gunung Salak menyimpan misteri gelap. Saat memimpin tim SAR untuk mencari pendaki yang hilang, [yn] dan timnya terjebak dalam anomali ruang dan waktu. Kompas berputar liar, jalan setapak menghilang, dan ada kekuatan tak kasat mata yang terus memanggil nama mereka dari kegelapan.',
             ],
             '13' => [
                 'title' => 'Menuliskan Kenangan',
                 'author' => 'Yier Xing',
                 'cover' => 'https://picsum.photos/seed/search_result3/300/400',
-                'synopsis' => 'Jika kamu bisa memutar waktu, kenangan mana yang ingin kamu hapus? Itulah yang dialami yn saat menemukan mesin tik tua peninggalan ibunya. Mengetik di atasnya bisa merubah realitas masa lalu. Namun, alam semesta selalu menuntut bayaran, dan yn harus membayar mahal untuk setiap kenangan yang ia hapus.',
+                'synopsis' => 'Jika kamu bisa memutar waktu, kenangan mana yang ingin kamu hapus? Itulah yang dialami [yn] saat menemukan mesin tik tua peninggalan ibunya. Mengetik di atasnya bisa merubah realitas masa lalu. Namun, alam semesta selalu menuntut bayaran, dan [yn] harus membayar mahal untuk setiap kenangan yang ia hapus.',
             ]
         ];
 
-        // Sulap nama 'yn' di sinopsis jadi nama karakter dengan warna
         $searchStories = [];
+        
+        // 1. Masukkan data dummy
         foreach ($rawSearchStories as $id => $story) {
-            $story['synopsis'] = preg_replace('/\[yn\]|\byn\b/i', "<span class='text-indigo-400 font-bold'>$charName</span>", $story['synopsis']);
             $searchStories[$id] = $story;
+        }
+
+        // 2. Tarik data asli dari Database (Hanya yang berstatus 'published')
+        $dbStories = \App\Models\Story::whereHas('chapters', function($query) {
+            $query->where('status', 'published');
+        })->get();
+
+        foreach ($dbStories as $s) {
+            $searchStories['db_'.$s->id] = [
+                'title' => $s->title,
+                'author' => $s->user->name ?? $s->user->username ?? $charName,
+                'cover' => $s->cover_image ? asset('storage/' . $s->cover_image) : 'https://picsum.photos/seed/'.$s->id.'/300/400',
+                'synopsis' => $s->description,
+            ];
+        }
+
+        // 3. Sulap nama 'yn' (Sudah diperbaiki dan dijamin aman!)
+        foreach ($searchStories as $id => $item) {
+            $searchStories[$id]['synopsis'] = preg_replace('/\[yn\]|\byn\b/i', "<span class='text-indigo-400 font-bold'>$charName</span>", $item['synopsis'] ?? '');
         }
     @endphp
 
@@ -75,11 +88,7 @@
             </button>
 
             <form id="search-form" action="" method="GET" class="w-full relative text-black">
-                <input type="text" 
-                       id="main-search-input"
-                       placeholder="Cari Novel, Genre, atau Penulis..." 
-                       autocomplete="off"
-                       class="w-full bg-white/10 border border-white/20 rounded-full py-4 px-6 pl-14 focus:ring-2 focus:ring-indigo-500 transition shadow-lg text-white placeholder-gray-400 focus:outline-none backdrop-blur-md text-sm">
+                <input type="text" id="main-search-input" placeholder="Cari Novel, Genre, atau Penulis..." autocomplete="off" class="w-full bg-white/10 border border-white/20 rounded-full py-4 px-6 pl-14 focus:ring-2 focus:ring-indigo-500 transition shadow-lg text-white placeholder-gray-400 focus:outline-none backdrop-blur-md text-sm">
                 <img src="https://img.icons8.com/ios-glyphs/30/9ca3af/search--v1.png" class="absolute left-5 top-4 w-6 h-6"/>
             </form>
         </div>
@@ -137,45 +146,16 @@
                 <h2 id="result-title" class="text-xs font-bold text-indigo-400 uppercase tracking-[0.2em]">Hasil untuk "..."</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
-                    <div onclick="openSearchModal('11')" class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
-                        <img src="https://picsum.photos/seed/search_result1/300/400" class="w-24 h-36 object-cover rounded-xl border border-white/10 shrink-0 shadow-xl group-hover:scale-105 transition-transform duration-300">
+                    @foreach($searchStories as $id => $story)
+                    <div onclick="openSearchModal('{{ $id }}')" class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
+                        <img src="{{ $story['cover'] }}" class="w-24 h-36 object-cover rounded-xl border border-white/10 shrink-0 shadow-xl group-hover:scale-105 transition-transform duration-300">
                         <div class="flex-col flex justify-center">
-                            <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">Teori Mimpi</h3>
-                            <p class="text-xs text-indigo-300 font-semibold mb-3">Aya Reid</p>
-                            <div class="flex gap-2 mb-3">
-                                <span class="text-[10px] bg-white text-black px-3 py-1 rounded-full font-extrabold uppercase tracking-wider shadow-inner">ROMANTIS</span>
-                                <span class="text-[10px] bg-white text-black px-3 py-1 rounded-full font-extrabold uppercase tracking-wider shadow-inner">FANTASI</span>
-                            </div>
-                            <p class="text-xs text-gray-300 line-clamp-2 leading-relaxed">Freya menyimpan rahasia kutukan dunia masa lampau yang terlarang...</p>
+                            <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">{{ $story['title'] }}</h3>
+                            <p class="text-xs text-indigo-300 font-semibold mb-3">{{ $story['author'] }}</p>
+                            <p class="text-xs text-gray-300 line-clamp-2 leading-relaxed">{!! $story['synopsis'] !!}</p>
                         </div>
                     </div>
-
-                    <div onclick="openSearchModal('12')" class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
-                        <img src="https://picsum.photos/seed/search_result2/300/400" class="w-24 h-36 object-cover rounded-xl border border-white/10 shrink-0 shadow-xl group-hover:scale-105 transition-transform duration-300">
-                        <div class="flex-col flex justify-center">
-                            <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">Alam Liar</h3>
-                            <p class="text-xs text-indigo-300 font-semibold mb-3">Julyana</p>
-                            <div class="flex gap-2 mb-3">
-                                <span class="text-[10px] bg-white text-black px-3 py-1 rounded-full font-extrabold uppercase tracking-wider shadow-inner">MISTERI</span>
-                            </div>
-                            <p class="text-xs text-gray-300 line-clamp-2 leading-relaxed">Kekuatan aneh di dalam hutan yang memanggil nama-nama mereka yang hilang.</p>
-                        </div>
-                    </div>
-
-                    <div onclick="openSearchModal('13')" class="result-card flex gap-5 p-5 bg-white/5 border border-white/10 rounded-2xl shadow-xl backdrop-blur-md cursor-pointer hover:bg-white/10 transition group">
-                        <img src="https://picsum.photos/seed/search_result3/300/400" class="w-24 h-36 object-cover rounded-xl border border-white/10 shrink-0 shadow-xl group-hover:scale-105 transition-transform duration-300">
-                        <div class="flex-col flex justify-center">
-                            <h3 class="font-bold text-xl mb-1 text-white line-clamp-1 group-hover:text-indigo-300 transition">Menuliskan Kenangan</h3>
-                            <p class="text-xs text-indigo-300 font-semibold mb-3">Yier Xing</p>
-                            <div class="flex gap-2 mb-3">
-                                <span class="text-[10px] bg-white text-black px-3 py-1 rounded-full font-extrabold uppercase tracking-wider shadow-inner">KEHIDUPAN</span>
-                                <span class="text-[10px] bg-white text-black px-3 py-1 rounded-full font-extrabold uppercase tracking-wider shadow-inner">DRAMA</span>
-                            </div>
-                            <p class="text-xs text-gray-300 line-clamp-2 leading-relaxed">Jika kamu bisa memutar waktu, kenangan mana yang ingin kamu hapus?</p>
-                        </div>
-                    </div>
-
+                    @endforeach
                 </div>
             </div>
 
@@ -232,7 +212,10 @@
             document.getElementById('modalAuthor').innerText = story.author;
             // Gunakan innerHTML agar tag <span> warna birunya terbaca!
             document.getElementById('modalSynopsis').innerHTML = story.synopsis; 
-            document.getElementById('modalReadBtn').href = `/stories/read/${id}?chapter=1`;
+            
+            // Perbaikan URL: Jika ID diawali 'db_', hilangkan dulu saat diarahkan ke halaman baca
+            let readId = id.toString().startsWith('db_') ? id.toString().replace('db_', '') : id;
+            document.getElementById('modalReadBtn').href = `/stories/read/${readId}?chapter=1`;
 
             const modal = document.getElementById('synopsisModal');
             const modalContent = document.getElementById('modalContent');

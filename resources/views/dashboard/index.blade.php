@@ -84,11 +84,32 @@
             ]
         ];
 
+        // Siapkan wadah ID untuk Cerita Unggulan
+        $unggulanIds = ['101', '102'];
+
         // Looping untuk menyulap kata 'yn' menjadi nama karakter dengan efek warna biru
         $dashboardStories = [];
         foreach ($rawDashboardStories as $id => $story) {
             $story['synopsis'] = preg_replace('/\byn\b/i', "<span class='text-indigo-400 font-bold'>$charName</span>", $story['synopsis']);
             $dashboardStories[$id] = $story;
+        }
+
+        // Ambil cerita dari database (yang dipublish)
+        $dbStories = \App\Models\Story::whereHas('chapters', function($query) {
+            $query->where('status', 'published');
+        })->get();
+
+        foreach ($dbStories as $s) {
+            $newId = 'db_'.$s->id;
+            $dashboardStories[$newId] = [
+                'title' => $s->title,
+                'author' => $s->user->name ?? $s->user->username ?? $charName,
+                'genre' => 'Fiksi', // Genre default
+                'cover' => $s->cover_image ? asset('storage/' . $s->cover_image) : 'https://picsum.photos/seed/'.$s->id.'/300/400',
+                'synopsis' => preg_replace('/\byn\b/i', "<span class='text-indigo-400 font-bold'>$charName</span>", $s->description ?? ''),
+            ];
+            // Tambahkan di urutan paling depan Cerita Unggulan
+            array_unshift($unggulanIds, $newId);
         }
     @endphp
 
@@ -105,7 +126,7 @@
     <section class="px-6 mb-10 pt-5">
         <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Cerita unggulan</h2>
         <div class="flex gap-5 overflow-x-auto no-scrollbar pb-4">
-            @foreach(['101', '102'] as $id)
+            @foreach($unggulanIds as $id)
             @php $story = $dashboardStories[$id]; @endphp
             <button onclick="openModal('{{ $id }}')" class="text-left block bg-white/5 hover:bg-white/10 transition duration-300 p-4 rounded-3xl border border-white/10 shadow-lg backdrop-blur-md w-[360px] shrink-0 group focus:outline-none">
                 <div class="flex gap-5 items-center">
@@ -293,7 +314,8 @@
             document.getElementById('modalSynopsis').innerHTML = story.synopsis;
             
             // Atur link tombol baca ke halaman read-nya
-            document.getElementById('modalReadBtn').href = `/stories/read/${id}?chapter=1`;
+            let readId = id.toString().startsWith('db_') ? id.toString().replace('db_', '') : id;
+            document.getElementById('modalReadBtn').href = `/stories/read/${readId}?chapter=1`;
 
             const modal = document.getElementById('synopsisModal');
             const modalContent = document.getElementById('modalContent');
