@@ -178,6 +178,7 @@ Aplikasi ini dikembangkan oleh kelompok mahasiswa dengan pembagian tugas sebagai
 
 | Nama Lengkap | NPM |
 | :--- | :--- | :--- |
+
 | **An Nisa' Fatmawati** | 24082010053 |
 | **Talitha Nabila Candra** | 24082010061 |
 | **Rindi Antika Qumalasari** | 24082010064 | 
