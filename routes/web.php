@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\WriteController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\StatisticsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,30 +45,13 @@ Route::middleware('check.login')->group(function () {
 
     // Write Group
     Route::prefix('write')->group(function () {
+    // 1. Cukup gunakan SATU route ini untuk halaman utama write
+        Route::get('/', [StatisticsController::class, 'index'])->name('write.index');
+        
         Route::delete('/{id}', [WriteController::class, 'destroy'])->name('write.destroy');
         
-        
-        // --- INI ROUTE YANG KITA UBAH UNTUK MENCEGAT PEMBACA ---
-        Route::get('/', function () {
-            $user = session('user');
-            $role = is_array($user) ? ($user['role'] ?? 'pembaca') : ($user->role ?? 'pembaca');
-            
-            // Ambil ID user yang sedang login (antisipasi array atau object)
-            $userId = is_array($user) ? ($user['id'] ?? 1) : ($user->id ?? 1);
+        // --- POTONGAN ROUTE CLOSURE PENCEGAT YANG TADI SUDAH DIHAPUS ---
 
-            // Kalau dia pembaca, arahkan ke view penawaran (popup)
-            if ($role !== 'penulis') {
-                return view('write.offer');
-            }
-            
-            // Ambil semua data cerita dari database milik user ini, urutkan dari yang terbaru
-            $stories = \App\Models\Story::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
-            
-            // Masuk dashboard nulis dan bawa data ceritanya
-            return view('write.index', compact('stories'));
-        })->name('write.index');
-        
-        // Route::get('/buatcerita', fn() => view('write.buatcerita'))->name('write.buatcerita'); entah ini apa gunanya
         Route::get('/write/buatcerita', [WriteController::class, 'create'])->name('write.buatcerita'); //kuncinya disini untuk akses ke halaman buat cerita
         Route::post('/write', [WriteController::class, 'store'])->name('write.store');
         Route::get('/chapters/create', [ChapterController::class, 'create'])->name('chapters.create');
