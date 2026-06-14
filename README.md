@@ -30,6 +30,9 @@ Yang membuat Naratia berbeda adalah fitur self insert, yaitu kemampuan untuk *me
 * 🔐 Autentikasi (Register & Login)
 * 👤 Manajemen Profil Pengguna
 * ✍️ CRUD Cerita (Create, Read, Update, Delete)
+* 🔥 Fitur Self-Insert
+* 📊 Chart Analitik
+* 📄 Report Excel
 
 ---
 
@@ -178,7 +181,7 @@ Aplikasi ini dikembangkan oleh kelompok mahasiswa dengan pembagian tugas sebagai
 
 | Nama Lengkap | NPM |
 
-| :--- | :--- | :--- |
+| :--- | :--- |
 
 | **An Nisa' Fatmawati** | 24082010053 |
 
