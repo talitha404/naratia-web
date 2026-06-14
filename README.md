@@ -19,7 +19,7 @@ adalah cerita di mana kamu ada di dalamnya.
 
 ## 📑Deskripsi
 
-Naratia adalah platform digital untuk menulis dan membaca cerita berbasis mobile yang bisa digunakan oleh OS Android dan iOs.
+Naratia adalah platform digital untuk menulis dan membaca cerita berbasis web.
 
 Yang membuat Naratia berbeda adalah fitur self insert, yaitu kemampuan untuk *menyesuaikan nama karakter utama* dalam cerita menjadi nama pembaca. Dengan begitu, cerita terasa lebih personal karena pembaca seolah menjadi bagian langsung dari alur yang dibaca.
 
@@ -30,7 +30,6 @@ Yang membuat Naratia berbeda adalah fitur self insert, yaitu kemampuan untuk *me
 * 🔐 Autentikasi (Register & Login)
 * 👤 Manajemen Profil Pengguna
 * ✍️ CRUD Cerita (Create, Read, Update, Delete)
-* 🩷 Like
 
 ---
 
@@ -47,24 +46,27 @@ Yang membuat Naratia berbeda adalah fitur self insert, yaitu kemampuan untuk *me
 app
 ├── Http
 │   ├── Controllers
-│   │   ├── BookmarkController.php
-│   │   ├── CommentController.php
-│   │   ├── ContentController.php
+│   │   ├── AuthController.php
+│   │   ├── ChapterController.php
 │   │   ├── Controller.php
-│   │   ├── FollowController.php
-│   │   ├── LikeController.php
-│   │   └── StoryController.php
-├── Models
-│   ├── Bookmark.php
-│   ├── Comment.php
-│   ├── Content.php
-│   ├── Feedback.php
-│   ├── Follow.php
-│   ├── Genre.php
-│   ├── Like.php
-│   ├── Story.php
-│   ├── StoryContent.php
-│   └── User.php
+│   │   ├── DashboardController.php
+│   │   ├── LandingController.php
+│   │   ├── LibraryController.php
+│   │   ├── PreviewController.php
+│   │   ├── ProfilController.php
+│   │   ├── SearchController.php
+│   │   ├── StatisticsController.php
+│   │   ├── WebController.php
+│   │   └── WriteController.php
+│   └── Middleware
+│       └── CheckLogin.php
+└── Models
+    ├── Chapter.php
+    ├── Genre.php
+    ├── Library.php
+    ├── Story.php
+    ├── StoryView.php
+    └── User.php
 
 routes
 ├── console.php
@@ -174,11 +176,11 @@ http://127.0.0.1:8000
 ## 👥 Tim Pengembang
 Aplikasi ini dikembangkan oleh kelompok mahasiswa dengan pembagian tugas sebagai berikut:
 
-| Nama Lengkap | NPM | Fitur & Komponen yang Dibuat |
+| Nama Lengkap | NPM |
 | :--- | :--- | :--- |
-| **An Nisa' Fatmawati** | 24082010053 | - ??? |
-| **Talitha Nabila Candra** | 24082010061 | - ??? |
-| **Rindi Antika Qumalasari** | 24082010064 | - ??? |
+| **An Nisa' Fatmawati** | 24082010053 |
+| **Talitha Nabila Candra** | 24082010061 |
+| **Rindi Antika Qumalasari** | 24082010064 | 
 
 ---
 
