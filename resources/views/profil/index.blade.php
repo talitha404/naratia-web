@@ -196,6 +196,7 @@
     // Logic Chart
     @if(!$isWriter)
     document.addEventListener('DOMContentLoaded', function () {
+        
         // --- GRAFIK 1: KONSISTENSI BAB (BAR) ---
         const ctxChapters = document.getElementById('chaptersChart');
         if (ctxChapters) {
@@ -204,7 +205,8 @@
                 data: {
                     labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
                     datasets: [{
-                        data: [4, 7, 2, 0, 9, 14, 5], 
+                        // Menggunakan data dari controller
+                        data: @json($weeklyData), 
                         backgroundColor: '#6366F1', 
                         borderRadius: 6,
                         barThickness: 16
@@ -223,6 +225,7 @@
         }
 
         // --- GRAFIK 2: GENRE (DOUGHNUT) ---
+        // Jika belum ada data genre, bisa gunakan array statis atau kirim variabel baru dari controller
         const ctxGenre = document.getElementById('readingChart');
         if (ctxGenre) {
             new Chart(ctxGenre, {
@@ -230,7 +233,8 @@
                 data: {
                     labels: ['Fantasi', 'Romance', 'Horor', 'Misteri'],
                     datasets: [{
-                        data: [12, 8, 5, 7],
+                        // Kamu bisa mengirim $genreData dari controller seperti $weeklyData
+                        data: [12, 8, 5, 7], 
                         backgroundColor: ['#6366F1', '#8B5CF6', '#EC4899', '#06B6D4'],
                         borderWidth: 0,
                         hoverOffset: 10
