@@ -26,7 +26,6 @@
 
         <!-- posisi dropdown -->
         
-
         <div class="flex items-center gap-3">
             <!-- Tombol Publikasi, saat penulis klik tombol ini cerita akan tampil di /write/index.blade.php berupa card dengan status terpublikasi dan bisa di search oleh user lain melaui fitur search -->
             <button type="button" onclick="submitChapterForm('published')" 
@@ -41,7 +40,7 @@
             </button>
 
             <!-- Tombol agar penulis bisa melihat tampilan ceritanya dari sisi pembaca -->
-            <a href="{{ route('write.preview', ['id' => $story['id'] ?? '']) }}" class="border border-purple-500 hover:bg-purple-500/10 text-purple-400 font-semibold px-5 py-1.5 rounded-full text-sm transition duration-200">
+            <a href="#" class="border border-purple-500 hover:bg-purple-500/10 text-purple-400 font-semibold px-5 py-1.5 rounded-full text-sm transition duration-200">
                 Pratinjau
             </a>
             <!-- Tombol hapus cerita, seharusnya ada tombol pop up untuk menanyakan aksinya lebih lanjut -->
@@ -62,11 +61,20 @@
     </header>
 
     <main class="flex-1 max-w-3xl w-full mx-auto px-6 pt-16 pb-24">
-        <form id="chapterForm" action="{{ route('chapters.store') }}" method="POST" class="space-y-6">
+        <form id="chapterForm" 
+                action="{{ isset($activeChapter) ? route('chapters.update', $activeChapter->id) : route('chapters.store') }}" 
+                method="POST" class="space-y-6">
             @csrf
+            @if(isset($activeChapter))
+                @method('PUT')
+            @endif
             <input type="hidden" name="story_id" value="{{ $story['id'] }}">
             <input type="hidden" name="status" id="statusInput" value="draft">
 
+            @if(isset($activeChapter))
+                <input type="hidden" name="chapter_number" value="{{ $activeChapter->chapter_number }}">
+            @endif
+            
             <!-- Judul Chapter -->
             <div class="w-full">
                 <input 

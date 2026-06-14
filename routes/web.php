@@ -64,10 +64,8 @@ Route::middleware('check.login')->group(function () {
         Route::post('/chapters', [ChapterController::class, 'store'])->name('chapters.store');
         Route::delete('/chapters/{id}', [ChapterController::class, 'destroy'])->name('chapters.destroy');
         Route::get('/write/preview/{id}', [WriteController::class, 'preview'])->name('write.preview');
-        // Rute awal untuk masuk ke editor cerita (menggunakan ID Story)
-        // Route::get('/write/editor/story/{id}', [WriteController::class, 'editorByStory'])->name('write.editor.story');
-        // Rute untuk pindah bab di dalam editor (menggunakan ID Chapter)
-        // Route::get('/write/editor/chapter/{id}', [WriteController::class, 'editorByChapter'])->name('write.editor.chapter');
+        Route::put('/chapters/{id}', [ChapterController::class, 'update'])->name('chapters.update'); // route untuk update
+        Route::get('/chapters/{id}/editor', [ChapterController::class, 'editor'])->name('chapters.editor'); // route arah ke editor
         Route::get('/write/editor/{id}', [WriteController::class, 'editor'])->name('write.editor');
         Route::get('/editor/{id}', [WriteController::class, 'editor'])->name('write.editor'); //route lama kunci chapter
         Route::get('/buat-cerita', [WriteController::class, 'create']);
@@ -75,7 +73,7 @@ Route::middleware('check.login')->group(function () {
         Route::post('/', [WriteController::class, 'store'])->name('write.store');
         // Route::get('/editor/{id}', [WriteController::class, 'editor'])->name('write.editor');
         // Pratinjau (preview) route for drafts
-        Route::get('/pratinjau/{id}', [WriteController::class, 'preview'])->name('write.preview');
+        // Route::get('/pratinjau/{id}', [WriteController::class, 'preview'])->name('write.preview');
         Route::get('/write/create', [WriteController::class, 'create'])->name('write.create');
         Route::get('/write/{id}/edit', [WriteController::class, 'edit'])->name('write.edit');
     });

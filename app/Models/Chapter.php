@@ -13,5 +13,4 @@ class Chapter extends Model
     protected $fillable = [
         'story_id', 'title', 'content', 'chapter_number', 'status'
     ];
-
 }
