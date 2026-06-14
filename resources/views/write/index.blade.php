@@ -73,7 +73,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- ...lanjutkan daftar cerita lainnya sesuai contohmu -->
             </div>
 
             <!-- Body Statistik -->

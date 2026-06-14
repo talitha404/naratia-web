@@ -10,7 +10,8 @@
 
     <header class="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-slate-950/40 backdrop-blur-md border-b border-slate-800">
         <div>
-            <a href="{{ route('write.editor', ['id' => $id ?? '']) }}" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-5 py-2 rounded-full text-sm transition duration-200 flex items-center gap-2">
+            <a href="{{ route('write.editor', ['id' => $story['id']]) }}"
+                class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-5 py-2 rounded-full text-sm transition duration-200 flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                 </svg>
@@ -23,8 +24,14 @@
         
         <div class="text-center mb-10">
             <h1 class="text-4xl font-bold mb-4 tracking-tight">
-                {{ $title ?? 'Melodi yang Hilang di ujung Senja (Draf)' }}
+                {{ $chapter->title ?? 'Judul belum ditulis' }}
             </h1>
+
+            @foreach($chapters as $ch)
+                <h2 class="text-2xl font-semibold mt-6">{{ $ch->title }}</h2>
+                <p class="mt-2 text-gray-300 leading-relaxed">{{ $ch->content }}</p>
+            @endforeach
+
             
             <div class="flex items-center justify-center gap-4 text-sm text-gray-400">
                 <span class="flex items-center gap-1">👁️ 1</span>
@@ -33,9 +40,9 @@
             </div>
         </div>
 
-        <article class="prose prose-invert max-w-none text-gray-300 text-lg leading-relaxed space-y-6 text-justify">
-            {!! nl2br(e($content ?? 'contoh isi cerita')) !!}
-        </article>
+       <article class="prose prose-invert max-w-none text-gray-300 text-lg leading-relaxed space-y-6 text-justify">
+            {!! nl2br(e($chapter->content ?? 'Belum ada isi cerita')) !!}
+        </article> 
 
         <hr class="border-[#222222] my-10">
 

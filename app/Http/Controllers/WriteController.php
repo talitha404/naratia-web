@@ -92,27 +92,45 @@ class WriteController extends Controller
     }
 
     // ✅ Simpan chapter baru
-    public function storeChapter(Request $request, Story $story) {
-        $validated = $request->validate([
-            'title'          => 'required|max:255',
-            'content'        => 'required',
-            'chapter_number' => 'required|integer'
-        ]);
+    // public function storeChapter(Request $request, Story $story) {
+    //     $validated = $request->validate([
+    //         'title'          => 'required|max:255',
+    //         'content'        => 'required',
+    //         'chapter_number' => 'required|integer'
+    //     ]);
 
-        Chapter::create([
-            'story_id'       => $story->id,
-            'title'          => $validated['title'],
-            'content'        => $validated['content'],
-            'chapter_number' => $validated['chapter_number'],
-        ]);
+    //     Chapter::create([
+    //         'story_id'       => $story->id,
+    //         'title'          => $validated['title'],
+    //         'content'        => $validated['content'],
+    //         'chapter_number' => $validated['chapter_number'],
+    //     ]);
 
-        return redirect()->route('write.index')->with('success', 'Chapter berhasil disimpan!');
-    }
+    //     return redirect()->route('write.index')->with('success', 'Chapter berhasil disimpan!');
+    // }
 
     public function editor(int $id)
     {
         $story = Story::findOrFail($id);
-        return view('write.editor', compact('story'));
+        $chapters = Chapter::where('story_id', $id)->get();
+
+        // ambil chapter terakhir yang baru saja dibuat
+        $activeChapter = session('chapter_id')
+            ? Chapter::find(session('chapter_id'))
+            : $chapters->last();
+
+        return view('write.editor', compact('story', 'chapters', 'activeChapter'));
     }
 
+    public function preview(int $id)
+    {
+        $story = Story::findOrFail($id);
+        $chapters = Chapter::where('story_id', $id)
+                        ->orderBy('chapter_number')
+                        ->get();
+
+        return view('write.pratinjau', compact('story', 'chapters'));
+    }
+
+    
 }
