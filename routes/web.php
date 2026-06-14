@@ -43,18 +43,27 @@ Route::middleware('check.login')->group(function () {
 
     // Write Group
     Route::prefix('write')->group(function () {
+        Route::delete('/{id}', [WriteController::class, 'destroy'])->name('write.destroy');
+        
         
         // --- INI ROUTE YANG KITA UBAH UNTUK MENCEGAT PEMBACA ---
         Route::get('/', function () {
             $user = session('user');
             $role = is_array($user) ? ($user['role'] ?? 'pembaca') : ($user->role ?? 'pembaca');
             
-            // Kalau dia pembaca, arahkan ke view penawaran
+            // Ambil ID user yang sedang login (antisipasi array atau object)
+            $userId = is_array($user) ? ($user['id'] ?? 1) : ($user->id ?? 1);
+
+            // Kalau dia pembaca, arahkan ke view penawaran (popup)
             if ($role !== 'penulis') {
                 return view('write.offer');
             }
-            // Kalau penulis, masuk dashboard biasa
-            return view('write.index');
+            
+            // Ambil semua data cerita dari database milik user ini, urutkan dari yang terbaru
+            $stories = \App\Models\Story::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+            
+            // Masuk dashboard nulis dan bawa data ceritanya
+            return view('write.index', compact('stories'));
         })->name('write.index');
         
         // Route::get('/buatcerita', fn() => view('write.buatcerita'))->name('write.buatcerita'); entah ini apa gunanya
@@ -76,6 +85,7 @@ Route::middleware('check.login')->group(function () {
         // Route::get('/pratinjau/{id}', [WriteController::class, 'preview'])->name('write.preview');
         Route::get('/write/create', [WriteController::class, 'create'])->name('write.create');
         Route::get('/write/{id}/edit', [WriteController::class, 'edit'])->name('write.edit');
+        Route::put('/write/{id}', [WriteController::class, 'update'])->name('write.update');
     });
 });
 

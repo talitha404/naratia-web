@@ -46,12 +46,11 @@
             </div>
         </div>
         <div class="flex items-center gap-3">
-            <button 
-                type="button" 
-                onclick="window.history.back()" 
+            <a 
+                href="{{ route('write.index') }}" 
                 class="px-5 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-full bg-transparent hover:bg-slate-800/50 transition-all">
                 Batalkan
-            </button>
+            </a>
             <!-- SAMPAI SINI, EROR DI TOMBOL BAWAH -->
             <button form="create-story-form" type="submit" class="px-5 py-2 text-sm font-semibold text-slate-950 bg-white hover:bg-slate-200 rounded-full transition-all shadow-md shadow-white/5">
                 {{ (isset($story) && is_object($story)) ? 'Simpan Perubahan' : 'Simpan & Lanjutkan' }}
@@ -146,7 +145,7 @@
                         <label class="block text-sm font-bold tracking-wide">Chapter</label>
                         <i data-lucide="info" class="w-4 h-4 text-slate-400 cursor-help" title="Pilih bab yang ingin diubah atau tambahkan bab baru"></i>
                         
-                        <a href="{{ route('chapters.create', $story->id) }}" class="ml-auto px-3 py-1 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
+                        <a href="{{ route('chapters.create', ['story_id' => $story->id]) }}" class="ml-auto px-3 py-1 text-xs font-bold rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 hover:text-white transition-all shadow-sm">
                             Tambah chapter
                         </a>
                     </div>
@@ -240,7 +239,8 @@
             if(selectEl) {
                 const chapterId = selectEl.value;
                 if (chapterId) {
-                    window.location.href = "/write/chapters/" + chapterId + "/edit";
+                    // Diubah dari /edit menjadi /editor agar cocok dengan rute di web.php
+                    window.location.href = "/write/chapters/" + chapterId + "/editor";
                 } else {
                     alert('Belum ada chapter yang dipilih atau dibuat.');
                 }

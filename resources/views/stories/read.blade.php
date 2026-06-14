@@ -223,7 +223,39 @@
         ];
 
         // LOGIKA PENANGANAN BAB DAN SULAP NAMA KARAKTER
-        $storyData = $story[$storyId] ?? $story['1'];
+        
+        // Cek database dulu, apakah ID cerita ini beneran ada di database?
+        $dbStory = \App\Models\Story::find($storyId);
+        
+        if ($dbStory) {
+            // Kalau ada, kita bungkus data dari database biar formatnya cocok dengan web
+            $storyData = [
+                'title' => $dbStory->title,
+                'author' => $charName, // Anggap penulisnya kamu sendiri
+                'cover' => $dbStory->cover_image ? asset('storage/' . $dbStory->cover_image) : 'https://picsum.photos/seed/db/150/220',
+                'chapters' => []
+            ];
+            
+            // Ambil semua bab dari database yang statusnya sudah 'published'
+            $dbChapters = \App\Models\Chapter::where('story_id', $storyId)->where('status', 'published')->orderBy('id')->get();
+            $idx = 1;
+            foreach($dbChapters as $ch) {
+                $storyData['chapters'][$idx] = [
+                    'title' => $ch->title ?? 'Tanpa Judul',
+                    'content' => $ch->content ?? 'Belum ada isi cerita.'
+                ];
+                $idx++;
+            }
+            
+            // Antisipasi kalau dipratinjau tapi belum ada bab yang dipublish
+            if (count($storyData['chapters']) == 0) {
+                $storyData['chapters'][1] = ['title' => 'Belum ada bab rilis', 'content' => 'Cerita ini belum memiliki bab yang dipublikasikan.'];
+            }
+        } else {
+            // Kalau nggak ketemu di database, baru pakai data cerita palsu (Rahasia Langit dkk)
+            $storyData = $story[$storyId] ?? $story['1'];
+        }
+
         $maxChap = count($storyData['chapters']);
         
         if($currentChapter < 1) $currentChapter = 1;
@@ -233,7 +265,7 @@
         $chapterTitle = $chapterData['title'];
         $rawContent = $chapterData['content'];
 
-        $processedContent = preg_replace('/\byn\b/i', "<span class='text-indigo-400 font-bold'>$charName</span>", $rawContent);
+        $processedContent = preg_replace('/\[yn\]|\byn\b/i', "<span class='text-indigo-400 font-bold'>$charName</span>", $rawContent);
     @endphp
 
     <header class="sticky top-0 bg-[#02040f]/90 backdrop-blur-md border-b border-white/10 p-4 flex items-center justify-between z-20 shadow-lg">
