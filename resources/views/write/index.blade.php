@@ -120,7 +120,13 @@
             </div>
             <div id="bodyStatistik" class="hidden">
                 <div class="container mx-auto p-6 text-white">
-                    <h1 class="text-2xl font-bold mb-6">Manajemen Cerita & Analitik</h1>
+                    <div class="flex justify-between items-center mb-6">
+                        <h1 class="text-2xl font-bold">Manajemen Cerita & Analitik</h1>
+                        
+                        <a href="{{ route('write.export.excel') }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg inline-flex items-center gap-2 text-sm font-medium transition">
+                            📊 Ekspor Data ke Excel
+                        </a>
+                    </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                         
@@ -132,15 +138,7 @@
                             </div>
                         </div>
 
-                        <!-- <div class="lg:col-span-2 bg-gray-900 p-6 rounded-xl border border-gray-800 shadow-lg">
-                            <div class="flex justify-between items-center mb-4">
-                                <h2 class="text-lg font-semibold text-gray-300">Daftar Cerita Anda</h2>
-                                <a href="{{ route('write.buatcerita') }}" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg text-sm transition">
-                                    + Buat Cerita Baru
-                                </a>
-                            </div>
-                            
-                            </div> -->
+
 
                     </div>
                 </div>
