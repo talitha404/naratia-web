@@ -45,13 +45,10 @@ Route::middleware('check.login')->group(function () {
 
     // Write Group
     Route::prefix('write')->group(function () {
-    // 1. Cukup gunakan SATU route ini untuk halaman utama write
-        Route::get('/', [StatisticsController::class, 'index'])->name('write.index');
-        
-        Route::delete('/{id}', [WriteController::class, 'destroy'])->name('write.destroy');
-        
-        // --- POTONGAN ROUTE CLOSURE PENCEGAT YANG TADI SUDAH DIHAPUS ---
 
+        Route::get('/', [StatisticsController::class, 'index'])->name('write.index');
+        Route::delete('/{id}', [WriteController::class, 'destroy'])->name('write.destroy');
+        Route::get('/export-excel', [StatisticsController::class, 'exportExcel'])->name('write.export.excel');
         Route::get('/write/buatcerita', [WriteController::class, 'create'])->name('write.buatcerita'); //kuncinya disini untuk akses ke halaman buat cerita
         Route::post('/write', [WriteController::class, 'store'])->name('write.store');
         Route::get('/chapters/create', [ChapterController::class, 'create'])->name('chapters.create');
