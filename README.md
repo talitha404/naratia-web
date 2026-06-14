@@ -177,7 +177,7 @@ http://127.0.0.1:8000
 ---
 
 ## 👥 Tim Pengembang
-Aplikasi ini dikembangkan oleh kelompok mahasiswa dengan pembagian tugas sebagai berikut:
+Aplikasi ini dikembangkan oleh kelompok mahasiswa berikut:
 
 | Nama Lengkap                | NPM         |
 | --------------------------- | ----------- |
