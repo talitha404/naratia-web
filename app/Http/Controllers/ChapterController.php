@@ -27,17 +27,31 @@ class ChapterController extends Controller
             'status'   => 'required|in:draft,published',
         ]);
 
-        // Hitung nomor chapter berikutnya
+        // generate nomor chapter otomatis
         $lastChapter = Chapter::where('story_id', $request->story_id)
                             ->orderBy('chapter_number', 'desc')
                             ->first();
-
         $validated['chapter_number'] = $lastChapter ? $lastChapter->chapter_number + 1 : 1;
 
-        Chapter::create($validated);
+        $chapter = Chapter::create($validated);
+
+        if ($request->status === 'published') {
+            return redirect()->route('write.preview', ['id' => $request->story_id])
+                            ->with('success', 'Chapter berhasil dipublikasikan!');
+        }
+
+        return redirect()->route('write.editor', ['id' => $chapter->story_id])
+                        ->with('success', 'Chapter berhasil disimpan!')
+                        ->with('chapter_id', $chapter->id);
+    }
+
+    public function destroy(int $id)
+    {
+        $chapter = Chapter::findOrFail($id);
+        $chapter->delete();
 
         return redirect()->route('write.index')
-                        ->with('success', 'Chapter berhasil dibuat!');
-}
+                        ->with('success', 'Chapter berhasil dihapus!');
+    }
 
 }

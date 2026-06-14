@@ -62,11 +62,18 @@ Route::middleware('check.login')->group(function () {
         Route::post('/write', [WriteController::class, 'store'])->name('write.store');
         Route::get('/chapters/create', [ChapterController::class, 'create'])->name('chapters.create');
         Route::post('/chapters', [ChapterController::class, 'store'])->name('chapters.store');
-        Route::get('/editor/{id}', [WriteController::class, 'editor'])->name('write.editor');
+        Route::delete('/chapters/{id}', [ChapterController::class, 'destroy'])->name('chapters.destroy');
+        Route::get('/write/preview/{id}', [WriteController::class, 'preview'])->name('write.preview');
+        // Rute awal untuk masuk ke editor cerita (menggunakan ID Story)
+        // Route::get('/write/editor/story/{id}', [WriteController::class, 'editorByStory'])->name('write.editor.story');
+        // Rute untuk pindah bab di dalam editor (menggunakan ID Chapter)
+        // Route::get('/write/editor/chapter/{id}', [WriteController::class, 'editorByChapter'])->name('write.editor.chapter');
+        Route::get('/write/editor/{id}', [WriteController::class, 'editor'])->name('write.editor');
+        Route::get('/editor/{id}', [WriteController::class, 'editor'])->name('write.editor'); //route lama kunci chapter
         Route::get('/buat-cerita', [WriteController::class, 'create']);
         // Save draft and open editor
         Route::post('/', [WriteController::class, 'store'])->name('write.store');
-        Route::get('/editor/{id}', [WriteController::class, 'editor'])->name('write.editor');
+        // Route::get('/editor/{id}', [WriteController::class, 'editor'])->name('write.editor');
         // Pratinjau (preview) route for drafts
         Route::get('/pratinjau/{id}', [WriteController::class, 'preview'])->name('write.preview');
         Route::get('/write/create', [WriteController::class, 'create'])->name('write.create');
